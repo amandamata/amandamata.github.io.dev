@@ -2,3 +2,7 @@
 	path = themes/minimal-bootstrap-hugo-theme
 	url = https://github.com/zwbetz-gh/minimal-bootstrap-hugo-theme.git
 
+[submodule "public"]
+	path = public
+	url = git@github.com:amandamata/amandamata.github.io.git
+	branch = main
