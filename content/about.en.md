@@ -3,6 +3,8 @@ title: "About"
 date: "2023-01-25"
 ---
 
+<code><a href="https://amandamata.github.io/pt-pt/about">pt-pt</a></code>
+
 ### Me
 
 Welcome to my corner of the internet.
@@ -27,10 +29,6 @@ Decode that Base64 string [here](https://www.base64decode.org/)
 ##### Translate
 
 I pretend to post in both languages, English and Portuguese, that was what I thought to try to improve my writing.
-
-To access any post in Portuguese just add /pt-pt before the post name.
-<br/>
-Example: https://amandamata.github.io/pt-pt/about
 <br/><br/>
 ##### Disclaimer
 Opinions expressed here are my own and not those of my employer or any past employer.

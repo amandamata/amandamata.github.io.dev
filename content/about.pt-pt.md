@@ -3,6 +3,8 @@ title: "Sobre"
 date: "2023-01-25"
 ---
 
+<code><a href="https://amandamata.github.io/about">en</a></code>
+
 ### Mim
 
 Seja bem vindo ao meu cantinho na internet.
@@ -24,10 +26,6 @@ Decodifique a string Base64 [aqui](https://www.base64decode.org/)
 ##### Tradução
 
 Pretendo postar tanto em inglês quanto em português, foi a ideia que eu tive para tentar melhorar minha escrita.
-
-Para acessar o post em inglês basta remover o /pt-pt antes do nome do post.
-<br/>
-Exemplo: https://amandamata.github.io/pt-pt/about -> https://amandamata.github.io/about 
 <br/><br/>
 ##### Disclaimer
 As opiniões expressadas aqui são minhas, e não dos meus empregadores atuais ou passados.

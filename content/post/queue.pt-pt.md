@@ -3,10 +3,12 @@ title: "Fila"
 date: 2023-02-08
 publishdate: 2023-02-08
 lastmod: 2023-02-08
-draft: true
+draft: false
 tags: ["aws", "sqs", "fila"]
 ---
 
+
+<code><a href="https://amandamata.github.io/queue">en</a></code>
 
 O que é uma fila?
 Uma fila é uma estrutura de dados dinâmica que admite remoção de elementos e inserção de novos objetos. Mais especificamente, uma fila (= queue) é uma estrutura sujeita à seguinte regra de operação: sempre que houver uma remoção, o elemento removido é o que está na estrutura há mais tempo.
