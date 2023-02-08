@@ -25,9 +25,9 @@ Decodifique a string Base64 [aqui](https://www.base64decode.org/)
 
 Pretendo postar tanto em inglês quanto em português, foi a ideia que eu tive para tentar melhorar minha escrita.
 
-Para acessar o post em inglês basta colocar a /en antes do nome do post.
+Para acessar o post em inglês basta remover o /pt-pt antes do nome do post.
 <br/>
-Exemplo: https://amandamata.github.io/en/about
+Exemplo: https://amandamata.github.io/pt-pt/about -> https://amandamata.github.io/about 
 <br/><br/>
 ##### Disclaimer
 As opiniões expressadas aqui são minhas, e não dos meus empregadores atuais ou passados.
