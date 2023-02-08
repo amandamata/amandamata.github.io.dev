@@ -18,7 +18,7 @@ Uma fila é uma estrutura de dados dinâmica que admite remoção de elementos e
 Imagine que temos uma api de usuários
 
 {{< imgAbs 
-pathURL="img/queue1.png" 
+pathURL="img/queue2.png" 
 alt="Some description" 
 class="some-class" 
 style="some-style" >}}
@@ -27,7 +27,7 @@ Com essa API, podemos criar usuários no sistema e receber uma resposta dessa cr
 Nesse cenário, se enviarmos um email, e nessa etapa falhar, a requisição inteira não vai estar completa, e para obter uma resposta de sucesso será necessário enviar outro request.
 
 {{< imgAbs 
-pathURL="img/queue2.png" 
+pathURL="img/queue1.png" 
 alt="Some description" 
 class="some-class" 
 style="some-style" >}}
