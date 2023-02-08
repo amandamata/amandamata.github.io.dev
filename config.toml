@@ -1,8 +1,16 @@
 baseurl = "https://amandamata.github.io"
 title = "Amanda Mata Blog"
 theme = "minimal-bootstrap-hugo-theme"
-languageCode = "en-us"
+defaultContentLanguage = 'en'
 
+[languages]
+  [languages.pt-pt]
+    title = 'Blog de Amanda'
+    weight = 1
+  [languages.en]
+    title = 'Amanda Blog'
+    weight = 1
+    
 [taxonomies]
   tag = "tags"
   category = "categories"
