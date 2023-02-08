@@ -10,7 +10,7 @@ defaultContentLanguage = 'en'
   [languages.en]
     title = 'Amanda Blog'
     weight = 1
-    
+
 [taxonomies]
   tag = "tags"
   category = "categories"
@@ -32,7 +32,6 @@ defaultContentLanguage = 'en'
   customCodeStyle = true
   customBlockquoteStyle = true
   showPostSummary = false
-  googleAnalytics = "UA-123456789-1"
   cookieConsent = true
   includeBootstrapJs = false
   faviconSafariPinnedTabColor = "#5bbad5"
@@ -83,3 +82,4 @@ defaultContentLanguage = 'en'
   [markup.tableOfContents]
     endLevel = 6
     startLevel = 2
+
