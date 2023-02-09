@@ -1,9 +1,10 @@
 ---
 title: "{{ replace .Name "-" " " }}"
 date: {{ .Date }}
-publishdate: {{ now.Format "2023-01-25" }}
-lastmod: {{ now.Format "2023-01-25" }}
 draft: true
 tags: []
-categories: []
 ---
+<code><a href="/name">en</a></code>
+<code><a href="/pt-pt/name">pt-pt</a></code>
+
+

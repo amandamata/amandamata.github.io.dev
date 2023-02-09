@@ -2,8 +2,8 @@
 title: "Sobre"
 date: "2023-01-25"
 ---
-
-<code><a href="https://amandamata.github.io/about">en</a></code>
+<code><a href="/about">en</a></code>
+<code><a href="/pt-pt/about">pt-pt</a></code>
 
 ### Mim
 
