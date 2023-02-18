@@ -8,7 +8,7 @@ tags: ["vscode","solved", "c#", "omnisharp"]
 <code><a href="/curly-brace">en</a></code>
 <code><a href="/pt-pt/curly-brace">pt-pt</a></code>
 
-Essa última semana eu levantei cedo todos os tias, tentando fazer apenas uma coisa: fazer o Visual Studio Code inserir uma nova linha antes dos colchetes {}.
+Essa última semana eu levantei cedo todos os dias, tentando fazer apenas uma coisa: fazer o Visual Studio Code inserir uma nova linha antes dos colchetes {}.
 
 Eu tenho isso:
 ```
@@ -133,5 +133,5 @@ Com essas configurações, quando salvar o arquivo e colar um código, a formata
 
 MAS
 
-A opção para formatar ao digitar ***formatOnType** ainda não funciona... Então eu encontrei uma [issue no Github](https://github.com/microsoft/vscode-cpptools/issues/1419) falando sobre o problema, que o ***formatOnType*** não funciona para o c#, porque essa feature funciona validando o ; (mais usado no js). Eles possuem essa correção no roadmap, até a correção sair o **formatOnSave*** vai fazer o trabalho duro.
+A opção para formatar ao digitar ***formatOnType*** ainda não funciona... Então eu encontrei uma [issue no Github](https://github.com/microsoft/vscode-cpptools/issues/1419) falando sobre o problema, que o ***formatOnType*** não funciona para o c#, porque essa feature funciona validando o `;` (mais usado no js). Eles possuem essa correção no roadmap, mas até a correção sair o **formatOnSave*** vai fazer o trabalho.
 

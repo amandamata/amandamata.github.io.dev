@@ -131,5 +131,5 @@ With this settings, when save and on past the format will be done automatically.
 
 BUT
 
-Format on type still not working... Then I've found an [issue in Github](https://github.com/microsoft/vscode-cpptools/issues/1419) on vscode saying that ***formatOnType*** was not working for c#, because this feature work by checking ; (most used in js). They have this fix in roadmap, until they fix, format on save will do the job.
+Format on type still not working... Then I've found an [issue in Github](https://github.com/microsoft/vscode-cpptools/issues/1419) on vscode saying that ***formatOnType*** was not working for c#, because this feature work by checking `;` (most used in js). They have this fix in roadmap, but until they fix, format on save will do the job.
 
