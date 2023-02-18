@@ -1,14 +1,14 @@
 baseurl = "https://amandamata.github.io"
-title = "Amanda Mata Blog"
+title = "amandamata"
 theme = "minimal-bootstrap-hugo-theme"
 defaultContentLanguage = 'en'
 
 [languages]
   [languages.pt-pt]
-    title = 'Blog de Amanda'
+    title = 'amandamata'
     weight = 1
   [languages.en]
-    title = 'Amanda Blog'
+    title = 'amandamata'
     weight = 1
 
 [taxonomies]
@@ -19,7 +19,7 @@ defaultContentLanguage = 'en'
   post = "/:filename/"
 
 [params]
-  description = "Amanda Mata Blog"
+  description = "amandamata"
   contentBackgroundColor = "#fff"
   contentTextColor = "#212529"
   contentLinkColor = "#007bff"
@@ -51,6 +51,10 @@ defaultContentLanguage = 'en'
   name = "About"
   url = "/about/"
   weight = 3
+  [[menu.nav]]
+  name = "RSS"
+  url = "index.xml"
+  weight = 4
 
 [markup]
   defaultMarkdownHandler = "goldmark"

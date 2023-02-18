@@ -7,13 +7,16 @@ date: "2023-01-25"
 
 ### Me
 
+Hi! My name is Amanda, I'm 27 years old.
+
+I've been working with technology since 2014 and with programming since 2019.
+
 Welcome to my corner of the internet.
 
 Come on in and make yourself at home.
 
 My blog is a loose collection of things learned.
 <br/><br/>
-
 ##### Work
 
 I’m a Software Engineer at PagarMe.

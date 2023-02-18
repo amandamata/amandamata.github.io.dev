@@ -6,9 +6,12 @@ date: "2023-01-25"
 <code><a href="/pt-pt/about">pt-pt</a></code>
 
 ### Mim
+Oi! Meu nome é Amanda, tenho 27 anos.
+
+Trabalho com tecnologia desde 2014 e com programação desde 2019.
 
 Seja bem vindo ao meu cantinho na internet.
-<br/>
+
 Meu blog é uma coleção solta de coisas que eu aprendo.
 <br/><br/>
 ##### Trabalho
