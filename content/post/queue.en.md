@@ -1,5 +1,5 @@
 ---
-title: "Queue"
+title: "Application of queue"
 date: 2023-02-08
 draft: false
 tags: ["aws", "sqs", "queue"]

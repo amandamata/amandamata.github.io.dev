@@ -1,5 +1,5 @@
 ---
-title: "Folders in linux"
+title: "Understanding folders in linux"
 date: 2023-02-09T07:55:10-03:00
 draft: false
 tags: ['linux']

@@ -11,7 +11,7 @@ Welcome to my corner of the internet.
 
 Come on in and make yourself at home.
 
-My blog is a loose collection of things learned and et cereta.
+My blog is a loose collection of things learned.
 <br/><br/>
 
 ##### Work
@@ -28,10 +28,18 @@ Decode that Base64 string [here](https://www.base64decode.org/)
 <br/><br/>
 ##### Translate
 
-I pretend to post in both languages, English and Portuguese, that was what I thought to try to improve my writing.
+I pretend to post in both languages, English and Portuguese.
 <br/><br/>
 ##### Disclaimer
 Opinions expressed here are my own and not those of my employer or any past employer.
-
+<br/><br/>
+##### Buy me a coffee
+BTC Wallet: `bc1qjy622x7qh6k453tdgcu7hhhj7agv6nqnysfdlntx6uf0tp4g8ujs0vcd9a`
+{{< imgAbs 
+pathURL="img/wallet.png" 
+alt="wallet" 
+class="some-class" 
+style="some-style" >}}
+</br></br>
 This blog was made using [hugo framework](https://gohugo.io/)
 

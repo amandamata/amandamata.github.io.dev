@@ -1,5 +1,5 @@
 ---
-title: "Pastas no linux"
+title: "Ententendo as pastas no linux"
 date: 2023-02-09T07:52:10-03:00
 draft: false
 tags: ['linux']
@@ -144,4 +144,3 @@ Diretório que mudou de função. Usr pode significar duas coisas, user ou unix 
 Variable
 
 Diretório de variáveis, arquivos que são esperados que aumentem de tamanho, arquivos de backup, log, cache do sistema por exemplo.
-
