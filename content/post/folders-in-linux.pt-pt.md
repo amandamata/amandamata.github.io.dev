@@ -4,8 +4,8 @@ date: 2023-02-09T07:52:10-03:00
 draft: false
 tags: ['linux']
 ---
-<code><a href="/folders-in-linux">en</a></code>
-<code><a href="/pt-pt/folders-in-linux">pt-pt</a></code>
+<button type="button" class="btn btn-light btn-xs"><a href="/pt-pt" style="text-decoration:none;color:black">posts</a></button>
+<button type="button" class="btn btn-light btn-xs"><a href="/folders-in-linux" style="text-decoration:none;color:black">en</a></button>
 
 Você acabou de instalar o linux e está acostumado com a estrutura do windows e seus diretórios, então você vai dar uma olhada no seu gestor de arquivos procurando pelo disco C: e não encontra..
 Conhecer os diretórios do linux pode ajudar a administrar o sistema e entender como ele funciona.

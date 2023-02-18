@@ -4,9 +4,9 @@ date: 2023-02-18T06:12:47-03:00
 draft: false
 tags: ["vscode","solved", "c#", "omnisharp"]
 ---
+<button type="button" class="btn btn-light btn-xs"><a href="/pt-pt" style="text-decoration:none;color:black">posts</a></button>
+<button type="button" class="btn btn-light btn-xs"><a href="/curly-brace" style="text-decoration:none;color:black">en</a></button>
 
-<code><a href="/curly-brace">en</a></code>
-<code><a href="/pt-pt/curly-brace">pt-pt</a></code>
 
 Essa última semana eu levantei cedo todos os dias, tentando fazer apenas uma coisa: fazer o Visual Studio Code inserir uma nova linha antes dos colchetes {}.
 

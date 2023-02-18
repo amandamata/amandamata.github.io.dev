@@ -4,8 +4,9 @@ date: 2023-02-18T06:13:07-03:00
 draft: false
 tags: ["vscode","solved", "c#", "omnisharp"]
 ---
-<code><a href="/curly-brace">en</a></code>
-<code><a href="/pt-pt/curly-brace">pt-pt</a></code>
+<button type="button" class="btn btn-light btn-xs"><a href="/" style="text-decoration:none;color:black">posts</a></button>
+<button type="button" class="btn btn-light btn-xs"><a href="/pt-pt/curly-brace" style="text-decoration:none;color:black">pt</a></button>
+
 
 This pass week I wake up early every day trying to do only one thing: make Visual Studio Code insert a new line before a curly bracket, braces {}.
 

@@ -4,7 +4,5 @@ date: {{ .Date }}
 draft: true
 tags: []
 ---
-<code><a href="/name">en</a></code>
-<code><a href="/pt-pt/name">pt-pt</a></code>
-
-
+<button type="button" class="btn btn-light btn-xs"><a href="/" style="text-decoration:none;color:black">posts</a></button>
+<button type="button" class="btn btn-light btn-xs"><a href="/pt-pt/name" style="text-decoration:none;color:black">pt</a></button>

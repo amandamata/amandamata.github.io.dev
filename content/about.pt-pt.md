@@ -2,8 +2,9 @@
 title: "Sobre"
 date: "2023-01-25"
 ---
-<code><a href="/about">en</a></code>
-<code><a href="/pt-pt/about">pt-pt</a></code>
+<button type="button" class="btn btn-light btn-xs"><a href="/pt-pt" style="text-decoration:none;color:black">posts</a></button>
+<button type="button" class="btn btn-light btn-xs"><a href="/about" style="text-decoration:none;color:black">en</a></button>
+
 
 Oi! Meu nome é Amanda, tenho 27 anos.
 
