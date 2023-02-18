@@ -5,8 +5,6 @@ date: "2023-01-25"
 <code><a href="/about">en</a></code>
 <code><a href="/pt-pt/about">pt-pt</a></code>
 
-### Me
-
 Hi! My name is Amanda, I'm 27 years old.
 
 I've been working with technology since 2014 and with programming since 2019.

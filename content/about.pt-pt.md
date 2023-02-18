@@ -5,7 +5,6 @@ date: "2023-01-25"
 <code><a href="/about">en</a></code>
 <code><a href="/pt-pt/about">pt-pt</a></code>
 
-### Mim
 Oi! Meu nome é Amanda, tenho 27 anos.
 
 Trabalho com tecnologia desde 2014 e com programação desde 2019.
@@ -29,6 +28,8 @@ Decodifique a string Base64 [aqui](https://www.base64decode.org/)
 ##### Tradução
 
 Pretendo postar tanto em inglês quanto em português, estou tentando melhorar minha escrita em inglês, e acho legal manter o conteúdo traduzido para português também.
+
+Você pode acessar esse site em português colocando /pt-pt no final da url, <a href="/pt-pt">dessa forma</a>.
 <br/><br/>
 ##### Disclaimer
 As opiniões expressadas aqui são minhas, e não dos meus empregadores atuais ou passados.

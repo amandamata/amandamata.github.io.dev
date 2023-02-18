@@ -13,7 +13,6 @@ defaultContentLanguage = 'en'
 
 [taxonomies]
   tag = "tags"
-  category = "categories"
 
 [permalinks]
   post = "/:filename/"
