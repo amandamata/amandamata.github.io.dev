@@ -4,8 +4,6 @@ date: 2023-02-09T07:55:10-03:00
 draft: false
 tags: ['linux']
 ---
-<button type="button" class="btn btn-light btn-xs"><a href="/" style="text-decoration:none;color:black">posts</a></button>
-<button type="button" class="btn btn-light btn-xs"><a href="/pt-pt/folders-in-linux" style="text-decoration:none;color:black">pt</a></button>
 
 You've just installed linux and you're used to the structure of windows and its directories, so you'll take a look in your file manager looking for the disk C: and you can't find it...
 Knowing Linux directories can help administer the system and understand how it works.

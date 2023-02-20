@@ -2,11 +2,8 @@
 title: "About"
 date: "2023-01-25"
 ---
-<button type="button" class="btn btn-light btn-xs"><a href="/" style="text-decoration:none;color:black">posts</a></button>
-<button type="button" class="btn btn-light btn-xs"><a href="/pt-pt/about" style="text-decoration:none;color:black">pt</a></button>
 
-
-Hi! My name is Amanda, I'm 27 years old.
+Hi! My name is Amanda, I'm 26 years old.
 
 I've been working with technology since 2014 and with programming since 2019.
 
@@ -28,6 +25,12 @@ Wanna get in touch? Email me at **YW1hbmRhLm1hdGFAbGl2ZS5jb20=**
 <br/>
 Decode that Base64 string [here](https://www.base64decode.org/)
 <br/><br/>
+
+##### RSS
+
+Don't miss any post, [subscribe to this feed](/index.xml).
+<br/><br/>
+
 ##### Translate
 
 I pretend to post in both languages, English and Portuguese.
@@ -43,5 +46,5 @@ alt="wallet"
 class="some-class" 
 style="some-style" >}}
 </br></br>
+___
 This blog was made using [hugo framework](https://gohugo.io/)
-

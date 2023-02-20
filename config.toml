@@ -5,11 +5,45 @@ defaultContentLanguage = 'en'
 
 [languages]
   [languages.pt-pt]
+    contentDir = "content/pt"
     title = 'amandamata'
+    languageName = "pt"
     weight = 1
   [languages.en]
     title = 'amandamata'
+    contentDir = "content/en"
     weight = 1
+    languageName = "en"
+
+[[languages.en.menu.nav]]
+  name = "Posts"
+  url = "/"
+  weight = 1
+
+[[languages.en.menu.nav]]
+  name = "Tags"
+  url = "/tags/"
+  weight = 2
+
+[[languages.en.menu.nav]]
+  name = "About"
+  url = "/about/"
+  weight = 3
+
+[[languages.pt-pt.menu.nav]]
+  name = "Posts"
+  url = "/pt-pt/"
+  weight = 1
+
+[[languages.pt-pt.menu.nav]]
+  name = "Tags"
+  url = "/pt-pt/tags/"
+  weight = 2
+
+[[languages.pt-pt.menu.nav]]
+  name = "Sobre"
+  url = "/pt-pt/about/"
+  weight = 3
 
 [taxonomies]
   tag = "tags"
@@ -36,24 +70,6 @@ defaultContentLanguage = 'en'
   faviconSafariPinnedTabColor = "#5bbad5"
   faviconMsApplicationTileColor = "#da532c"
   faviconThemeColor = "#ffffff"
-
-[menu]
-  [[menu.nav]]
-  name = "Posts"
-  url = "/"
-  weight = 1
-  [[menu.nav]]
-  name = "Tags"
-  url = "/tags/"
-  weight = 2
-  [[menu.nav]]
-  name = "About"
-  url = "/about/"
-  weight = 3
-  [[menu.nav]]
-  name = "RSS"
-  url = "index.xml"
-  weight = 4
 
 [markup]
   defaultMarkdownHandler = "goldmark"
@@ -85,4 +101,3 @@ defaultContentLanguage = 'en'
   [markup.tableOfContents]
     endLevel = 6
     startLevel = 2
-

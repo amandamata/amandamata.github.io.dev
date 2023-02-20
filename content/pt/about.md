@@ -2,11 +2,8 @@
 title: "Sobre"
 date: "2023-01-25"
 ---
-<button type="button" class="btn btn-light btn-xs"><a href="/pt-pt" style="text-decoration:none;color:black">posts</a></button>
-<button type="button" class="btn btn-light btn-xs"><a href="/about" style="text-decoration:none;color:black">en</a></button>
 
-
-Oi! Meu nome é Amanda, tenho 27 anos.
+Oi! Meu nome é Amanda, tenho 26 anos.
 
 Trabalho com tecnologia desde 2014 e com programação desde 2019.
 
@@ -22,15 +19,17 @@ Sou formada em Ciência da Computação (mas todos sabem que o aprendizado nunca
 <br/><br/>
 ##### Contato
 
-Quer entrar em contato? Me manda um email aqui **YW1hbmRhLm1hdGFAbGl2ZS5jb20=**
+Quer entrar em contato? Me envie um e-mail **YW1hbmRhLm1hdGFAbGl2ZS5jb20=**
 <br/>
 Decodifique a string Base64 [aqui](https://www.base64decode.org/)
+<br/><br/>
+##### RSS
+
+Não perca nenhum post [RSS feed](/index.xml)
 <br/><br/>
 ##### Tradução
 
 Pretendo postar tanto em inglês quanto em português, estou tentando melhorar minha escrita em inglês, e acho legal manter o conteúdo traduzido para português também.
-
-Você pode acessar esse site em português colocando /pt-pt no final da url, <a href="/pt-pt">dessa forma</a>.
 <br/><br/>
 ##### Disclaimer
 As opiniões expressadas aqui são minhas, e não dos meus empregadores atuais ou passados.
@@ -43,4 +42,5 @@ alt="wallet"
 class="some-class" 
 style="some-style" >}}
 </br></br>
+___
 Esse blog foi feito utilizando o [hugo framework](https://gohugo.io/)

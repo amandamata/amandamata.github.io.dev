@@ -4,9 +4,6 @@ date: 2023-02-18T06:13:07-03:00
 draft: false
 tags: ["vscode","solved", "c#", "omnisharp"]
 ---
-<button type="button" class="btn btn-light btn-xs"><a href="/" style="text-decoration:none;color:black">posts</a></button>
-<button type="button" class="btn btn-light btn-xs"><a href="/pt-pt/curly-brace" style="text-decoration:none;color:black">pt</a></button>
-
 
 This pass week I wake up early every day trying to do only one thing: make Visual Studio Code insert a new line before a curly bracket, braces {}.
 
@@ -79,6 +76,7 @@ You can find your settings.json location by checking on ~/.config/Code/User
 Mine is in /home/amanda/.config/Code/User/settings.json
 
 I've inserted these lines in my settings.json:
+
 ```
     "omnisharp.json": "/home/amanda/.omnisharp",
     "omnisharp.enableEditorConfigSupport": false,
@@ -133,4 +131,3 @@ With this settings, when save and on past the format will be done automatically.
 BUT
 
 Format on type still not working... Then I've found an [issue in Github](https://github.com/microsoft/vscode-cpptools/issues/1419) on vscode saying that ***formatOnType*** was not working for c#, because this feature work by checking `;` (most used in js). They have this fix in roadmap, but until they fix, format on save will do the job.
-

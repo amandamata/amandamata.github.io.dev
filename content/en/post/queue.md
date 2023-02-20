@@ -4,8 +4,6 @@ date: 2023-02-08
 draft: false
 tags: ["aws", "sqs", "queue"]
 ---
-<button type="button" class="btn btn-light btn-xs"><a href="/" style="text-decoration:none;color:black">posts</a></button>
-<button type="button" class="btn btn-light btn-xs"><a href="/pt-pt/queue" style="text-decoration:none;color:black">pt</a></button>
 
 What is a queue?
 A queue is a collection of entities that are maintained in a sequence and can be modified by the addition of entities at one end of the sequence and the removal of entities from the other end of sequence. Wikipedia
