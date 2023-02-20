@@ -1,6 +1,6 @@
 baseurl = "https://amandamata.github.io"
 title = "amandamata"
-theme = "minimal-bootstrap-hugo-theme"
+theme = "minimal-bootstrap"
 defaultContentLanguage = 'en'
 
 [languages]
