@@ -1,7 +1,3 @@
-[submodule "themes/minimal-bootstrap-hugo-theme"]
-	path = themes/minimal-bootstrap-hugo-theme
-	url = https://github.com/amandamata/minimal-bootstrap-hugo-theme.git
-
 [submodule "public"]
 	path = public
 	url = git@github.com:amandamata/amandamata.github.io.git
