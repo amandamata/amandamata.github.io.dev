@@ -1,5 +1,4 @@
-hugo new post/postname.pt-pt.md -> create a new pt file
-hugo new post/postname.en.md -> create a new en file
+hugo new post/postname.md -> creates a new post
 hugo -D -> run hugo server
 hugo server -D -> run hugo server and watch changes
 ./deploy -> send changes to github

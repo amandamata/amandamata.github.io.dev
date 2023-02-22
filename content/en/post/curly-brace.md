@@ -2,7 +2,7 @@
 title: "Curly braces on new line in vscode"
 date: 2023-02-18T06:13:07-03:00
 draft: false
-tags: ["vscode","solved", "c#", "omnisharp"]
+tags: ["vscode","solved", "dotnet", "omnisharp"]
 ---
 
 This pass week I wake up early every day trying to do only one thing: make Visual Studio Code insert a new line before a curly bracket, braces {}.

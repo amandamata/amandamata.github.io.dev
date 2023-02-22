@@ -2,7 +2,7 @@
 title: "Usos para uma fila"
 date: 2023-02-08
 draft: false
-tags: ["aws", "sqs", "fila"]
+tags: ["queue"]
 ---
 
 O que é uma fila?
@@ -45,5 +45,5 @@ style="some-style" >}}
 Isso faz com que seu sistema seja mais resiliente, e se algo falhar, vai voltar para a fila e será processado novamente depois.
 
 
-Para continuar estudando: SQS Simple Queue Service, AWS
+Veja mais sobre filas [aqui](/pt-pt/queue-csharp-sqs)
 

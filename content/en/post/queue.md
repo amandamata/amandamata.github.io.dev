@@ -2,7 +2,7 @@
 title: "Application of queue"
 date: 2023-02-08
 draft: false
-tags: ["aws", "sqs", "queue"]
+tags: ["queue"]
 ---
 
 What is a queue?
@@ -43,6 +43,4 @@ style="some-style" >}}
 
 That makes your system more resilient if something fails to process, it's going back to the queue and then will be reprocessed later.
 
-
-To continue studying: SQS Simple Queue Service, AWS
-
+See more about queue [here](/queue-csharp-sqs)

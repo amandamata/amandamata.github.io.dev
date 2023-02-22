@@ -2,7 +2,7 @@
 title: "Colchetes em uma nova linha no vscode"
 date: 2023-02-18T06:12:47-03:00
 draft: false
-tags: ["vscode","solved", "c#", "omnisharp"]
+tags: ["vscode","solved", "dotnet", "omnisharp"]
 ---
 
 Essa última semana eu levantei cedo todos os dias, tentando fazer apenas uma coisa: fazer o Visual Studio Code inserir uma nova linha antes dos colchetes {}.
