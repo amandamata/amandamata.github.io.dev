@@ -1,7 +1,7 @@
 ---
 title: "Como apagar uma informação sensível do histórico de commits"
 date: 2023-05-30T14:01:29-03:00
-draft: true
+draft: false
 tags: ["git"]
 ---
 

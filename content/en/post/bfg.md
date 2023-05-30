@@ -1,7 +1,7 @@
 ---
 title: "How to remove sensitive information from commit history"
 date: 2023-05-30T14:01:29-03:00
-draft: true
+draft: false
 tags: ["git"]
 ---
 
