@@ -34,7 +34,7 @@ style="some-style" >}}
 The tutorial on the BFG website is not difficult, but I will describe it here in more detail to make the process easier to understand.
 
 To use BFG, follow these steps:
-1. Download the .jar file from the BFG website.
+1. Download the .jar file from the [BFG](https://rtyley.github.io/bfg-repo-cleaner/) website.
 2. Clone the current repository using the command:
 	```
 	git clone git@github.com:amandamata/how-to-use-bfg.git --mirror
