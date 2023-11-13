@@ -3,7 +3,7 @@ title: "Sobre"
 date: "2023-01-25"
 ---
 
-Oi! Meu nome é Amanda, tenho 26 anos.
+Oi! Meu nome é Amanda, tenho 27 anos.
 
 Trabalho com tecnologia desde 2014 e com programação desde 2019.
 

@@ -3,7 +3,7 @@ title: "About"
 date: "2023-01-25"
 ---
 
-Hi! My name is Amanda, I'm 26 years old.
+Hi! My name is Amanda, I'm 27 years old.
 
 I've been working with technology since 2014 and with programming since 2019.
 
