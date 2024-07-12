@@ -16,18 +16,13 @@ BFG is a powerful and user-friendly tool that allows you to securely remove conf
 We have the repository how-to-use-bfg.
 
 In this repository, there was an appsettings.json file with sensitive information:
-{{< imgAbs
-pathURL="img/bfg1.png"
-alt="Some description"
-class="some-class"
-style="some-style" >}}
+
+![bfg](/img/bfg1.png)
 
 I deleted this sensitive information, made the commit and push, but the sensitive information still appears in the commit history:
-{{< imgAbs
-pathURL="img/bfg2.png"
-alt="Some description"
-class="some-class"
-style="some-style" >}}
+
+![bfg2](/img/bfg2.png)
+
 </br></br>
 
 ##### How to Use
@@ -63,11 +58,7 @@ To use BFG, follow these steps:
 After following these steps, your repository's commit history will be updated, and the sensitive information will be removed.
 
 
-{{< imgAbs 
-pathURL="img/bfg3.png" 
-alt="Some description" 
-class="some-class" 
-style="some-style" >}}
+![bfg3](/img/bfg3.png)
 
 
 Give BFG a try and ensure that your confidential information is protected in the commit history.

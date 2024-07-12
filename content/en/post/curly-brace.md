@@ -94,30 +94,19 @@ For this config work it's necessary to have the c# extension installed and enabl
 
 Extension
 
-{{< imgAbs 
-pathURL="img/brace1.png" 
-alt="Extension" 
-class="some-class" 
-style="some-style" >}}
+![brace1](/img/brace1.png)
+
 </br></br>
 Restart omnisharp
 Ctrl+Shift+p
 
-{{< imgAbs 
-pathURL="img/brace2.png" 
-alt="Restart ominisharp" 
-class="some-class" 
-style="some-style" >}}
+![brace2](/img/brace2.png)
+
 </br></br>
 After all of these changes, you can start using your visual studio code and enjoy braces in the new line. BUT
 
 The thing that takes me out of bed is, the auto format on type it's not working. So probably you make all of these changes by yourself, and still not working... is because to work you need to use Format Document in Visual Studio Code.
-
-{{< imgAbs 
-pathURL="img/brace3.png" 
-alt="Format Document" 
-class="some-class" 
-style="some-style" >}}
+![brace3](/img/brace3.png)
 </br></br>
 But I don't want to use this option all the time.
 

@@ -3,7 +3,7 @@ title: "Sobre"
 date: "2023-01-25"
 ---
 
-Oi! Meu nome é Amanda, tenho 27 anos.
+Oi! Meu nome é Amanda, tenho 28 anos.
 
 Trabalho com tecnologia desde 2014 e com programação desde 2019.
 
@@ -36,11 +36,9 @@ As opiniões expressadas aqui são minhas, e não dos meus empregadores atuais o
 <br/><br/>
 ##### Me compre um café
 Carteira BTC: `bc1qjy622x7qh6k453tdgcu7hhhj7agv6nqnysfdlntx6uf0tp4g8ujs0vcd9a`
-{{< imgAbs 
-pathURL="img/wallet.png" 
-alt="wallet" 
-class="some-class" 
-style="some-style" >}}
+
+![wallet](/img/wallet.png)
+
 </br></br>
 ___
 Esse blog foi feito utilizando o [hugo framework](https://gohugo.io/)

@@ -14,11 +14,7 @@ But the main point in this comparison is: it depends, it depends on how and how 
 
 The first time it is necessary to use the cache, the information will not be there, so it is necessary to consult the database and save it in the cache, the second time it is no longer necessary to go to the database, as the information will be in the cache. And this makes the application take less time to respond to a request, as going to the bank takes much longer than going to Redis.
 
-{{< imgAbs
-pathURL="img/redis.png"
-alt="Redis"
-class="some-class"
-style="some-style" >}}
+![redis](/img/redis.png)
 <br/><br/>
 
 ##### Why use

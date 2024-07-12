@@ -92,11 +92,4 @@ E atualize o appSettings para registrar no trace:
 
 Com tudo configurado, você pode logar e injetar as informações que desejar.
 
-
-{{< imgAbs 
-pathURL="img/telemetry.png" 
-alt="Telemetry" 
-class="some-class" 
-style="some-style" >}}
-
-
+![telemetry](/img/telemetry.png)

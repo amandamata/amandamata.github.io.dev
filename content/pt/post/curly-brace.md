@@ -95,30 +95,21 @@ Para essas configurações funcionarem, é necessário ter a extensão c# instal
 
 Extension
 
-{{< imgAbs 
-pathURL="img/brace1.png" 
-alt="Extension" 
-class="some-class" 
-style="some-style" >}}
+![brace1](/img/brace1.png)
+
 </br></br>
 Restart omnisharp
 Ctrl+Shift+p
 
-{{< imgAbs 
-pathURL="img/brace2.png" 
-alt="Restart ominisharp" 
-class="some-class" 
-style="some-style" >}}
+![brace2](/img/brace2.png)
+
 </br></br>
 Depois de todas essas alterações, você pode começar a utilizar o visual studio code e aproveitar os colchetes sendo inseridos em uma nova linha. MAS
 
 O que me deixou fora da cama pela manhã foi, a formatação automática durante a digitação não está funcionando. Então, provavelmente você fez todas essas alterações sozinho mas também não funcionou... Para funcionar você precisa utilizar a opção Format Document no Visual Studio Code.
 
-{{< imgAbs 
-pathURL="img/brace3.png" 
-alt="Format Document" 
-class="some-class" 
-style="some-style" >}}
+![brace3](/img/brace3.png)
+
 </br></br>
 
 Mas eu não queria ficar utilizando essa opção toda vez, então, depois de muita busca, eu encontrei essas configurações para o editor

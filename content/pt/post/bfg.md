@@ -17,19 +17,13 @@ O BFG é uma ferramenta poderosa e fácil de usar que permite remover informaç�
 Temos o repositório [how-to-use-bfg](https://github.com/amandamata/how-to-use-bfg)
 
 Nesse repositório existia um appsettings.json com informações sensiveis
-{{< imgAbs 
-pathURL="img/bfg1.png" 
-alt="Some description" 
-class="some-class" 
-style="some-style" >}}
 
+![bfg1](/img/bfg1.png)
 
 Eu exclui essa informação sensivel, fiz o commit e push, mas no histórico essa informação sensivel ainda aparece
-{{< imgAbs 
-pathURL="img/bfg2.png" 
-alt="Some description" 
-class="some-class" 
-style="some-style" >}}
+
+![bfg2](/img/bfg2.png)
+
 </br></br>
 
 ##### Como utilizar
@@ -64,12 +58,7 @@ Para utilizar o BFG, siga estes passos:
 	
 Após seguir esses passos, o histórico de commits do seu repositório será atualizado e as informações sensíveis serão removidas.
 
-
-{{< imgAbs 
-pathURL="img/bfg3.png" 
-alt="Some description" 
-class="some-class" 
-style="some-style" >}}
+![bfg3](/img/bfg3.png)
 
 
 Experimente o BFG e garanta que suas informações confidenciais estejam protegidas no histórico de commits.

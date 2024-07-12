@@ -92,8 +92,5 @@ And update your app settings to log to trace:
 
 With everything set up, you can log and inject whatever information you desire.
 
-{{< imgAbs 
-pathURL="img/telemetry.png" 
-alt="Telemetry" 
-class="some-class" 
-style="some-style" >}}
+![telemetry](/img/telemetry.png)
+
