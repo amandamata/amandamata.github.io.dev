@@ -44,7 +44,7 @@ readMore = false # true | false; Showing readmore link in the list of posts; def
 readNextPosts = 4 # Number of posts to show in the "Read Next" section; default: 3
 colorTheme = "auto" # "auto" | "light" | "dark"; default: "auto"
 colorThemeSwitcher = true # true | false; Showing color theme switcher in top of the site; default: false
-toc = true # true | false; Showing table of contents in the post; default: true
+toc = false # true | false; Showing table of contents in the post; default: true
 math = false # true | false; Enable MathJax; default: false; You can enable MathJax in the post by adding math: true in a post's metadata section.
 
 social = [
