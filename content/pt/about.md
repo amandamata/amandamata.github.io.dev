@@ -1,37 +1,30 @@
 ---
-title: "Sobre"
+title: "Sobre Mim"
 date: "2023-01-25"
 ---
 
-Oi! Meu nome é Amanda, tenho 28 anos.
+Olá! Sou a Amanda, tenho 28 anos.
 
-Trabalho com tecnologia desde 2014 e com programação desde 2019.
+Desde 2014, estou imersa no mundo da tecnologia, e desde 2019, me aventurei no universo da programação. Aqui no meu cantinho da internet, você encontrará uma coleção de aprendizados, experiências e projetos nos quais trabalhei.
 
-Seja bem vindo ao meu cantinho na internet.
+Sinta-se à vontade para explorar e, quem sabe, encontrar algo que ressoe com você.
 
-Meu blog é uma coleção solta de coisas que eu aprendo.
-<br/>
+#### Minha Jornada
 
-#### Trabalho
-
-Sou formada em Ciência da Computação, e Software Engineer na PagarMe.
-<br/>
+Sou formada em Ciência da Computação e atualmente trabalho como Engenheira de Software na PagarMe. Ao longo dos anos, trabalhei com diversas tecnologias, incluindo C#, JavaScript, Go e frameworks modernos como Node.js. Cada projeto em que trabalhei me ensinou algo novo, e estou sempre em busca de novos desafios.
 
 #### Contato
 
-Quer entrar em contato? Me envie um e-mail **YW1hbmRhLm1hdGFAbGl2ZS5jb20=**
-<br/>
-Decodifique a string Base64 [aqui](https://www.base64decode.org/)
-<br/>
+Quer conversar? Me mande um e-mail: **[amanda.mata@live.com](mailto:amanda.mata@live.com)**
 
-#### Disclaimer
+#### Opiniões
 
-As opiniões expressadas aqui são minhas, e não dos meus empregadores atuais ou passados.
-<br/>
+As opiniões expressas aqui são pessoais e não representam as de meu empregador atual ou de qualquer empregador anterior.
 
-#### Me compre um café
-Carteira BTC: `bc1qjy622x7qh6k453tdgcu7hhhj7agv6nqnysfdlntx6uf0tp4g8ujs0vcd9a`
+#### Apoie meu trabalho
+
+Se você gosta do conteúdo que eu crio e quer me apoiar, considere me comprar um café. Qualquer contribuição é muito apreciada e me ajuda a continuar produzindo conteúdo.
+
+BTC Wallet: `bc1qjy622x7qh6k453tdgcu7hhhj7agv6nqnysfdlntx6uf0tp4g8ujs0vcd9a`
 
 ![wallet](/img/wallet.png)
-
-</br>

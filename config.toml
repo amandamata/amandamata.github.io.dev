@@ -1,16 +1,15 @@
 baseurl = "https://amandamata.github.io"
-title = "amandamata"
 theme = "anubis2"
 defaultContentLanguage = 'en'
 
 [languages]
   [languages.pt-pt]
     contentDir = "content/pt"
-    title = 'amandamata'
+    title = 'amandaintech'
     languageName = "pt"
     weight = 1
   [languages.en]
-    title = 'amandamata'
+    title = 'amandaintech'
     contentDir = "content/en"
     weight = 1
     languageName = "en"
@@ -30,19 +29,19 @@ url = "/about"
 weight = 2
 
 [params]
-readMore = true # true | false; Showing readmore link in the list of posts; default: false
-readNextPosts = 3 # Number of posts to show in the "Read Next" section; default: 3
+readMore = false # true | false; Showing readmore link in the list of posts; default: false
+readNextPosts = 4 # Number of posts to show in the "Read Next" section; default: 3
 colorTheme = "auto" # "auto" | "light" | "dark"; default: "auto"
 colorThemeSwitcher = true # true | false; Showing color theme switcher in top of the site; default: false
 toc = false # true | false; Showing table of contents in the post; default: true
-math = true # true | false; Enable MathJax; default: false; You can enable MathJax in the post by adding math: true in a post's metadata section.
+math = false # true | false; Enable MathJax; default: false; You can enable MathJax in the post by adding math: true in a post's metadata section.
 
 social = [
     { id="github", name="amandamata" },
     { id="linkedin", url="https://www.linkedin.com/in/amanda-mata/" },
 ]
 
-rssIcon = false # true | false; Showing RSS icon; default: true
+rssIcon = false
 
 [taxonomies]
 tag = "tags" # This allows you to use the "tags" in your markdown metadata

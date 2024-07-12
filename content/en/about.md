@@ -1,39 +1,30 @@
 ---
-title: "About"
+title: "About Me"
 date: "2023-01-25"
 ---
 
-Hi! My name is Amanda, I'm 28 years old.
+Hello! I'm Amanda, and I'm 28 years old.
 
-I've been working with technology since 2014 and with programming since 2019.
+Since 2014, I've been immersed in the world of technology, and since 2019, I've ventured into the universe of programming. Here in my little corner of the internet, you'll find a collection of learnings, experiences, and projects I've worked on.
 
-Welcome to my corner of the internet.
+Feel free to explore and, who knows, find something that resonates with you.
 
-Come on in and make yourself at home.
+#### My Journey
 
-My blog is a loose collection of things learned.
-<br/>
-
-#### Work
-
-I’m graduated in Computer Science, and Software Engineer at PagarMe.
-<br/>
+I have a degree in Computer Science and currently work as a Software Engineer at PagarMe. Over the years, I've worked with various technologies, including C#, JavaScript, Go, and modern frameworks like Node.js. Each project I've worked on has taught me something new, and I'm always looking for new challenges.
 
 #### Contact
 
-Wanna get in touch? Email me at **YW1hbmRhLm1hdGFAbGl2ZS5jb20=**
-<br/>
-Decode that Base64 string [here](https://www.base64decode.org/)
-<br/>
+Want to chat? Send me an email: **[amanda.mata@live.com](mailto:amanda.mata@live.com)**
 
-#### Disclaimer
-Opinions expressed here are my own and not those of my employer or any past employer.
-<br/>
+#### Opinions
 
-#### Buy me a coffee
+The opinions expressed here are personal and do not represent those of my current employer or any previous employer.
+
+#### Support My Work
+
+If you like the content I create and want to support me, consider buying me a coffee. Any contribution is greatly appreciated and helps me continue producing content.
+
 BTC Wallet: `bc1qjy622x7qh6k453tdgcu7hhhj7agv6nqnysfdlntx6uf0tp4g8ujs0vcd9a`
 
 ![wallet](/img/wallet.png)
-
-</br>
-

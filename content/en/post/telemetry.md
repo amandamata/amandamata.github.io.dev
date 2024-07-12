@@ -5,18 +5,14 @@ draft: false
 tags: ["telemetry"]
 ---
 
-What if you wish to measure the execution time of a method? 
-There are various reasons for this—be it for login, profiling, general performance measurement, or tracking degradation over time. The collection of such metrics is a crucial aspect of any production application.
+#### Introduction
+Measuring method execution time is essential for optimizing applications, whether for profiling, performance monitoring, or detecting degradation over time. Although there are many tools and libraries available for this purpose, we often seek straightforward and non-intrusive solutions.
 
-Numerous methods exist for accomplishing this, including different libraries that aggregate telemetry data. While they offer comprehensive insights, sometimes you might prefer a more straightforward approach. One way to achieve this is by using a try and finally block in conjunction with a stopwatch.
+#### The Solution: MethodTimer.Fody
+One of the most efficient and cleanest ways to measure method performance in C# is by using the MethodTimer.Fody library. This tool automatically adds timers to the desired methods through a simple attribute, without modifying the existing code.
 
-However, this approach, despite being cleaner, still necessitates the addition of measurement code into the methods you wish to evaluate.
-
-Here's a simpler solution: the MethodTimer.Fody library. Once installed, all you need to do is add the [Time] attribute above the method you want to assess for performance. Run your code, check the debug output, and voila—your measurements are right there.
-
-To understand how it works, you can explore the library's repository [here](https://github.com/Fody/MethodTimer).
-
-The magic lies in how our code transforms, mirroring the initial approach. The code under test:
+#### How it works
+After installing the [MethodTimer](https://github.com/Fody/MethodTimer) library in your project, simply add the [Time] attribute above any method you want to monitor. See an example:
 
 ```csharp
 public class MyClass
@@ -24,13 +20,13 @@ public class MyClass
     [Time]
     public void MyMethod()
     {
-        // Some code you are curious about in terms of execution time
+        // Your code here
         Console.WriteLine("Hello");
     }
 }
 ```
 
-After compilation, it looks like this:
+When you run your code, the library automatically injects the timing logic, and the debug output will show the method's execution time.
 
 ```csharp
 public class MyClass
@@ -40,7 +36,7 @@ public class MyClass
         var stopwatch = Stopwatch.StartNew();
         try
         {
-            // Some code you are curious about in terms of execution time
+            // Your code here
             Console.WriteLine("Hello");
         }
         finally
@@ -52,7 +48,7 @@ public class MyClass
 }
 ```
 
-Now, you might wonder, "What can I do with this information, available only in the debug console?" Here's a suggestion: create a utility class like the one below.
+Now, you might be wondering: "What can I do with this information, available only in the debug console?" Here's a suggestion: create a utility class like the one below.
 
 ```csharp
 using System.Reflection;
@@ -70,14 +66,14 @@ namespace JokerCharge
 }
 ```
 
-Don't forget to add this to your program class:
+Don't forget to add this to your Program class:
 
 ```csharp
 var app = builder.Build();
 MethodTimeLogger.Logger = app.Logger;
 ```
 
-And update your app settings to log to trace:
+And update the appSettings to log in trace:
 
 ```json
 {
@@ -90,7 +86,15 @@ And update your app settings to log to trace:
 }
 ```
 
-With everything set up, you can log and inject whatever information you desire.
+With everything configured, you can log and inject the information you want.
+
 
 ![telemetry](/img/telemetry.png)
 
+####  Benefits
+* Simplicity: No need to write additional timing code.
+* Automation: Performance measurement is added at compile time, keeping your code clean.
+* Ease of Use: Just add an attribute to the desired method.
+
+#### Conclusion
+MethodTimer.Fody is a powerful tool for developers looking for an efficient and uncomplicated way to measure the performance of their methods in C#. With easy integration and minimal impact on existing code, it is an excellent choice for any project.
