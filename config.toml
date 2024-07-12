@@ -5,11 +5,11 @@ defaultContentLanguage = 'en'
 [languages]
   [languages.pt-pt]
     contentDir = "content/pt"
-    title = 'amandaintech'
+    title = 'amandabytes'
     languageName = "pt"
     weight = 1
   [languages.en]
-    title = 'amandaintech'
+    title = 'amandabytes'
     contentDir = "content/en"
     weight = 1
     languageName = "en"
@@ -24,9 +24,20 @@ pageRef = "/"
 weight = 1
 
 [[menu.main]]
+name = "tags"
+url = "/tags"
+weight = 2
+
+[[menu.main]]
+name = "archive"
+url = "/post"
+weight = 3
+
+[[menu.main]]
 name = "about"
 url = "/about"
-weight = 2
+weight = 4
+
 
 [params]
 readMore = false # true | false; Showing readmore link in the list of posts; default: false
@@ -41,7 +52,6 @@ social = [
     { id="linkedin", url="https://www.linkedin.com/in/amanda-mata/" },
 ]
 
-rssIcon = false
 
 [taxonomies]
 tag = "tags" # This allows you to use the "tags" in your markdown metadata
