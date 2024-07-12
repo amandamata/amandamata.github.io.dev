@@ -1,7 +1,7 @@
 ---
 title: "Implementing Redis caching with dotnet"
 date: 2023-04-25T07:42:55-03:00
-tags: ["cache", "redis", "dotnet"]
+tags: ["cache","dotnet"]
 draft: false
 ---
 
@@ -39,11 +39,12 @@ Explanation and problem presentations, let's implement!
 For this implementation we will follow a pattern called Decorator, with this pattern it is possible to add a cache layer without adding more complexity to the repository layer, and we will follow the S principle of SOLID, [Single-responsibility principle](https:// g.co/kgs/phLumf).
 
 Let's work with dotnet, and install the packages [Scrutor](https://www.nuget.org/packages/scrutor/) and [StackExchangeRedis](https://www.nuget.org/packages/Microsoft.Extensions.Caching.StackExchangeRedis/7.0.5)
-```
+
+```shell
 dotnet add package Scrutor --version 4.2.2
 ```
 
-```
+```shell
 dotnet add package Microsoft.Extensions.Caching.StackExchangeRedis --version 7.0.5
 ```
 
@@ -52,7 +53,8 @@ Scrutor will help us during the implementation of the caching layer without taki
 Let's create a Service to handle everything related to Redis.
 <br/>
 Service:
-```
+
+```csharp
 public class CacheService : ICacheService
 {
     private readonly IDistributedCache _distributedCache;
@@ -113,7 +115,8 @@ public class CacheService : ICacheService
 Let's create a Repository to handle the query request to the database that will "intercept" and go first in Redis.
 <br/>
 Repository:
-```
+
+```csharp
 public class CachedAlugatorRepository : IAlugatorRepository
 {
     private readonly IAlugatorRepository _alugatorRepository;
@@ -161,7 +164,7 @@ public class CachedAlugatorRepository : IAlugatorRepository
 
 The ace in the hole is in the way we are going to configure the Repository in the Program class:
 
-```
+```csharp
 services.AddSingleton<IAlugatorRepository, AlugatorRepository>();
 services.Decorate<IAlugatorRepository, CachedAlugatorRepository>();
 ```

@@ -2,7 +2,7 @@
 title: "An easy way to measure your method performance"
 date: 2023-11-13T18:19:29-03:00
 draft: false
-tags: ["telemetry", "performance", "C#"]
+tags: ["telemetry","dotnet"]
 ---
 
 #### Introduction

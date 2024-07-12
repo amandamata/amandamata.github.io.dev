@@ -1,7 +1,7 @@
 ---
 title: "Implementando cache Redis com dotnet"
 date: 2023-04-25T07:42:55-03:00
-tags: ["cache", "redis", "dotnet"]
+tags: ["cache", "dotnet"]
 draft: false
 ---
 
@@ -40,11 +40,12 @@ Explicação  e problema apresentações, vamos a implementação!
 Para essa implementação vamos seguir um padrão chamado Decorator, com esse padrão é possível adicionar uma camada de cache sem adicionar complexidade a mais na camada de repositório, e vamos seguir o principio S do SOLID, [Single-responsibility principle](https://g.co/kgs/phLumf).
 
 Vamos trabalhar com dotnet, e instalar os pacotes [Scrutor](https://www.nuget.org/packages/scrutor/) e [StackExchangeRedis](https://www.nuget.org/packages/Microsoft.Extensions.Caching.StackExchangeRedis/7.0.5)
-```
+
+```shell
 dotnet add package Scrutor --version 4.2.2
 ```
 
-```
+```shell
 dotnet add package Microsoft.Extensions.Caching.StackExchangeRedis --version 7.0.5
 ```
 
@@ -53,7 +54,8 @@ O Scrutor vai nos auxiliar durante a implementação da camada de cache sem tira
 Vamos criar uma Service para lidar com tudo referente ao Redis.
 <br/>
 Service:
-```
+
+```csharp
 public class CacheService : ICacheService
 {
     private readonly IDistributedCache _distributedCache;
@@ -114,7 +116,8 @@ public class CacheService : ICacheService
 Vamos criar um Repository para lidar com a requisição de consulta ao banco que irá "interceptar" e ir primeiro no redis.
 <br/>
 Repository:
-```
+
+```csharp
 public class CachedAlugatorRepository : IAlugatorRepository
 {
     private readonly IAlugatorRepository _alugatorRepository;
@@ -162,12 +165,11 @@ public class CachedAlugatorRepository : IAlugatorRepository
 
 O pulo do gato está na forma como iremos configurar o Repository na classe Program:
 
-```
+```csharp
 services.AddSingleton<IAlugatorRepository, AlugatorRepository>();
 services.Decorate<IAlugatorRepository, CachedAlugatorRepository>();
 ```
 Esse Decorate faz a mágica, pois, agora ao chamar a AlugatorRepository a CachedAlugatorRepository será "chamado" primeiro, então, toda chamada ao repositório será feita inicialmente para o Repositório de cache que contém a lógica da consulta ao Redis através da service. Com isso mantemos a AlugatorRepository limpa, temos uma repository específica para o cache CachedAlugatorRepository e não ferimos o Single Responsability Principle.
-
 
 
 

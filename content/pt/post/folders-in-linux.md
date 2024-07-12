@@ -2,7 +2,7 @@
 title: "Ententendo as pastas no linux"
 date: 2023-02-09T07:52:10-03:00
 draft: false
-tags: ['linux']
+tags: ["linux"]
 ---
 
 Você acabou de instalar o linux e está acostumado com a estrutura do windows e seus diretórios, então você vai dar uma olhada no seu gestor de arquivos procurando pelo disco C: e não encontra..

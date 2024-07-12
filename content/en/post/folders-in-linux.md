@@ -2,7 +2,7 @@
 title: "Understanding folders in linux"
 date: 2023-02-09T07:55:10-03:00
 draft: false
-tags: ['linux']
+tags: ["linux"]
 ---
 
 You've just installed linux and you're used to the structure of windows and its directories, so you'll take a look in your file manager looking for the disk C: and you can't find it...

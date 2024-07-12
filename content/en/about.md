@@ -1,5 +1,5 @@
 ---
-title: "About Me"
+title: "About me"
 date: "2023-01-25"
 ---
 

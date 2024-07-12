@@ -2,20 +2,22 @@
 title: "Colchetes em uma nova linha no vscode"
 date: 2023-02-18T06:12:47-03:00
 draft: false
-tags: ["vscode","solved", "dotnet", "omnisharp"]
+tags: ["vscode","dotnet"]
 ---
 
 Essa última semana eu levantei cedo todos os dias, tentando fazer apenas uma coisa: fazer o Visual Studio Code inserir uma nova linha antes dos colchetes {}.
 
 Eu tenho isso:
-```
+
+```csharp
 if (true){
   // do something
 }
 ```
 
 e quero formatar dessa forma:
-```
+
+```csharp
 if (true)
 {
   // do something
@@ -42,7 +44,7 @@ O meu omnisharp está em /home/amanda/.omnisharp/omnisharp.json
 
 Essa é a minha configuração do omnisharp:
 
-```
+```json
 {
     "FormattingOptions": {
         "newLine": "\n",
@@ -78,7 +80,8 @@ Você pode encontrar o arquivo settings.json em ~/.config/Code/User
 O meu arquivo está em /home/amanda/.config/Code/User/settings.json
 
 Eu inseri essas linhas a mais no settings.json:
-```
+
+```json
     "omnisharp.json": "/home/amanda/.omnisharp",
     "omnisharp.enableEditorConfigSupport": false,
     "omnisharp.useEditorFormattingSettings": true,

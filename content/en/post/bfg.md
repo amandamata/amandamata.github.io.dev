@@ -36,27 +36,27 @@ The tutorial on the BFG website is quite straightforward, but here is a more det
 
 1. Download the .jar file from the [BFG](https://rtyley.github.io/bfg-repo-cleaner/) website.
 2. Clone the current repository using the command:
-	```
+	```shell
 	git clone git@github.com:amandamata/how-to-use-bfg.git --mirror
 	```
 3. Create a reference file containing the value you want to remove from the commit history. For example:
-	```
+	```shell
 	echo *VyieIqbij35MYV5&bIakKmq1Z > auth.txt
 	```
 4. Run BFG, passing the reference value, using the following command:
-	```
+	```shell
 	java -jar ~/Downloads/bfg-1.14.0.jar --replace-text auth.txt how-to-use-bfg.git
 	```
 5. Access the cloned repository directory:
-	```
+	```shell
 	cd how-to-use-bfg.git
 	```
 6. Run the following command:
-	```
+	```shell
 	git reflog expire --expire=now --all && git gc --prune=now --aggressive
 	```
 7. Push the changes:
-	```
+	```shell
 	git push
 	```
 

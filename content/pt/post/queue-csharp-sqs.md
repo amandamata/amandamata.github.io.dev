@@ -2,7 +2,7 @@
 title: "Implementando um publisher e consumer SQS usando dotnet"
 date: 2023-02-22T07:19:25-03:00
 draft: false
-tags: ["queue","sqs","dotnet","aws"]
+tags: ["queue","dotnet"]
 ---
 
 Nesse [post](/pt-pt/queue), eu passei a introdução de uma fila e como utilizá-la. Agora, eu vou explicar como implementar um consumer e sqs publisher usando c# dotnet.
@@ -25,7 +25,7 @@ Clique em Create queue, e adicione o nome para a fila, e então vá para o final
 A AWS Command Line Interface permite que façamos mudanças e requisições diretamente pelo console localmente, sem a necessidade de acessar o AWS console no navegador.
 
 Se por exemplo quisermos listar os buckets:
-```
+```shell
 aws s3api list-buckets
 ```
 
@@ -36,7 +36,7 @@ Depois da instalação, é necessário autenticar sua máquina na aws.
 Na aws console, clique em seu nome e vá até Security Credentials, lá você precisa criar uma Access Key.
 
 Então em seu console você vai digitar:
-```
+```shell
 aws configure
 ```
 
@@ -47,7 +47,7 @@ Então coloque a sua access key e token quando solicitado.
 Essa região deve ser passada durante a configuração aws no console, para que consiga utilizar completamente as features via console localmente.
 
 Depois da configuração finalizada, você poderá executar a listagem de buckets. 
-```
+```shell
 aws s3api list-buckets
 ```
 <br/>
@@ -65,20 +65,20 @@ Para deixar simples, o exemplo aqui vai ser apenas o publisher, então você pod
 Vamos utilizar o Console App
 
 Crie uma nova pasta:
-```
+```shell
 mkdir publisher
 ```
 Entre na pasta:
-```
+```shell
 cd publisher
 ```
 Crie o projeto:
-```
+```shell
 dotnet new console
 ```
 
 Um modelo é necessário:
-```
+```csharp
 public class CustomerCreated
 {
   public Guid Id { get; init; }
@@ -89,13 +89,13 @@ public class CustomerCreated
 ```
 
 E instale o [AWS SDK](https://www.nuget.org/packages/AWSSDK.SQS)
-```
+```shell
 dotnet add package AWSSDK.SQS --version 3.7.100.78
 ```
 
 Então na classe Program precisamos criar o request e enviá-lo:
 
-```
+```csharp
 using System.Text.Json;
 using Amazon.SQS;
 using Amazon.SQS.Model;
@@ -145,20 +145,20 @@ Um consumer é o serviço que irá escutar a fila.
 Vamos utilizar o Console App
 
 Crie uma nova pasta:
-```
+```shell
 mkdir consumer
 ```
 Entre na pasta:
-```
+```shell
 cd consumer
 ```
 Crie o projeto:
-```
+```shell
 dotnet new console
 ```
 
 Um modelo é necessário:
-```
+```csharp
 public class CustomerCreated
 {
   public Guid Id { get; init; }
@@ -169,13 +169,13 @@ public class CustomerCreated
 ```
 
 E instale o [AWS SDK](https://www.nuget.org/packages/AWSSDK.SQS)
-```
+```shell
 dotnet add package AWSSDK.SQS --version 3.7.100.78
 ```
 
 Então na classe Program precisamos receber a requisição:
 
-```
+```csharp
 using Amazon.SQS;
 using Amazon.SQS.Model;
 	 

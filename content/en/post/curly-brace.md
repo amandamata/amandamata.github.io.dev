@@ -2,20 +2,20 @@
 title: "Curly braces on new line in vscode"
 date: 2023-02-18T06:13:07-03:00
 draft: false
-tags: ["vscode","solved", "dotnet", "omnisharp"]
+tags: ["vscode","dotnet"]
 ---
 
 This pass week I wake up early every day trying to do only one thing: make Visual Studio Code insert a new line before a curly bracket, braces {}.
 
 I have this:
-```
+```shell
 if (true){
   // do something
 }
 ```
 
 and I want to format it like this:
-```
+```shell
 if (true)
 {
   // do something
@@ -40,7 +40,7 @@ Mine is in /home/amanda/.omnisharp/omnisharp.json
 
 This is my omnisharp config:
 
-```
+```json
 {
     "FormattingOptions": {
         "newLine": "\n",
@@ -77,7 +77,7 @@ Mine is in /home/amanda/.config/Code/User/settings.json
 
 I've inserted these lines in my settings.json:
 
-```
+```json
     "omnisharp.json": "/home/amanda/.omnisharp",
     "omnisharp.enableEditorConfigSupport": false,
     "omnisharp.useEditorFormattingSettings": true,

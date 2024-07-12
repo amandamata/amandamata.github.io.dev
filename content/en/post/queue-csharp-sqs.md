@@ -2,7 +2,7 @@
 title: "Implementing a sqs publisher and consumer using dotnet"
 date: 2023-02-22T07:19:25-03:00
 draft: false
-tags: ["queue","sqs","dotnet","aws"]
+tags: ["queue","dotnet"]
 ---
 
 In this [post](/queue), I pass an introduction to a queue and how to use it. Now I gonna explain how to implement an sqs consumer and publisher using c# dotnet.
@@ -24,7 +24,7 @@ Click on Create queue, add a name to the queue and go to the end of the page and
 
 The AWS Command Line Interface allows us to make changes directly from the console without the need to access the AWS console.
 For example, if we need to list the buckets:
-```
+```shell
 aws s3api list-buckets
 ```
 
@@ -35,7 +35,7 @@ After the installation, it's necessary to authenticate your machine against aws.
 In aws console, click in your name and go to Security Credentials, there, you need to create an Access Key.
 
 In your console you gonna type:
-```
+```shell
 aws configure
 ```
 
@@ -46,7 +46,7 @@ Then pass your access key and token when requested.
 That region needs to be passed during aws configuration, to be able to access aws features locally.
 
 After the configuration, you're gonna able to execute the list buckets. 
-```
+```shell
 aws s3api list-buckets
 ```
 <br/>
@@ -64,20 +64,20 @@ In order to simplify, the example here it's gonna be only the publisher, then yo
 We're gonna use a Console App
 
 Create a new folder:
-```
+```shell
 mkdir publisher
 ```
 Go inside the folder:
-```
+```shell
 cd publisher
 ```
 Create the project:
-```
+```shell
 dotnet new console
 ```
 
 It's necessary a model:
-```
+```csharp
 public class CustomerCreated
 {
   public Guid Id { get; init; }
@@ -88,13 +88,13 @@ public class CustomerCreated
 ```
 
 And install the [AWS SDK](https://www.nuget.org/packages/AWSSDK.SQS)
-```
+```shell
 dotnet add package AWSSDK.SQS --version 3.7.100.78
 ``` 
 
 After that, in the Program we need to create a request and send it:
 
-```
+```csharp
 using System.Text.Json;
 using Amazon.SQS;
 using Amazon.SQS.Model;
@@ -144,20 +144,20 @@ A consumer it's the service that will be listening the queue.
 We're gonna use a Console App
 
 Create a new folder:
-```
+```shell
 mkdir consumer
 ```
 Go inside the folder:
-```
+```shell
 cd consumer
 ```
 Create the project:
-```
+```shell
 dotnet new console
 ```
 
 It's necessary a model:
-```
+```csharp
 public class CustomerCreated
 {
   public Guid Id { get; init; }
@@ -168,13 +168,13 @@ public class CustomerCreated
 ```
 
 And install the [AWS SDK](https://www.nuget.org/packages/AWSSDK.SQS)
-```
+```shell
 dotnet add package AWSSDK.SQS --version 3.7.100.78
 ```
 
 After that, in the Program we need to receive the request:
 
-```
+```csharp
 using Amazon.SQS;
 using Amazon.SQS.Model;
 	 
