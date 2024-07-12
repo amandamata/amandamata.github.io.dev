@@ -13,12 +13,12 @@ Come on in and make yourself at home.
 
 My blog is a loose collection of things learned.
 <br/><br/>
+
 ##### Work
 
-I’m a Software Engineer at PagarMe.
-
-I'm graduated in Computer Science (but we all know the learning never ends).
+I’m graduated in Computer Science, and Software Engineer at PagarMe.
 <br/><br/>
+
 ##### Contact
 
 Wanna get in touch? Email me at **YW1hbmRhLm1hdGFAbGl2ZS5jb20=**
@@ -26,23 +26,14 @@ Wanna get in touch? Email me at **YW1hbmRhLm1hdGFAbGl2ZS5jb20=**
 Decode that Base64 string [here](https://www.base64decode.org/)
 <br/><br/>
 
-##### RSS
-
-Don't miss any post, [subscribe to this feed](/index.xml).
-<br/><br/>
-
-##### Translate
-
-I pretend to post in both languages, English and Portuguese.
-<br/><br/>
 ##### Disclaimer
 Opinions expressed here are my own and not those of my employer or any past employer.
 <br/><br/>
+
 ##### Buy me a coffee
 BTC Wallet: `bc1qjy622x7qh6k453tdgcu7hhhj7agv6nqnysfdlntx6uf0tp4g8ujs0vcd9a`
 
 ![wallet](/img/wallet.png)
 
 </br></br>
-___
-This blog was made using [hugo framework](https://gohugo.io/)
+
