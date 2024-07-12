@@ -8,7 +8,7 @@ draft: false
 I recently had to implement a cache in an application to avoid unnecessary database queries, and that was cool. I've worked with Redis in the past, but I think I've done it the wrong way because implementing a cache with Redis has never been so cool.
 <br/>
 
-#### Redis vs Mem cached
+## Redis vs Mem cached
 Redis is almost like a NoSql database, but it is even better because it stores data with key and values and with that, it is much easier to use it as a cache.
 But the main point in this comparison is: it depends, it depends on how and how much data will be used in this cache. If you're not sure how to store session information, MemCache makes sense. But if we're talking about a lot of queries with bigger data, like the data we store in the database, Redis does a better job. This is because when using MemCache we are using the application's memory to save that information, since Redis is a distributed cache, it has nothing to do with the application's memory and it is possible to use more than one Redis database, scaling this service vertically according to demand grow up.
 
@@ -17,7 +17,7 @@ The first time it is necessary to use the cache, the information will not be the
 ![redis](/img/redis.png)
 <br/>
 
-#### Why use
+## Why use
 - Reduce response time
 Improve the end-user experience with the application, making him wait less for each click or action.
 
@@ -29,12 +29,12 @@ When we are talking about the cloud, we are reducing the consumption of lambdas 
 
 The cost of a cache is high, so it has to be expensive on the server side to make this migration to the cache. For example, problems with the delay in response to the end customer can be costly, the end customer can simply give up using the application due to the delay, and many other problems that this delay can generate. To reduce both the cost of losing a customer and the cost of consulting the bank, the cache is then used to solve these problems.
 <br/>
-#### Problem
+## Problem
 Suppose there is an application that makes many calls to the database, but always consulting the same information, when the application was developed the developers did not think it could grow so much, and a cache was not implemented to avoid these queries to the database.
 The application is for car rental for companies, and the query is simple, with each request received at the rental endpoint, it is necessary to check whether the company (document) informed in the rental request is the same as the one in the bank.
 We have the scenario, let's move on to implementation.
 <br/>
-#### Implementation
+## Implementation
 Explanation and problem presentations, let's implement!
 For this implementation we will follow a pattern called Decorator, with this pattern it is possible to add a cache layer without adding more complexity to the repository layer, and we will follow the S principle of SOLID, [Single-responsibility principle](https:// g.co/kgs/phLumf).
 

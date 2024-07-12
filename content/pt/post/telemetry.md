@@ -5,15 +5,15 @@ draft: false
 tags: ["telemetry","dotnet"]
 ---
 
-#### Introdução
+## Introdução
 
 Medir o tempo de execução de métodos é essencial para otimizar aplicações, seja para profiling, monitoramento de performance ou detecção de degradações ao longo do tempo. Embora existam várias ferramentas e bibliotecas disponíveis para essa finalidade, muitas vezes procuramos soluções que sejam diretas e não intrusivas.
 
-#### A Solução: MethodTimer.Fody
+## A Solução: MethodTimer
 
 Uma das maneiras mais eficientes e limpas de medir a performance de métodos em C# é utilizando a biblioteca MethodTimer.Fody. Essa ferramenta permite adicionar automaticamente cronômetros aos métodos desejados através de um simples atributo, sem a necessidade de modificar o código existente.
 
-#### Como funciona
+## Como funciona
 
 Após instalar a biblioteca [MethodTimer](https://github.com/Fody/MethodTimer) no seu projeto, basta adicionar o atributo `[Time]` acima de qualquer método que você deseja monitorar. Veja um exemplo:
 
@@ -93,10 +93,10 @@ Com tudo configurado, você pode logar e injetar as informações que desejar.
 
 ![telemetry](/img/telemetry.png)
 
-#### Benefícios
+## Benefícios
 * Simplicidade: Não é necessário escrever código adicional de cronometragem.
 * Automatização: A medição de performance é adicionada em tempo de compilação, mantendo seu código limpo.
 * Facilidade de Uso: Basta adicionar um atributo ao método desejado.
 
-#### Conclusão
+## Conclusão
 MethodTimer.Fody é uma ferramenta poderosa para desenvolvedores que buscam uma maneira eficiente e descomplicada de medir a performance de seus métodos em C#. Com a facilidade de integração e o mínimo impacto no código existente, é uma excelente escolha para qualquer projeto.

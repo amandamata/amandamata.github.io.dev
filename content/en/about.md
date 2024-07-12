@@ -9,19 +9,19 @@ Since 2014, I've been immersed in the world of technology, and since 2019, I've 
 
 Feel free to explore and, who knows, find something that resonates with you.
 
-#### My Journey
+## My Journey
 
 I have a degree in Computer Science and currently work as a Software Engineer at PagarMe. Over the years, I've worked with various technologies, including C#, JavaScript, Go, and modern frameworks like Node.js. Each project I've worked on has taught me something new, and I'm always looking for new challenges.
 
-#### Contact
+## Contact
 
 Want to chat? Send me an email: **[amanda.mata@live.com](mailto:amanda.mata@live.com)**
 
-#### Opinions
+## Opinions
 
 The opinions expressed here are personal and do not represent those of my current employer or any previous employer.
 
-#### Support My Work
+## Support My Work
 
 If you like the content I create and want to support me, consider buying me a coffee. Any contribution is greatly appreciated and helps me continue producing content.
 

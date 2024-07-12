@@ -9,19 +9,19 @@ Desde 2014, estou imersa no mundo da tecnologia, e desde 2019, me aventurei no u
 
 Sinta-se à vontade para explorar e, quem sabe, encontrar algo que ressoe com você.
 
-#### Minha Jornada
+## Minha Jornada
 
 Sou formada em Ciência da Computação e atualmente trabalho como Engenheira de Software na PagarMe. Ao longo dos anos, trabalhei com diversas tecnologias, incluindo C#, JavaScript, Go e frameworks modernos como Node.js. Cada projeto em que trabalhei me ensinou algo novo, e estou sempre em busca de novos desafios.
 
-#### Contato
+## Contato
 
 Quer conversar? Me mande um e-mail: **[amanda.mata@live.com](mailto:amanda.mata@live.com)**
 
-#### Opiniões
+## Opiniões
 
 As opiniões expressas aqui são pessoais e não representam as de meu empregador atual ou de qualquer empregador anterior.
 
-#### Apoie meu trabalho
+## Apoie meu trabalho
 
 Se você gosta do conteúdo que eu crio e quer me apoiar, considere me comprar um café. Qualquer contribuição é muito apreciada e me ajuda a continuar produzindo conteúdo.
 

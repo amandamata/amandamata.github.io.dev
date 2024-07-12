@@ -13,7 +13,7 @@ To address this issue, many turn to `git-filter-branch`. However, I want to intr
 
 BFG is a powerful and easy-to-use tool that allows you to remove confidential information from your repository's commit history safely. It offers a quicker and more efficient solution compared to `git-filter-branch`.
 
-#### Scenario
+## Scenario
 
 We have the repository [how-to-use-bfg](https://github.com/amandamata/how-to-use-bfg).
 
@@ -25,12 +25,12 @@ I deleted this sensitive information, made the commit and push, but the sensitiv
 
 ![bfg2](/img/bfg2.png)
 
-#### Prerequisites
+## Prerequisites
 
 - Git installed on your machine.
 - Java Runtime Environment (JRE) installed to run the BFG `.jar` file.
 
-#### How to Use
+## How to Use
 
 The tutorial on the BFG website is quite straightforward, but here is a more detailed description to facilitate the process:
 
@@ -64,7 +64,7 @@ After following these steps, your repository's commit history will be updated, a
 
 ![bfg3](/img/bfg3.png)
 
-#### Conclusion
+## Conclusion
 
 Conclusion
 Removing sensitive information from the commit history is crucial for maintaining the security and privacy of your project. The BFG Repo-Cleaner offers an efficient and quick way to do this. If you have any questions or would like to share your experience using BFG, feel free to leave a comment below.

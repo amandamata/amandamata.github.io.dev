@@ -8,7 +8,7 @@ draft: false
 Recentemente tive que implementar um cache em uma aplicação para evitar consultas desnecessárias ao banco de dados, e isso foi muito legal. Já trabalhei com Redis no passado, mas acho que fiz da maneira errada porque implementar um cache com Redis nunca foi tão legal.
 <br/>
 
-#### Redis x Mem cached
+## Redis x Mem cached
 O Redis é quase como um banco noSql, mas ele é ainda melhor pois armazena os dados com chave e valor e com isso fica muito mais fácil de utilizar ele como um cache.
 Mas o ponto principal nessa comparação é: depende, depende de como e quanto dado será utilizado nesse cache. Se for pouco dado como guardar informações de uma sessão, o MemCache faz sentido. Mas se estamos falando de muitas consultas com dados maiores, como os dados que armazenamos no banco, o Redis faz um melhor trabalho. Isso porque ao utilizar o MemCache estamos utilizando da memória da aplicação pra salvar aquelas informações, já o Redis é um cache distribuído, não tem relação nenhuma com a memória da aplicação e é possível utilizar mais de um Redis database escalando verticalmente esse serviço conforme a demanda cresce.
 
@@ -18,7 +18,7 @@ A primeira vez que for necessário usar o cache a informação não vai estar l�
 
 <br/>
 
-#### Porque utilizar
+## Porque utilizar
 - Reduzir o tempo de resposta
 Melhorar a experiência do usuário final com a aplicação, fazendo ele esperar menos em cada clique ou ação.
 
@@ -30,12 +30,12 @@ Quando estamos falando de cloud, estamos reduzindo o consumo de lambdas e recurs
 
 O custo de um cache é alto, portanto, tem que estar custando caro no server side pra fazer essa migração para o cache. Por exemplo, problemas com demora de resposta para o cliente final podem custar caro, o cliente final pode simplesmente desistir de utilizar a aplicação pela demora, e muitos outros problemas que essa demora pode gerar. Para reduzir tanto esse custo de perda de cliente quanto o custo de consulta ao banco, utiliza-se então o cache para resolver esses problemas.
 <br/>
-#### Problema
+## Problema
 Suponhamos que existe uma aplicação que faz muitas idas ao banco, mas sempre consultando as mesmas informações, quando a aplicação foi desenvolvida os desenvolvedores não achavam que ela poderia crescer tanto, e não foi implementado um cache para evitar essas consultas ao banco. 
 A aplicação é de aluguel de carro para empresas, e a consulta é simples, a cada requisição recebida no endpoint aluguél é necessário consultar se a empresa(cnpj) informada na solicitação de aluguel é a mesma que existe no banco.
 Temos o cenário, vamos para a implementação.
 <br/>
-#### Implementação
+## Implementação
 Explicação  e problema apresentações, vamos a implementação!
 Para essa implementação vamos seguir um padrão chamado Decorator, com esse padrão é possível adicionar uma camada de cache sem adicionar complexidade a mais na camada de repositório, e vamos seguir o principio S do SOLID, [Single-responsibility principle](https://g.co/kgs/phLumf).
 

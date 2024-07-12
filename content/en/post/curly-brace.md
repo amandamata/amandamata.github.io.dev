@@ -32,7 +32,7 @@ First things first, you gonna need:
 4. omnisharp.json file 
 5. settings.json modifications
 
-#### Omnisharp
+## Omnisharp
 
 You can find your omnisharp location by checking on %USERPROFILE%/.omnisharp/
 
@@ -69,7 +69,7 @@ This is my omnisharp config:
 ```
 Based on [this comment](https://github.com/OmniSharp/omnisharp-vscode/issues/1506#issuecomment-303390666)
 
-#### VSCode Settings	
+## VSCode Settings	
 
 You can find your settings.json location by checking on ~/.config/Code/User
 
