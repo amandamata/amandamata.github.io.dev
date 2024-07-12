@@ -30,5 +30,3 @@ To get this done it's necessary to have a consumer service, that will be listeni
 ![queue3](/img/queue3.png)
 
 That makes your system more resilient if something fails to process, it's going back to the queue and then will be reprocessed later.
-
-See more about queue [here](/queue-csharp-sqs)

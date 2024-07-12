@@ -11,9 +11,9 @@ Acredito que em algum momento todos nós cometemos o erro de enviar acidentalmen
 
 Para solucionar essa questão, as pessoas costumam utilizar o git-filter-branch. No entanto, gostaria de apresentar uma alternativa ainda melhor: o BFG.
 
-O BFG é uma ferramenta poderosa e fácil de usar que permite remover informações confidenciais do histórico de commits do seu repositório de forma segura. Ele oferece uma solução mais rápida e eficiente em comparação com o git-filter-branch.</br></br>
+O BFG é uma ferramenta poderosa e fácil de usar que permite remover informações confidenciais do histórico de commits do seu repositório de forma segura. Ele oferece uma solução mais rápida e eficiente em comparação com o git-filter-branch.</br>
 
-##### Cenário
+#### Cenário
 Temos o repositório [how-to-use-bfg](https://github.com/amandamata/how-to-use-bfg)
 
 Nesse repositório existia um appsettings.json com informações sensiveis
@@ -24,9 +24,9 @@ Eu exclui essa informação sensivel, fiz o commit e push, mas no histórico ess
 
 ![bfg2](/img/bfg2.png)
 
-</br></br>
+</br>
 
-##### Como utilizar
+#### Como utilizar
 O tutorial no site do BFG não é difícil, mas vou descrever aqui de forma mais detalhada para tornar o processo mais compreensível e simples de seguir.
 
 Para utilizar o BFG, siga estes passos:
@@ -55,10 +55,7 @@ Para utilizar o BFG, siga estes passos:
 	```
 	git push
 	```
-	
+</br>
 Após seguir esses passos, o histórico de commits do seu repositório será atualizado e as informações sensíveis serão removidas.
 
 ![bfg3](/img/bfg3.png)
-
-
-Experimente o BFG e garanta que suas informações confidenciais estejam protegidas no histórico de commits.

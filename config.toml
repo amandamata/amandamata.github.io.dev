@@ -42,7 +42,7 @@ social = [
     { id="linkedin", url="https://www.linkedin.com/in/amanda-mata/" },
 ]
 
-rssIcon = true # true | false; Showing RSS icon; default: true
+rssIcon = false # true | false; Showing RSS icon; default: true
 
 [taxonomies]
 tag = "tags" # This allows you to use the "tags" in your markdown metadata

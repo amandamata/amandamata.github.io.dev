@@ -6,8 +6,8 @@ tags: ["queue","sqs","dotnet","aws"]
 ---
 
 In this [post](/queue), I pass an introduction to a queue and how to use it. Now I gonna explain how to implement an sqs consumer and publisher using c# dotnet.
-<br/><br/>
-##### SQS
+<br/>
+#### SQS
 
 What is SQS?
 
@@ -19,8 +19,8 @@ To start, it's necessary to create an account in [aws](https://aws.amazon.com/) 
 
 In the console area, type SQS in search and enter the first option Simple Queue Service.
 Click on Create queue, add a name to the queue and go to the end of the page and click Create queue. You can change the default values, but for now, all the settings are ok.
-<br/><br/>
-##### AWS Command Line Interface
+<br/>
+#### AWS Command Line Interface
 
 The AWS Command Line Interface allows us to make changes directly from the console without the need to access the AWS console.
 For example, if we need to list the buckets:
@@ -51,7 +51,7 @@ aws s3api list-buckets
 ```
 <br/>
 
-##### Publisher
+#### Publisher
 What is a publisher?
 
 A publisher it's a service that gonna get the information that something changes and sends to the queue a request.
@@ -136,7 +136,7 @@ Console.WriteLine();
 
 <br/>
 
-##### Consumer
+#### Consumer
 What it's a consumer? 
 
 A consumer it's the service that will be listening the queue.

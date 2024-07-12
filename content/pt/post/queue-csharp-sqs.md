@@ -6,8 +6,8 @@ tags: ["queue","sqs","dotnet","aws"]
 ---
 
 Nesse [post](/pt-pt/queue), eu passei a introdução de uma fila e como utilizá-la. Agora, eu vou explicar como implementar um consumer e sqs publisher usando c# dotnet.
-<br/><br/>
-##### SQS
+<br/>
+#### SQS
 
 O que é SQS?
 
@@ -20,8 +20,8 @@ Para começar pe necessário criar uma conta na [aws](https://aws.amazon.com/) e
 Na área do console, digite SQS no campo de busca e entre na primeira opção, Simple Queue Service.
 
 Clique em Create queue, e adicione o nome para a fila, e então vá para o final da página e clique em Create queue. Você pode alterar os valores que vem por padrão, mas para esse exemplos o padrão já está de acordo.
-<br/><br/>
-##### AWS Command Line Interface
+<br/>
+#### AWS Command Line Interface
 A AWS Command Line Interface permite que façamos mudanças e requisições diretamente pelo console localmente, sem a necessidade de acessar o AWS console no navegador.
 
 Se por exemplo quisermos listar os buckets:
@@ -52,7 +52,7 @@ aws s3api list-buckets
 ```
 <br/>
 
-##### Publisher
+#### Publisher
 O que é um publisher?
 
 Um publisher é um serviço que vai pegar uma informação que algo mudou por exemplo e enviar essa informação para a fila.
@@ -137,7 +137,7 @@ Console.WriteLine();
 
 <br/>
 
-##### Consumer
+#### Consumer
 O que é um consumer? 
 
 Um consumer é o serviço que irá escutar a fila.

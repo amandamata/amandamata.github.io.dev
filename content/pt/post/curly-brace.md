@@ -34,7 +34,7 @@ Primeiro você vai precisar:
 4. arquivo omnisharp.json
 5. alterações no settings.json
 
-##### Omnisharp
+#### Omnisharp
 
 Você pode encontrar a localização do seu omnisharp em %USERPROFILE%/.omnisharp/
 
@@ -71,7 +71,7 @@ Essa é a minha configuração do omnisharp:
 ```
 Baseado [nesse comentário](https://github.com/OmniSharp/omnisharp-vscode/issues/1506#issuecomment-303390666)
 
-##### VSCode Settings	
+#### VSCode Settings	
 
 Você pode encontrar o arquivo settings.json em ~/.config/Code/User
 
@@ -97,20 +97,20 @@ Extension
 
 ![brace1](/img/brace1.png)
 
-</br></br>
+</br>
 Restart omnisharp
 Ctrl+Shift+p
 
 ![brace2](/img/brace2.png)
 
-</br></br>
+</br>
 Depois de todas essas alterações, você pode começar a utilizar o visual studio code e aproveitar os colchetes sendo inseridos em uma nova linha. MAS
 
 O que me deixou fora da cama pela manhã foi, a formatação automática durante a digitação não está funcionando. Então, provavelmente você fez todas essas alterações sozinho mas também não funcionou... Para funcionar você precisa utilizar a opção Format Document no Visual Studio Code.
 
 ![brace3](/img/brace3.png)
 
-</br></br>
+</br>
 
 Mas eu não queria ficar utilizando essa opção toda vez, então, depois de muita busca, eu encontrei essas configurações para o editor
 - ***editor.formatOnSave***

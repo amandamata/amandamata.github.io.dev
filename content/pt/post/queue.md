@@ -32,6 +32,3 @@ Para que isso aconteça será necessário que tenhamos um consumer service, que 
 
 Isso faz com que seu sistema seja mais resiliente, e se algo falhar, vai voltar para a fila e será processado novamente depois.
 
-
-Veja mais sobre filas [aqui](/pt-pt/queue-csharp-sqs)
-

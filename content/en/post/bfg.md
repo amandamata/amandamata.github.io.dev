@@ -11,8 +11,8 @@ I believe that at some point, we have all made the mistake of accidentally pushi
 
 To address this issue, people often use git-filter-branch. However, I would like to introduce an even better alternative: BFG.
 
-BFG is a powerful and user-friendly tool that allows you to securely remove confidential information from your repository's commit history. It provides a faster and more efficient solution compared to git-filter-branch.</br></br>
-##### Scenario
+BFG is a powerful and user-friendly tool that allows you to securely remove confidential information from your repository's commit history. It provides a faster and more efficient solution compared to git-filter-branch.</br>
+#### Scenario
 We have the repository how-to-use-bfg.
 
 In this repository, there was an appsettings.json file with sensitive information:
@@ -23,9 +23,9 @@ I deleted this sensitive information, made the commit and push, but the sensitiv
 
 ![bfg2](/img/bfg2.png)
 
-</br></br>
+</br>
 
-##### How to Use
+#### How to Use
 The tutorial on the BFG website is not difficult, but I will describe it here in more detail to make the process easier to understand.
 
 To use BFG, follow these steps:
@@ -54,11 +54,8 @@ To use BFG, follow these steps:
 	```
 	git push
 	```
-	
+</br>
 After following these steps, your repository's commit history will be updated, and the sensitive information will be removed.
 
 
 ![bfg3](/img/bfg3.png)
-
-
-Give BFG a try and ensure that your confidential information is protected in the commit history.

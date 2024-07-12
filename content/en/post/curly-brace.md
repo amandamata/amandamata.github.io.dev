@@ -32,7 +32,7 @@ First things first, you gonna need:
 4. omnisharp.json file 
 5. settings.json modifications
 
-##### Omnisharp
+#### Omnisharp
 
 You can find your omnisharp location by checking on %USERPROFILE%/.omnisharp/
 
@@ -69,7 +69,7 @@ This is my omnisharp config:
 ```
 Based on [this comment](https://github.com/OmniSharp/omnisharp-vscode/issues/1506#issuecomment-303390666)
 
-##### VSCode Settings	
+#### VSCode Settings	
 
 You can find your settings.json location by checking on ~/.config/Code/User
 
@@ -96,18 +96,18 @@ Extension
 
 ![brace1](/img/brace1.png)
 
-</br></br>
+</br>
 Restart omnisharp
 Ctrl+Shift+p
 
 ![brace2](/img/brace2.png)
 
-</br></br>
+</br>
 After all of these changes, you can start using your visual studio code and enjoy braces in the new line. BUT
 
 The thing that takes me out of bed is, the auto format on type it's not working. So probably you make all of these changes by yourself, and still not working... is because to work you need to use Format Document in Visual Studio Code.
 ![brace3](/img/brace3.png)
-</br></br>
+</br>
 But I don't want to use this option all the time.
 
 After a lot of searching, I've found this editor settings
