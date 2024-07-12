@@ -2,9 +2,6 @@
 	path = public
 	url = git@github.com:amandamata/amandamata.github.io.git
 	branch = main
-[submodule "themes/simplog"]
-	path = themes/simplog
-	url = https://github.com/michimani/simplog.git
 [submodule "themes/anubis2"]
 	path = themes/anubis2
 	url = https://github.com/Junyi-99/hugo-theme-anubis2.git
