@@ -7,7 +7,7 @@ tags: ["linux"]
 
 If you just installed Linux and are used to the Windows directory structure, you might be wondering where the "C: drive" is. Understanding Linux directories can help you manage the system and understand how it works.
 
-## Directory Structure: Windows vs. Linux
+## Directory structure: Windows vs. Linux
 
 Windows and Linux have evolved differently in terms of directory structure. Linux is more similar to other Unix-like systems, such as macOS. In fact, Windows is the most different from most operating systems in terms of organization.
 
@@ -15,12 +15,12 @@ The Linux directory hierarchy is not more difficult, nor easier, it is simply di
 
 Linux systems follow the FHS (Filesystem Hierarchy Standard), maintained by the Linux Foundation.
 
-## Types of Directories and Permissions
+## Types of directories and permissions
 
 - **Symbolic Links**: Folders with an arrow are shortcuts to other folders or files. For example, /bin is a symbolic link to /usr/bin.
 - **Protected Directories**: Folders with an "x" require root permissions to be accessed or modified.
 
-## Main Directories in Linux
+## Main directories in Linux
 
 ### /
 - **Root**: The root directory, where all other directories and subdirectories reside.

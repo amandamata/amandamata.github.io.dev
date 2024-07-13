@@ -1,5 +1,5 @@
 ---
-title: "Ententendo as pastas no linux"
+title: "Ententendo as pastas no Linux"
 date: 2023-02-09T07:52:10-03:00
 draft: false
 tags: ["linux"]
@@ -14,12 +14,12 @@ A hierarquia de diretórios do Linux não é mais difícil, nem mais fácil, é 
 
 Os sistemas Linux seguem o padrão FHS (Filesystem Hierarchy Standard), mantido pela Linux Foundation.
 
-## Tipos de Diretórios e Permissões
+## Tipos de diretórios e permissões
 
 - **Links Simbólicos**: Pastas com uma seta são atalhos para outras pastas ou arquivos. Por exemplo, /bin é um link simbólico para /usr/bin.
 - **Diretórios Protegidos**: Pastas com um "x" exigem permissões de root para serem acessadas ou modificadas.
 
-## Diretórios Principais no Linux
+## Diretórios principais no Linux
 
 ### /
 - **Raiz**: O diretório raiz, onde todos os outros diretórios e subdiretórios residem.
