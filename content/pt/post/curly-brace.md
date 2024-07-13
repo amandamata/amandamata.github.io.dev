@@ -5,18 +5,16 @@ draft: false
 tags: ["vscode","dotnet"]
 ---
 
-Essa última semana eu levantei cedo todos os dias, tentando fazer apenas uma coisa: fazer o Visual Studio Code inserir uma nova linha antes dos colchetes {}.
+Nesta última semana, dediquei minhas manhãs a um único objetivo: configurar o Visual Studio Code para inserir automaticamente uma nova linha antes dos colchetes `{}`.
 
-Eu tenho isso:
-
+Como estava:
 ```csharp
 if (true){
   // do something
 }
 ```
 
-e quero formatar dessa forma:
-
+Como gostaria que estivesse:
 ```csharp
 if (true)
 {
@@ -24,23 +22,18 @@ if (true)
 }
 ```
 
-Não foi tão facil como parece ser. 
+A tarefa se mostrou mais desafiadora do que eu esperava.
+Encontrei muitas discussões sobre o mesmo problema em fóruns e no Stack Overflow, mas nenhuma solução definitiva. Então estou aqui para compartilhar a solução que descobri.
 
-A mesma questão foi encontrada em vários sites, e no stack overflow, e as pessoas desapontadas sem uma solução. Então hoje eu vou compartilhar o que eu encontrei.
+Antes de tudo, você precisará de:
+1. Extensão C#;
+2. Arquivo `omnisharp.json`;
+3. Alterações aplicadas no `settings.json`.
 
+## Configurando o Omnisharp
 
-Primeiro você vai precisar:
-1. Visual Studio Code atualizado
-2. C# Extension atualizada
-3. Sistema operacional atualizado
-4. arquivo omnisharp.json
-5. alterações no settings.json
-
-## Omnisharp
-
-Você pode encontrar a localização do seu omnisharp em %USERPROFILE%/.omnisharp/
-
-O meu omnisharp está em /home/amanda/.omnisharp/omnisharp.json
+A localização do seu Omnisharp pode ser encontrada em `%USERPROFILE%/.omnisharp/` 
+O meu omnisharp está em `/home/amanda/.omnisharp/omnisharp.json`
 
 Essa é a minha configuração do omnisharp:
 
@@ -71,15 +64,14 @@ Essa é a minha configuração do omnisharp:
     }
 }
 ```
-Baseado [nesse comentário](https://github.com/OmniSharp/omnisharp-vscode/issues/1506#issuecomment-303390666)
+Configurações retiradas [desse comentário](https://github.com/OmniSharp/omnisharp-vscode/issues/1506#issuecomment-303390666)
 
-## VSCode Settings	
+## Atualizando as configurações do VSCode
 
-Você pode encontrar o arquivo settings.json em ~/.config/Code/User
+Você pode encontrar o arquivo `settings.json` em `~/.config/Code/User`
+O meu arquivo está em `/home/amanda/.config/Code/User/settings.json`
 
-O meu arquivo está em /home/amanda/.config/Code/User/settings.json
-
-Eu inseri essas linhas a mais no settings.json:
+Eu inseri essas linhas a mais no `settings.json`:
 
 ```json
     "omnisharp.json": "/home/amanda/.omnisharp",
@@ -92,37 +84,28 @@ Eu inseri essas linhas a mais no settings.json:
     "editor.defaultFormatter": "ms-dotnettools.csharp",
     "[csharp]": {"editor.defaultFormatter": "ms-dotnettools.csharp"}
 ```
+Para essas configurações funcionarem, é necessário ter a extensão C# instalada e habilitada, e depois de tudo isso, reiniciar o omnisharp.
 
-Para essas configurações funcionarem, é necessário ter a extensão c# instalada e habilitada, e depois de tudo isso, reiniciar o omnisharp.
-
-
-Extension
-
+Essa é a extensão:
 ![brace1](/img/brace1.png)
 
-</br>
 Restart omnisharp
-Ctrl+Shift+p
-
+`Ctrl+Shift+P`
 ![brace2](/img/brace2.png)
 
-</br>
-Depois de todas essas alterações, você pode começar a utilizar o visual studio code e aproveitar os colchetes sendo inseridos em uma nova linha. MAS
-
-O que me deixou fora da cama pela manhã foi, a formatação automática durante a digitação não está funcionando. Então, provavelmente você fez todas essas alterações sozinho mas também não funcionou... Para funcionar você precisa utilizar a opção Format Document no Visual Studio Code.
+## Tudo funcionando MAS
+Depois de todas essas alterações, você pode começar a utilizar o visual studio code e aproveitar os colchetes sendo inseridos em uma nova linha...
+MAS
+A formatação automática durante a digitação não está funcionando, para funcionar é necessário utilizar a opção Format Document no Visual Studio Code.
 
 ![brace3](/img/brace3.png)
 
-</br>
-
-Mas eu não queria ficar utilizando essa opção toda vez, então, depois de muita busca, eu encontrei essas configurações para o editor
+Eu não queria ficar utilizando essa opção toda vez, então, depois de muita busca, eu encontrei essas configurações para o editor:
 - ***editor.formatOnSave***
 - ***editor.formatOnPaste***
 - ***editor.formatOnType***
 
 Com essas configurações, quando salvar o arquivo e colar um código, a formatação será feita automaticamente.
-
 MAS
-
-A opção para formatar ao digitar ***formatOnType*** ainda não funciona... Então eu encontrei uma [issue no Github](https://github.com/microsoft/vscode-cpptools/issues/1419) falando sobre o problema, que o ***formatOnType*** não funciona para o c#, porque essa feature funciona validando o `;` (mais usado no js). Eles possuem essa correção no roadmap, mas até a correção sair o **formatOnSave*** vai fazer o trabalho.
-
+A opção para formatar ao digitar ***formatOnType*** ainda não funciona.
+Encontrei uma [issue no Github](https://github.com/microsoft/vscode-cpptools/issues/1419) falando sobre o problema. O ***formatOnType*** não funciona para o C#, porque essa feature funciona validando o `;` (mais usado no js). Eles possuem essa correção no roadmap, mas até a correção sair o ***formatOnSave*** vai fazer o trabalho.

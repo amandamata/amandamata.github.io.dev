@@ -5,16 +5,16 @@ draft: false
 tags: ["vscode","dotnet"]
 ---
 
-This pass week I wake up early every day trying to do only one thing: make Visual Studio Code insert a new line before a curly bracket, braces {}.
+This past week, I dedicated my mornings to a single goal: configuring Visual Studio Code to automatically insert a new line before braces {}.
 
-I have this:
+How it was:
 ```shell
 if (true){
   // do something
 }
 ```
 
-and I want to format it like this:
+How I wanted it to be:
 ```shell
 if (true)
 {
@@ -22,24 +22,21 @@ if (true)
 }
 ```
 
-Was not as easy thing as may seem.
-Many sites and stack overflow have the same question, with many disappointing people without a resolution. So today I gonna share what I found.
+The task proved to be more challenging than I expected. I found many discussions about the same issue in forums and on Stack  Overflow, but no definitive solution. So I'm here to share the solution I discovered.
 
-First things first, you gonna need:
-1. Latest Visual Studio Code
-2. Latest C# Extension
-3. Updated OS
-4. omnisharp.json file 
-5. settings.json modifications
+First of all, you will need:
 
-## Omnisharp
+1. C# Extension;
+2. `omnisharp.json` file;
+3. Changes applied to `settings.json`.
 
-You can find your omnisharp location by checking on %USERPROFILE%/.omnisharp/
 
-Mine is in /home/amanda/.omnisharp/omnisharp.json
+## Configuring Omnisharp
 
-This is my omnisharp config:
+You can find the location of your Omnisharp in `%USERPROFILE%/.omnisharp/`.
+My Omnisharp is at `/home/amanda/.omnisharp/omnisharp.json`.
 
+This is my Omnisharp configuration:
 ```json
 {
     "FormattingOptions": {
@@ -67,16 +64,14 @@ This is my omnisharp config:
     }
 }
 ```
-Based on [this comment](https://github.com/OmniSharp/omnisharp-vscode/issues/1506#issuecomment-303390666)
+Configuration taken from [this comment](https://github.com/OmniSharp/omnisharp-vscode/issues/1506#issuecomment-303390666).
 
-## VSCode Settings	
+## Updating VSCode settings
 
-You can find your settings.json location by checking on ~/.config/Code/User
+You can find the `settings.json` file in `~/.config/Code/User`.
+My file is at `/home/amanda/.config/Code/User/settings.json`.
 
-Mine is in /home/amanda/.config/Code/User/settings.json
-
-I've inserted these lines in my settings.json:
-
+I added these lines to the settings.json:
 ```json
     "omnisharp.json": "/home/amanda/.omnisharp",
     "omnisharp.enableEditorConfigSupport": false,
@@ -88,35 +83,28 @@ I've inserted these lines in my settings.json:
     "editor.defaultFormatter": "ms-dotnettools.csharp",
     "[csharp]": {"editor.defaultFormatter": "ms-dotnettools.csharp"}
 ```
+For these settings to work, you need to have the C# extension installed and enabled, and after all this, restart Omnisharp.
 
-For this config work it's necessary to have the c# extension installed and enable and after these changes, restart omnisharp.
-
-
-Extension
-
+Here is the extension:
 ![brace1](/img/brace1.png)
 
-</br>
-Restart omnisharp
-Ctrl+Shift+p
-
+Ctrl+Shift+P: Restart Omnisharp
 ![brace2](/img/brace2.png)
 
-</br>
-After all of these changes, you can start using your visual studio code and enjoy braces in the new line. BUT
 
-The thing that takes me out of bed is, the auto format on type it's not working. So probably you make all of these changes by yourself, and still not working... is because to work you need to use Format Document in Visual Studio Code.
+## Everything working BUT
+After all these changes, you can start using Visual Studio Code and enjoy having braces inserted on a new line... BUT automatic formatting while typing is not working. To work, you need to use the Format Document option in Visual Studio Code.
+
 ![brace3](/img/brace3.png)
-</br>
-But I don't want to use this option all the time.
 
-After a lot of searching, I've found this editor settings
+I didn't want to keep using this option every time, so after a lot of searching, I found these settings for the editor:
 - ***editor.formatOnSave***
 - ***editor.formatOnPaste***
 - ***editor.formatOnType***
 
-With this settings, when save and on past the format will be done automatically.
+With these settings, when saving the file and pasting code, the formatting will be done automatically. 
+BUT the option to format while typing ***formatOnType*** still doesn't work. 
+I found a Github [issue](https://github.com/microsoft/vscode-cpptools/issues/1419) discussing the problem. 
+The ***formatOnType*** does not work for C# because this feature validates the ; (more used in js). 
+They have this fix on the roadmap, but until the fix is released, the ***formatOnSave*** will do the job.
 
-BUT
-
-Format on type still not working... Then I've found an [issue in Github](https://github.com/microsoft/vscode-cpptools/issues/1419) on vscode saying that ***formatOnType*** was not working for c#, because this feature work by checking `;` (most used in js). They have this fix in roadmap, but until they fix, format on save will do the job.
