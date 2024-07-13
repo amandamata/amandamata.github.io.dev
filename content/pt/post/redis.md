@@ -1,42 +1,40 @@
 ---
-title: "Implementando cache Redis com dotnet"
+title: "Implementando Cache com Redis no .NET"
 date: 2023-04-25T07:42:55-03:00
 tags: ["cache", "dotnet"]
 draft: false
 ---
 
-Recentemente tive que implementar um cache em uma aplicação para evitar consultas desnecessárias ao banco de dados, e isso foi muito legal. Já trabalhei com Redis no passado, mas acho que fiz da maneira errada porque implementar um cache com Redis nunca foi tão legal.
-<br/>
+## Introdução
 
-## Redis x Mem cached
-O Redis é quase como um banco noSql, mas ele é ainda melhor pois armazena os dados com chave e valor e com isso fica muito mais fácil de utilizar ele como um cache.
-Mas o ponto principal nessa comparação é: depende, depende de como e quanto dado será utilizado nesse cache. Se for pouco dado como guardar informações de uma sessão, o MemCache faz sentido. Mas se estamos falando de muitas consultas com dados maiores, como os dados que armazenamos no banco, o Redis faz um melhor trabalho. Isso porque ao utilizar o MemCache estamos utilizando da memória da aplicação pra salvar aquelas informações, já o Redis é um cache distribuído, não tem relação nenhuma com a memória da aplicação e é possível utilizar mais de um Redis database escalando verticalmente esse serviço conforme a demanda cresce.
+Recentemente, precisei implementar um cache em uma aplicação para evitar consultas desnecessárias ao banco de dados. Já trabalhei com Redis no passado, e percebi que a implementação de um cache com Redis pode ser bastante direta e eficaz quando feita corretamente.
 
-A primeira vez que for necessário usar o cache a informação não vai estar lá, então é necessário consultar no banco e salvar no cache, a segunda vez já não é necessário ir ao banco, pois a informação estará no cache. E isso faz com que a aplicação demore menos tempo para responder uma requisição, pois a ida ao banco demora muito mais que a ida ao redis.
+## Redis vs Memcached
+
+Redis é quase como um banco de dados NoSQL, mas se destaca como um cache devido ao seu modelo de armazenamento em chave-valor. A escolha entre Redis e Memcached depende do caso de uso e do volume de dados. Se você precisa armazenar informações de sessão, Memcached é uma boa escolha. No entanto, para consultas extensas envolvendo conjuntos de dados maiores, o Redis é mais adequado. Memcached usa a memória da aplicação para armazenar dados, enquanto o Redis é um cache distribuído, independente da memória da aplicação, permitindo escalonamento vertical conforme a demanda cresce.
+
+Quando um cache é usado pela primeira vez, a informação necessária não estará disponível, exigindo uma consulta ao banco de dados. Solicitações subsequentes podem recuperar dados diretamente do cache, reduzindo significativamente os tempos de resposta em comparação com as consultas ao banco de dados.
 
 ![redis](/img/redis.png)
 
-<br/>
+## Por Que Usar Cache?
 
-## Porque utilizar
-- Reduzir o tempo de resposta
-Melhorar a experiência do usuário final com a aplicação, fazendo ele esperar menos em cada clique ou ação.
+1. **Reduzir o Tempo de Resposta**: Melhore a experiência do usuário final minimizando os tempos de espera para ações ou cliques.
+2. **Aumentar a Disponibilidade**: Reduza recursos computacionais aproveitando dados em cache, permitindo que mais usuários acessem a aplicação simultaneamente.
+3. **Reduzir Custos Computacionais**: Diminua os custos de serviços na nuvem reduzindo a necessidade de consultas frequentes ao banco de dados e recursos do servidor.
+4. **Gerenciar Picos de Carga**: Gerencie picos de carga de forma eficaz distribuindo a carga de processamento ao longo do tempo.
 
-- Elevar a disponibilidade
-Uma vez que é preciso consumir menos recursos computacionais, porque já está no cache e devolvo mais rápido para o usuário final, é possível então ter mais usuários acessando simultaneamente a aplicação.
+## Cenário de Problema
 
-- Reduzir custos computacionais
-Quando estamos falando de cloud, estamos reduzindo o consumo de lambdas e recursos onde a fatura mensal pode ser mais barata.
+Considere uma aplicação que consulta frequentemente as mesmas informações do banco de dados. Originalmente, a aplicação não foi projetada para lidar com tal crescimento, resultando em problemas de desempenho. Por exemplo, uma aplicação de aluguel de carros precisa verificar se a empresa (identificada por um documento) na solicitação de aluguel existe no banco de dados. Cada solicitação envolve a consulta repetida dessa informação.
 
-O custo de um cache é alto, portanto, tem que estar custando caro no server side pra fazer essa migração para o cache. Por exemplo, problemas com demora de resposta para o cliente final podem custar caro, o cliente final pode simplesmente desistir de utilizar a aplicação pela demora, e muitos outros problemas que essa demora pode gerar. Para reduzir tanto esse custo de perda de cliente quanto o custo de consulta ao banco, utiliza-se então o cache para resolver esses problemas.
-<br/>
-## Problema
-Suponhamos que existe uma aplicação que faz muitas idas ao banco, mas sempre consultando as mesmas informações, quando a aplicação foi desenvolvida os desenvolvedores não achavam que ela poderia crescer tanto, e não foi implementado um cache para evitar essas consultas ao banco. 
-A aplicação é de aluguel de carro para empresas, e a consulta é simples, a cada requisição recebida no endpoint aluguél é necessário consultar se a empresa(cnpj) informada na solicitação de aluguel é a mesma que existe no banco.
-Temos o cenário, vamos para a implementação.
-<br/>
 ## Implementação
-Explicação  e problema apresentações, vamos a implementação!
+
+Para implementar o cache, usaremos o padrão Decorator. Isso nos permite adicionar uma camada de cache sem aumentar a complexidade na camada de repositório, aderindo ao Princípio da Responsabilidade Única do SOLID.
+
+### Passo 1: Instalar Pacotes Necessários
+
+Instale o Scrutor para injeção de dependência e o Microsoft.Extensions.Caching.StackExchangeRedis para suporte ao Redis.
 Para essa implementação vamos seguir um padrão chamado Decorator, com esse padrão é possível adicionar uma camada de cache sem adicionar complexidade a mais na camada de repositório, e vamos seguir o principio S do SOLID, [Single-responsibility principle](https://g.co/kgs/phLumf).
 
 Vamos trabalhar com dotnet, e instalar os pacotes [Scrutor](https://www.nuget.org/packages/scrutor/) e [StackExchangeRedis](https://www.nuget.org/packages/Microsoft.Extensions.Caching.StackExchangeRedis/7.0.5)
@@ -51,10 +49,9 @@ dotnet add package Microsoft.Extensions.Caching.StackExchangeRedis --version 7.0
 
 O Scrutor vai nos auxiliar durante a implementação da camada de cache sem tirar a responsabilidade única do repositório. E o StackExchangeRedis é o pacote client da Microsoft para fazermos o uso do redis com .NET.
 
-Vamos criar uma Service para lidar com tudo referente ao Redis.
-<br/>
+### Passo 2: Criar um Serviço de Cache
+Vamos criar um serviço para lidar com tudo relacionado ao Redis.
 Service:
-
 ```csharp
 public class CacheService : ICacheService
 {
@@ -113,10 +110,10 @@ public class CacheService : ICacheService
 }
 
 ```
-Vamos criar um Repository para lidar com a requisição de consulta ao banco que irá "interceptar" e ir primeiro no redis.
-<br/>
-Repository:
+### Passo 3: Criar um Repositório em Cache
 
+Vamos criar um repositório para lidar com a solicitação de consulta ao banco de dados que "interceptará" e consultará primeiro o Redis.
+Repository:
 ```csharp
 public class CachedAlugatorRepository : IAlugatorRepository
 {
@@ -162,21 +159,14 @@ public class CachedAlugatorRepository : IAlugatorRepository
 }
 
 ```
-
-O pulo do gato está na forma como iremos configurar o Repository na classe Program:
-
+### Passo 4: Configurar o Repositório na Classe Program
+Use o método Decorate para garantir que o CachedAlugatorRepository seja chamado antes do repositório original.
 ```csharp
 services.AddSingleton<IAlugatorRepository, AlugatorRepository>();
 services.Decorate<IAlugatorRepository, CachedAlugatorRepository>();
 ```
-Esse Decorate faz a mágica, pois, agora ao chamar a AlugatorRepository a CachedAlugatorRepository será "chamado" primeiro, então, toda chamada ao repositório será feita inicialmente para o Repositório de cache que contém a lógica da consulta ao Redis através da service. Com isso mantemos a AlugatorRepository limpa, temos uma repository específica para o cache CachedAlugatorRepository e não ferimos o Single Responsability Principle.
+Essa configuração garante que toda chamada ao repositório passe primeiro pelo CachedAlugatorRepository, mantendo o AlugatorRepository original limpo e mantendo a adesão ao Princípio da Responsabilidade Única.
 
+## Conclusão
 
-
-
-
-
-
-
-
-
+Implementar cache com Redis no .NET usando o padrão Decorator permite uma solução eficiente, escalável e de fácil manutenção. Reduzindo os tempos de resposta, aumentando a disponibilidade e diminuindo os custos computacionais, o cache melhora o desempenho geral e a experiência do usuário da aplicação.
