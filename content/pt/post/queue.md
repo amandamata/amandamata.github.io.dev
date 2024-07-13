@@ -24,7 +24,7 @@ Aqui entra o conceito de fila. Em vez de fazer todas essas operações de forma 
 
 Para que isso funcione, é necessário ter um serviço consumidor que ficará ouvindo a fila e fará algo com as informações nela contidas, como enviar um e-mail.
 
-![queue2](/img/queue3.png)
+![queue2](/img/queue2.png)
 
 Isso torna seu sistema mais resiliente. Se algo falhar no processamento, a mensagem volta para a fila e será reprocessada posteriormente.
 

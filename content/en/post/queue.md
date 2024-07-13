@@ -23,7 +23,7 @@ Here enters the concept of a queue. Instead of doing all these operations synchr
 
 To make this work, it's necessary to have a consumer service that will be listening to the queue and will do something with the information in the queue, like sending an email.
 
-![queue2](/img/queue3.png)
+![queue2](/img/queue2.png)
 
 This makes your system more resilient. If something fails in the processing, the message goes back to the queue and will be reprocessed later.
 
