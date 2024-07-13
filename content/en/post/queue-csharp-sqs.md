@@ -1,29 +1,26 @@
+
 ---
-title: "Implementing a sqs publisher and consumer using dotnet"
+title: "Implementing an SQS Publisher and Consumer Using .NET"
 date: 2023-02-22T07:19:25-03:00
 draft: false
 tags: ["queue","dotnet"]
 ---
 
-In this [post](/queue), I pass an introduction to a queue and how to use it. Now I gonna explain how to implement an sqs consumer and publisher using c# dotnet.
-<br/>
+In a previous post, I introduced the concept of queues and their usage. Now, I will explain how to implement an SQS consumer and publisher using C# and .NET.
+
 ## SQS
+SQS (Simple Queue Service) is an Amazon Web Services offering that enables the sending, storing, and receiving of messages between software components at any volume, ensuring no message loss and eliminating the need for immediate availability of other services.
 
-What is SQS?
+One of the best features of SQS is its cost-effectiveness; it's free for up to 1 million requests per month, after which Amazon starts billing for the service.
 
-SQS (Simple Queue Service) is an Amazon service that lets you send, store, and receive messages between software components at any volume, without losing messages or requiring other services to be available.
+To begin, you need to create an account on [AWS](https://aws.amazon.com/) and navigate to the [AWS Management Console](https://console.aws.amazon.com).
 
-The best part is free, actually to pay for this service you gonna need to send over 1 million requests per month then amazon is going to bill you.
+In the console, search for SQS and select the first option, Simple Queue Service. Click on "Create queue", name your queue, and proceed to the end of the page to click "Create queue". Default settings are sufficient for starting, but feel free to adjust as necessary.
 
-To start, it's necessary to create an account in [aws](https://aws.amazon.com/) and go to [console](https://console.aws.amazon.com).
+### AWS Command Line Interface
 
-In the console area, type SQS in search and enter the first option Simple Queue Service.
-Click on Create queue, add a name to the queue and go to the end of the page and click Create queue. You can change the default values, but for now, all the settings are ok.
-<br/>
-## AWS Command Line Interface
+The AWS Command Line Interface (CLI) enables making changes directly from the terminal, bypassing the need to use the AWS Management Console. For instance, to list all S3 buckets, you can use the following command:
 
-The AWS Command Line Interface allows us to make changes directly from the console without the need to access the AWS console.
-For example, if we need to list the buckets:
 ```shell
 aws s3api list-buckets
 ```
@@ -52,16 +49,17 @@ aws s3api list-buckets
 <br/>
 
 ## Publisher
-What is a publisher?
+What is a Publisher?
 
-A publisher it's a service that gonna get the information that something changes and sends to the queue a request.
-In the example used in the queue post, the publisher is inside the API, and after a new user was created the request was sent to the queue.
+A publisher is a service that detects changes or events and sends a message to a queue. In the context of the example discussed in the previous post about queues, the publisher resides within an API. For instance, after creating a new user, the publisher sends a message to the queue to notify other parts of the system about this event.
 
-So with everything configured, it's time to create the publisher.
+Now that we have our setup ready, let's proceed to create the publisher.
 
-In order to simplify, the example here it's gonna be only the publisher, then you can take the implementation and use it in your API.
+For simplicity, this example will focus solely on the publisher component. You can later integrate this implementation into your API as needed.
 
-We're gonna use a Console App
+We will use a Console Application for this demonstration.
+
+Open your terminal or command prompt and run the following command to create a new folder named `publisher`:
 
 Create a new folder:
 ```shell
@@ -137,11 +135,11 @@ Console.WriteLine();
 <br/>
 
 ## Consumer
-What it's a consumer? 
+What is a Consumer?
 
-A consumer it's the service that will be listening the queue.
+A consumer is a service designed to listen to the queue. It waits for messages to arrive in the queue and processes them according to the defined business logic.
 
-We're gonna use a Console App
+For this part of the implementation, we will also use a Console Application to demonstrate how a consumer can be set up to listen to and process messages from the queue.
 
 Create a new folder:
 ```shell
@@ -204,7 +202,7 @@ Console.WriteLine();
 ```
 <br/>
 
-Now the publisher and the consumer It's created, you can pull for messages inside the aws console, but just running the publisher and the consumer you're gonna be able to see the sending and receiving messages.
+Now that both the publisher and the consumer have been created, you have the option to pull messages directly from the AWS console. However, by simply running the publisher and the consumer, you will be able to observe the process of sending and receiving messages in action.
 ___
 
 I create this post for my studying purpose, the learnings I posted here were driven by the [Cloud Fundamentals: AWS Services for C# Developers course](https://nickchapsas.com/p/cloud-fundamentals-aws-services-for-c-developers).

@@ -1,52 +1,46 @@
 ---
-title: "Implementando um publisher e consumer SQS usando dotnet"
+title: "Implementando um Publicador e Consumidor SQS Usando .NET"
 date: 2023-02-22T07:19:25-03:00
 draft: false
 tags: ["queue","dotnet"]
 ---
 
-Nesse [post](/pt-pt/queue), eu passei a introdução de uma fila e como utilizá-la. Agora, eu vou explicar como implementar um consumer e sqs publisher usando c# dotnet.
-<br/>
+Em um post anterior, introduzi o conceito de filas e seu uso. Agora, explicarei como implementar um Consumer (consumidor) e Publisher (publicador) SQS usando C# e .NET.
+
 ## SQS
+SQS (Simple Queue Service) é um serviço da Amazon Web Services que permite enviar, armazenar e receber mensagens entre componentes de software em qualquer volume, garantindo que nenhuma mensagem seja perdida e eliminando a necessidade de disponibilidade imediata de outros serviços.
 
-O que é SQS?
+Uma das melhores características do SQS é sua relação custo-benefício; é gratuito para até 1 milhão de solicitações por mês, após o qual a Amazon começa a cobrar pelo serviço.
 
-SQS (Simple Queue Service) é um serviço da Amazon que permite que você envie, salve, e receba mensagens entre aplicações, sem que você perca essas mensagens caso o serviço esteja indisponível.
+Para começar, você precisa criar uma conta na [AWS](https://aws.amazon.com/) e navegar até o [AWS Management Console](https://console.aws.amazon.com).
 
-A melhor parte de tudo isso é que, para você pagar por esse serviço, você teria que enviar mais de um milhão de requisições por mês, para que a amazon te envie uma cobrança.
+No console, procure por SQS e selecione a primeira opção, Simple Queue Service. Clique em "Create queue", nomeie sua fila e vá até o final da página para clicar em "Create queue". As configurações padrão são suficientes para começar, mas sinta-se à vontade para ajustá-las conforme necessário.
 
-Para começar pe necessário criar uma conta na [aws](https://aws.amazon.com/) e então ir para o [console](https://console.aws.amazon.com).
+### AWS Command Line Interface
 
-Na área do console, digite SQS no campo de busca e entre na primeira opção, Simple Queue Service.
-
-Clique em Create queue, e adicione o nome para a fila, e então vá para o final da página e clique em Create queue. Você pode alterar os valores que vem por padrão, mas para esse exemplos o padrão já está de acordo.
-<br/>
-## AWS Command Line Interface
-A AWS Command Line Interface permite que façamos mudanças e requisições diretamente pelo console localmente, sem a necessidade de acessar o AWS console no navegador.
-
-Se por exemplo quisermos listar os buckets:
+A AWS Command Line Interface (CLI) permite fazer alterações diretamente do terminal, sem a necessidade de usar o AWS Management Console. Por exemplo, para listar todos os buckets do S3, você pode usar o seguinte comando:
 ```shell
 aws s3api list-buckets
 ```
 
-Para conseguirmos fazer isso, é necessário instalar o cli, o tutorial para Windows, Linux e macOs está [aqui](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html).
+Para poder fazer isso, precisamos instalar a CLI, o tutorial para Windows, Linux e macOS está [aqui](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html).
 
-Depois da instalação, é necessário autenticar sua máquina na aws.
+Após a instalação, é necessário autenticar sua máquina contra a AWS.
 
-Na aws console, clique em seu nome e vá até Security Credentials, lá você precisa criar uma Access Key.
+No console da AWS, clique no seu nome e vá para Credenciais de Segurança, lá, você precisa criar uma Chave de Acesso.
 
-Então em seu console você vai digitar:
+No seu console, digite:
 ```shell
 aws configure
 ```
 
-Então coloque a sua access key e token quando solicitado.
+Em seguida, forneça sua chave de acesso e token quando solicitado.
 
-> Importante, no console da aws você possui uma região, a minha é us-east-1, você pode ver a sua consultando a url: https://***us-east-1***.console.aws.amazon.com/
+Importante, no console da AWS você tem uma região, a minha é us-east-1, você pode ver a sua verificando a URL: https://***us-east-1***.console.aws.amazon.com/
 
-Essa região deve ser passada durante a configuração aws no console, para que consiga utilizar completamente as features via console localmente.
+Essa região precisa ser informada durante a configuração da AWS para poder acessar os recursos localmente.
 
-Depois da configuração finalizada, você poderá executar a listagem de buckets. 
+Após a configuração, você poderá executar o comando de listar buckets:
 ```shell
 aws s3api list-buckets
 ```
@@ -55,14 +49,15 @@ aws s3api list-buckets
 ## Publisher
 O que é um publisher?
 
-Um publisher é um serviço que vai pegar uma informação que algo mudou por exemplo e enviar essa informação para a fila.
-No exemplo que utilizei no post sobre a fila, o publisher estava dentro da API, e quando um novo usuário era criado a informação era enviada para a fila.
+Um publisher é um serviço que detecta mudanças ou eventos e envia uma mensagem para uma fila. No contexto do exemplo discutido no post anterior sobre filas, o publisher reside dentro de uma API. Por exemplo, após criar um novo usuário, o publisher envia uma mensagem para a fila para notificar outras partes do sistema sobre este evento.
 
-Então com tudo configurado, agora vamos criar o publisher.
+Agora que temos nossa configuração pronta, vamos criar o publisher.
 
-Para deixar simples, o exemplo aqui vai ser apenas o publisher, então você pode pegar a implementação e aplicar na sua API.
+Para simplicidade, este exemplo focará apenas no componente do publisher. Você pode integrar essa implementação à sua API conforme necessário.
 
-Vamos utilizar o Console App
+Usaremos um aplicativo de console para esta demonstração.
+
+Abra seu terminal ou prompt de comando e execute o seguinte comando para criar uma nova pasta chamada publisher:
 
 Crie uma nova pasta:
 ```shell
@@ -77,7 +72,7 @@ Crie o projeto:
 dotnet new console
 ```
 
-Um modelo é necessário:
+É necessário um model:
 ```csharp
 public class CustomerCreated
 {
@@ -138,11 +133,10 @@ Console.WriteLine();
 <br/>
 
 ## Consumer
-O que é um consumer? 
+O que é um Consumer?
 
-Um consumer é o serviço que irá escutar a fila.
-
-Vamos utilizar o Console App
+Um consumer é um serviço projetado para ouvir a fila. Ele espera que as mensagens cheguem à fila e as processa de acordo com a lógica de negócios definida.
+Para esta parte da implementação, também usaremos um aplicativo de console para demonstrar como um consumidor pode ser configurado para ouvir e processar mensagens da fila.
 
 Crie uma nova pasta:
 ```shell
@@ -157,7 +151,7 @@ Crie o projeto:
 dotnet new console
 ```
 
-Um modelo é necessário:
+É necessário um model:
 ```csharp
 public class CustomerCreated
 {
@@ -173,8 +167,7 @@ E instale o [AWS SDK](https://www.nuget.org/packages/AWSSDK.SQS)
 dotnet add package AWSSDK.SQS --version 3.7.100.78
 ```
 
-Então na classe Program precisamos receber a requisição:
-
+Depois disso, no Program, precisamos receber a solicitação:
 ```csharp
 using Amazon.SQS;
 using Amazon.SQS.Model;
@@ -205,7 +198,7 @@ Console.WriteLine();
 ```
 <br/>
 
-Agora o publisher e o consumer estão criados, você pode verificar as mensagens no aws console, mas apenas executando o publisher e o consumer você vai conseguir ver as mensagens sendo enviadas e sendo recebidas.
+Agora que tanto o publicador quanto o consumidor foram criados, você tem a opção de verificar as mensagens diretamente do console da AWS. No entanto, simplesmente executando o publicador e o consumidor, você poderá observar o processo de envio e recebimento de mensagens em ação.
 
 ___
 
