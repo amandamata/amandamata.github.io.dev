@@ -6,38 +6,54 @@ defaultContentLanguage = 'en'
   [languages.pt-pt]
     contentDir = "content/pt"
     title = 'amandabytes'
-    languageName = "pt"
+    languageName = "pt-BR"
     weight = 1
+
+    [[languages.pt-pt.menu.main]]
+    name = "início"
+    pageRef = "/"
+    weight = 1
+
+    [[languages.pt-pt.menu.main]]
+    name = "tags"
+    url = "/tags"
+    weight = 2
+
+    [[languages.pt-pt.menu.main]]
+    name = "arquivos"
+    url = "/post"
+    weight = 3
+
+    [[languages.pt-pt.menu.main]]
+    name = "sobre"
+    url = "/about"
+    weight = 4
+
   [languages.en]
-    title = 'amandabytes'
     contentDir = "content/en"
-    weight = 1
+    title = 'amandabytes'
     languageName = "en"
+    weight = 1
 
-[author]
-name = "amanda"
+    [[languages.en.menu.main]]
+    name = "home"
+    pageRef = "/"
+    weight = 1
 
-[menu]
-[[menu.main]]
-name = "home"
-pageRef = "/"
-weight = 1
+    [[languages.en.menu.main]]
+    name = "tags"
+    url = "/tags"
+    weight = 2
 
-[[menu.main]]
-name = "tags"
-url = "/tags"
-weight = 2
+    [[languages.en.menu.main]]
+    name = "archive"
+    url = "/post"
+    weight = 3
 
-[[menu.main]]
-name = "archive"
-url = "/post"
-weight = 3
-
-[[menu.main]]
-name = "about"
-url = "/about"
-weight = 4
-
+    [[languages.en.menu.main]]
+    name = "about"
+    url = "/about"
+    weight = 4
 
 [params]
 readMore = false # true | false; Showing readmore link in the list of posts; default: false

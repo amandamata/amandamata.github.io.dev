@@ -2,29 +2,24 @@
 title: "Sobre mim"
 date: "2023-01-25"
 ---
+## Olá! 
+Eu sou Amanda, tenho 28 anos, moro no interior de São Paulo, sou Engenheira de Software na pagar.me StoneCo.
+Minhas paixões são: café, tatuagens, astronomia e economia, jogos antigos e cubo mágico.
 
-Olá! Sou a Amanda, tenho 28 anos.
+Desde pequena, sempre fui fascinada por entender como as coisas funcionam. Desmontava tudo o que tinha engrenagens e bateria para descobrir como funcionava. Na adolescência, ganhei um notebook da Positivo – um presente que, embora tenha sido um terror em termos de performance, se tornou um marco para mim. Um amigo do MSN, que sabia um pouco sobre computadores, me ajudou a reinstalar o driver de som que eu havia apagado acidentalmente. Foi incrível ver como, com apenas o modelo do meu notebook, ele conseguiu me ajudar a restaurar o som que havia parado de funcionar. Esse episódio despertou ainda mais meu interesse por computadores, e me levou a estudar mais sobre o assunto.
 
-Desde 2014, estou imersa no mundo da tecnologia, e desde 2019, me aventurei no universo da programação. Aqui no meu cantinho da internet, você encontrará uma coleção de aprendizados, experiências e projetos nos quais trabalhei.
+Com a sugestão do meu professor de hardware de computadores, decidi seguir para Ciências da Computação e comecei a faculdade em 2014, me formando em 2019. Meu início na área de TI foi com suporte a computadores, mas em 2019 transicionei para o desenvolvimento de software. Sinto-me realizada por trabalhar em uma área que me permite resolver problemas, algo que sempre me fascinou.
 
-Sinta-se à vontade para explorar e, quem sabe, encontrar algo que ressoe com você.
+Criei este blog para compartilhar os aprendizados e desafios que encontrei ao longo da minha jornada na Tecnologia. Sinta-se à vontade para explorar, e quem sabe encontrar algo que te ajude.
 
-## Minha Jornada
-
-Sou formada em Ciência da Computação e atualmente trabalho como Engenheira de Software na PagarMe. Ao longo dos anos, trabalhei com diversas tecnologias, incluindo C#, JavaScript, Go e frameworks modernos como Node.js. Cada projeto em que trabalhei me ensinou algo novo, e estou sempre em busca de novos desafios.
-
-## Contato
-
-Quer conversar? Me mande um e-mail: **[amanda.mata@live.com](mailto:amanda.mata@live.com)**
-
-## Opiniões
-
+### Disclaimer
 As opiniões expressas aqui são pessoais e não representam as de meu empregador atual ou de qualquer empregador anterior.
 
-## Apoie meu trabalho
 
-Se você gosta do conteúdo que eu crio e quer me apoiar, considere me comprar um café. Qualquer contribuição é muito apreciada e me ajuda a continuar produzindo conteúdo.
+### Contato
+Se desejar entrar em contato comigo, você pode me encontrar no **[LinkedIn](https://www.linkedin.com/in/amanda-mata/)** ou enviar um e-mail para **[amanda.mata@live.com](mailto:amanda.mata@live.com)**.
 
+
+
+#### Me pague um café
 BTC Wallet: `bc1qjy622x7qh6k453tdgcu7hhhj7agv6nqnysfdlntx6uf0tp4g8ujs0vcd9a`
-
-![wallet](/img/wallet.png)
