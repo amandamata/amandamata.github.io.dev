@@ -6,7 +6,7 @@ defaultContentLanguage = 'en'
   [languages.pt-pt]
     contentDir = "content/pt"
     title = 'amandabytes'
-    languageName = "pt-BR"
+    languageName = "pt-br"
     weight = 1
 
     [[languages.pt-pt.menu.main]]
@@ -54,6 +54,9 @@ defaultContentLanguage = 'en'
     name = "about"
     url = "/about"
     weight = 4
+
+[author]
+name = "amanda"
 
 [params]
 readMore = false # true | false; Showing readmore link in the list of posts; default: false
