@@ -3,8 +3,9 @@ title: "Sobre mim"
 date: "2023-01-25"
 ---
 ## Olá! 
-Eu sou Amanda, tenho 28 anos, moro no interior de São Paulo, sou Engenheira de Software na pagar.me StoneCo.
-Minhas paixões são: café, tatuagens, astronomia e economia, jogos antigos e cubo mágico.
+Eu sou Amanda, tenho 28 anos, moro no interior de São Paulo, sou Engenheira de Software na Pagar.me (StoneCo).
+
+Minhas paixões são programação, café, astronomia, economia e jogos antigos.
 
 Desde pequena, sempre fui fascinada por entender como as coisas funcionam. Desmontava tudo o que tinha engrenagens e bateria para descobrir como funcionava. Na adolescência, ganhei um notebook da Positivo – um presente que, embora tenha sido um terror em termos de performance, se tornou um marco para mim. Um amigo do MSN, que sabia um pouco sobre computadores, me ajudou a reinstalar o driver de som que eu havia apagado acidentalmente. Foi incrível ver como, com apenas o modelo do meu notebook, ele conseguiu me ajudar a restaurar o som que havia parado de funcionar. Esse episódio despertou ainda mais meu interesse por computadores, e me levou a estudar mais sobre o assunto.
 

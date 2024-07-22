@@ -3,7 +3,9 @@ title: "About me"
 date: "2023-01-25"
 ---
 ## Hello!
-I’m Amanda, 28 years old, living in the countryside of São Paulo, and I’m a Software Engineer at pagar.me StoneCo. My passions include coffee, tattoos, astronomy, economics, retro games, and the Rubik's Cube.
+I’m Amanda, 28 years old, living in the countryside of São Paulo, and I’m a Software Engineer at Pagar.me (StoneCo).
+
+My passions include programming, coffee, astronomy, economics, and retro games.
 
 Since I was young, I’ve been fascinated by understanding how things work. I used to disassemble anything with gears and batteries to figure out its workings. During my teenage years, I received a Positivo notebook – a gift that, although it was a nightmare in terms of performance, became a milestone for me. A friend from MSN, who knew a bit about computers, helped me reinstall the sound driver I had accidentally deleted. It was amazing to see how, with just the model of my notebook, he managed to help me restore the sound that had stopped working. This episode further sparked my interest in computers and led me to study more about the subject.
 
