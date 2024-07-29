@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+
+
+<html lang="en" data-theme="">
+<head>
+    
+        
+<meta charset="utf-8">
+<meta name="HandheldFriendly" content="True">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer-when-downgrade">
+
+<title>Curly braces on new line in vscode - amandabytes</title>
+
+<meta name="description" content="This past week, I dedicated my mornings to a single goal: configuring Visual Studio Code to automatically insert a new line before braces {}.
+How it was:
+if (true){ // do something } How I wanted it to be:
+if (true) { // do something } The task proved to be more challenging than I expected. I found many discussions about the same issue in forums and on Stack Overflow, but no definitive solution.">
+
+
+
+
+
+<link rel="icon" type="image/x-icon" href="https://amandamata.github.io/favicon.ico">
+<link rel="apple-touch-icon-precomposed" href="https://amandamata.github.io/favicon.png">
+
+
+
+
+
+
+    
+
+
+
+    
+
+
+
+<style>
+  body {
+    visibility: hidden;
+    opacity: 0;
+  }
+</style>
+
+<noscript>
+  <style>
+    body {
+      visibility: visible;
+      opacity: 1;
+    }
+  </style>
+</noscript>
+
+
+
+
+    
+
+
+
+
+
+    
+    
+        
+    
+    
+
+    
+        <link rel="stylesheet" href="/css/style.min.184a655c5ad8596648622468e6696abf0cf0a2cf8266df17b4f7a36fe9c97551.css" integrity="sha256-GEplXFrYWWZIYiRo5mlqvwzwos&#43;CZt8XtPejb&#43;nJdVE=">
+    
+
+
+
+
+
+    
+
+
+
+
+
+    
+    
+        
+    
+    
+
+    
+        <link rel="stylesheet" href="/css/style.min.c4c04b3ef88e3d619ad4c7ee5e03048422bc55c4fefdc1f07657c1133670aa22.css" integrity="sha256-xMBLPviOPWGa1MfuXgMEhCK8VcT&#43;/cHwdlfBEzZwqiI=">
+    
+
+
+
+
+
+    
+
+
+
+
+
+    
+    
+        
+    
+    
+
+    
+        <link rel="stylesheet" href="/css/style.min.21c5d8fe0a79d623b0adc1ce4bd4f6dd2c05cd939c9aaaa966ba7186b1464f4d.css" integrity="sha256-IcXY/gp51iOwrcHOS9T23SwFzZOcmqqpZrpxhrFGT00=">
+    
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+    
+
+
+
+
+
+    
+    
+        
+    
+    
+
+    
+        <script src="/js/script.min.08f04d96386c73c9bf4d160333f8f448c05a6e01c06770542ee0e013954ce930.js" type="text/javascript" charset="utf-8" integrity="sha256-CPBNljhsc8m/TRYDM/j0SMBabgHAZ3BULuDgE5VM6TA="></script>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+</head>
+<body>
+    <a class="skip-main" href="#main">Skip to main content</a>
+    <div class="container">
+        <header class="common-header">
+            
+                <div class="header-top">
+    <div class="header-top-left">
+        <h1 class="site-title noselect">
+    <a href="/">amandabytes</a>
+</h1>
+
+        
+
+
+
+    
+
+
+
+    
+
+
+
+    
+        <div class="theme-switcher">
+            <span class="inline-svg">
+
+    
+
+
+    
+    
+    
+    
+    
+
+    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-sun-high"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14.828 14.828a4 4 0 1 0 -5.656 -5.656a4 4 0 0 0 5.656 5.656z" /><path d="M6.343 17.657l-1.414 1.414" /><path d="M6.343 6.343l-1.414 -1.414" /><path d="M17.657 6.343l1.414 -1.414" /><path d="M17.657 17.657l1.414 1.414" /><path d="M4 12h-2" /><path d="M12 4v-2" /><path d="M20 12h2" /><path d="M12 20v2" /></svg>
+
+
+</span>
+
+        </div>
+    
+
+    <script>
+        const STORAGE_KEY = 'user-color-scheme'
+        const defaultTheme = "auto"
+
+        let currentTheme
+        let switchButton
+        let autoDefinedScheme = window.matchMedia('(prefers-color-scheme: dark)')
+
+        function switchTheme(e) {
+            currentTheme = (currentTheme === 'dark') ? 'light' : 'dark';
+            if (localStorage) localStorage.setItem(STORAGE_KEY, currentTheme);
+            document.documentElement.setAttribute('data-theme', currentTheme);
+            changeGiscusTheme(currentTheme);
+            document.body.dispatchEvent(new CustomEvent(currentTheme + "-theme-set"));
+        }
+
+        const autoChangeScheme = e => {
+            currentTheme = e.matches ? 'dark' : 'light'
+            document.documentElement.setAttribute('data-theme', currentTheme);
+            changeGiscusTheme(currentTheme);
+            document.body.dispatchEvent(new CustomEvent(currentTheme + "-theme-set"));
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            switchButton = document.querySelector('.theme-switcher')
+            currentTheme = detectCurrentScheme()
+
+            if (currentTheme === 'auto') {
+                autoChangeScheme(autoDefinedScheme);
+                autoDefinedScheme.addListener(autoChangeScheme);
+            } else {
+                document.documentElement.setAttribute('data-theme', currentTheme)
+            }
+
+            if (switchButton) {
+                switchButton.addEventListener('click', switchTheme, false)
+            }
+
+            showContent();
+        })
+
+        function detectCurrentScheme() {
+            if (localStorage !== null && localStorage.getItem(STORAGE_KEY)) {
+                return localStorage.getItem(STORAGE_KEY)
+            }
+            if (defaultTheme) {
+                return defaultTheme
+            }
+            return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+
+        function showContent() {
+            document.body.style.visibility = 'visible';
+            document.body.style.opacity = 1;
+        }
+
+        function changeGiscusTheme (theme) {
+            function sendMessage(message) {
+              const iframe = document.querySelector('iframe.giscus-frame');
+              if (!iframe) return;
+              iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+            }
+
+            sendMessage({
+              setConfig: {
+                theme: theme
+              }
+            });
+        }
+    </script>
+
+
+        <ul class="social-icons noselect">
+
+
+    
+        
+        
+        <li>
+            <a href="https://github.com/amandamata" title="Github" rel="me">
+            <span class="inline-svg">
+
+    
+
+
+    
+    
+    
+    
+    
+
+    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-brand-github"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" /></svg>
+
+
+</span>
+
+            </a>
+        </li>
+    
+
+    
+        <li>
+            <a href="https://www.linkedin.com/in/amanda-mata/" title="Linkedin" rel="me">
+            <span class="inline-svg">
+
+    
+
+
+    
+    
+    
+    
+    
+
+    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-brand-linkedin"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z" /><path d="M8 11l0 5" /><path d="M8 8l0 .01" /><path d="M12 16l0 -5" /><path d="M16 16v-3a2 2 0 0 0 -4 0" /></svg>
+
+
+</span>
+
+            </a>
+        </li>
+    
+
+
+
+
+
+
+
+</ul>
+
+    </div>
+    <div class="header-top-right">
+        <ul class="post-translations">
+    
+    
+    
+
+    
+        
+            <li>en</li>
+        
+    
+        
+            <li><a href="/pt-pt/post/curly-brace/">pt-br</a></li>
+        
+    
+</ul>
+
+    </div>
+</div>
+
+
+    <nav class="noselect">
+        
+        
+        <a class="" href="https://amandamata.github.io/" title="">home</a>
+        
+        <a class="" href="https://amandamata.github.io/tags" title="">tags</a>
+        
+        <a class="" href="https://amandamata.github.io/post" title="">archive</a>
+        
+        <a class="" href="https://amandamata.github.io/about" title="">about</a>
+        
+    </nav>
+
+
+
+
+
+
+
+
+            
+        </header>
+        <main id="main" tabindex="-1">
+            
+    
+
+    <article class="post h-entry">
+        <div class="post-header">
+            <header>
+                <h1 class="p-name post-title">Curly braces on new line in vscode</h1>
+            </header>
+            
+
+
+
+<div class="post-info noselect">
+    
+        <div class="post-date dt-published">
+            <time datetime="2023-02-18">2023-02-18</time>
+            
+        </div>
+    
+
+    <a class="post-hidden-url u-url" href="/post/curly-brace/">/post/curly-brace/</a>
+    <a href="https://amandamata.github.io/" class="p-name p-author post-hidden-author h-card" rel="me"></a>
+
+
+    <div class="post-taxonomies">
+        
+        
+            <ul class="post-tags">
+                
+                    
+                    <li><a href="/tags/vscode/">#Vscode</a></li>
+                
+                    
+                    <li><a href="/tags/dotnet/">#Dotnet</a></li>
+                
+            </ul>
+        
+        
+    </div>
+</div>
+
+        </div>
+        
+
+  
+  
+    
+  
+
+
+
+
+
+
+<script>
+  var toc = document.querySelector(".toc");
+  if (toc) {
+    toc.addEventListener("click", function () {
+      if (event.target.tagName !== "A") {
+        event.preventDefault();
+        if (this.open) {
+          this.open = false;
+          this.classList.remove("expanded");
+        } else {
+          this.open = true;
+          this.classList.add("expanded");
+        }
+      }
+    });
+  }
+</script>
+
+        <div class="content e-content">
+            <p>This past week, I dedicated my mornings to a single goal: configuring Visual Studio Code to automatically insert a new line before braces {}.</p>
+<p>How it was:</p>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#ff6ac1">if</span> <span style="color:#ff6ac1">(</span><span style="color:#ff5c57">true</span><span style="color:#ff6ac1">){</span>
+</span></span><span style="display:flex;"><span>  // <span style="color:#ff6ac1">do</span> something
+</span></span><span style="display:flex;"><span><span style="color:#ff6ac1">}</span>
+</span></span></code></pre></div><p>How I wanted it to be:</p>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#ff6ac1">if</span> <span style="color:#ff6ac1">(</span><span style="color:#ff5c57">true</span><span style="color:#ff6ac1">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff6ac1">{</span>
+</span></span><span style="display:flex;"><span>  // <span style="color:#ff6ac1">do</span> something
+</span></span><span style="display:flex;"><span><span style="color:#ff6ac1">}</span>
+</span></span></code></pre></div><p>The task proved to be more challenging than I expected. I found many discussions about the same issue in forums and on Stack  Overflow, but no definitive solution. So I&rsquo;m here to share the solution I discovered.</p>
+<p>First of all, you will need:</p>
+<ol>
+<li>C# Extension;</li>
+<li><code>omnisharp.json</code> file;</li>
+<li>Changes applied to <code>settings.json</code>.</li>
+</ol>
+<h2 id="configuring-omnisharp" >
+<div>
+    <a href="#configuring-omnisharp">
+        #
+    </a>
+    Configuring Omnisharp
+</div>
+</h2>
+<p>You can find the location of your Omnisharp in <code>%USERPROFILE%/.omnisharp/</code>.
+My Omnisharp is at <code>/home/amanda/.omnisharp/omnisharp.json</code>.</p>
+<p>This is my Omnisharp configuration:</p>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#ff6ac1">&#34;FormattingOptions&#34;</span>: {
+</span></span><span style="display:flex;"><span>        <span style="color:#ff6ac1">&#34;newLine&#34;</span>: <span style="color:#5af78e">&#34;\n&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#ff6ac1">&#34;useTabs&#34;</span>: <span style="color:#ff6ac1">false</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#ff6ac1">&#34;tabSize&#34;</span>: <span style="color:#ff9f43">4</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#ff6ac1">&#34;indentationSize&#34;</span>: <span style="color:#ff9f43">4</span>,
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff6ac1">&#34;NewLinesForBracesInTypes&#34;</span>: <span style="color:#ff6ac1">true</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#ff6ac1">&#34;NewLinesForBracesInMethods&#34;</span>: <span style="color:#ff6ac1">true</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#ff6ac1">&#34;NewLinesForBracesInProperties&#34;</span>: <span style="color:#ff6ac1">true</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#ff6ac1">&#34;NewLinesForBracesInAccessors&#34;</span>: <span style="color:#ff6ac1">true</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#ff6ac1">&#34;NewLinesForBracesInAnonymousMethods&#34;</span>: <span style="color:#ff6ac1">true</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#ff6ac1">&#34;NewLinesForBracesInControlBlocks&#34;</span>: <span style="color:#ff6ac1">true</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#ff6ac1">&#34;NewLinesForBracesInAnonymousTypes&#34;</span>: <span style="color:#ff6ac1">true</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#ff6ac1">&#34;NewLinesForBracesInObjectCollectionArrayInitializers&#34;</span>: <span style="color:#ff6ac1">true</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#ff6ac1">&#34;NewLinesForBracesInLambdaExpressionBody&#34;</span>: <span style="color:#ff6ac1">true</span>,
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff6ac1">&#34;NewLineForElse&#34;</span>: <span style="color:#ff6ac1">true</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#ff6ac1">&#34;NewLineForCatch&#34;</span>: <span style="color:#ff6ac1">true</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#ff6ac1">&#34;NewLineForFinally&#34;</span>: <span style="color:#ff6ac1">true</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#ff6ac1">&#34;NewLineForMembersInObjectInit&#34;</span>: <span style="color:#ff6ac1">true</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#ff6ac1">&#34;NewLineForMembersInAnonymousTypes&#34;</span>: <span style="color:#ff6ac1">true</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#ff6ac1">&#34;NewLineForClausesInQuery&#34;</span>: <span style="color:#ff6ac1">true</span>,
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Configuration taken from <a href="https://github.com/OmniSharp/omnisharp-vscode/issues/1506#issuecomment-303390666">this comment</a>.</p>
+<h2 id="updating-vscode-settings" >
+<div>
+    <a href="#updating-vscode-settings">
+        #
+    </a>
+    Updating VSCode settings
+</div>
+</h2>
+<p>You can find the <code>settings.json</code> file in <code>~/.config/Code/User</code>.
+My file is at <code>/home/amanda/.config/Code/User/settings.json</code>.</p>
+<p>I added these lines to the settings.json:</p>
+<div class="highlight"><pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>    <span style="color:#5af78e">&#34;omnisharp.json&#34;</span><span style="color:#ff5c57">:</span> <span style="color:#5af78e">&#34;/home/amanda/.omnisharp&#34;</span><span style="color:#ff5c57">,</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#5af78e">&#34;omnisharp.enableEditorConfigSupport&#34;</span><span style="color:#ff5c57">:</span> <span style="color:#ff6ac1">false</span><span style="color:#ff5c57">,</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#5af78e">&#34;omnisharp.useEditorFormattingSettings&#34;</span><span style="color:#ff5c57">:</span> <span style="color:#ff6ac1">true</span><span style="color:#ff5c57">,</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#5af78e">&#34;omnisharp.path&#34;</span><span style="color:#ff5c57">:</span> <span style="color:#5af78e">&#34;latest&#34;</span><span style="color:#ff5c57">,</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#5af78e">&#34;editor.formatOnType&#34;</span><span style="color:#ff5c57">:</span> <span style="color:#ff6ac1">true</span><span style="color:#ff5c57">,</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#5af78e">&#34;editor.formatOnSave&#34;</span><span style="color:#ff5c57">:</span> <span style="color:#ff6ac1">true</span><span style="color:#ff5c57">,</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#5af78e">&#34;editor.formatOnPaste&#34;</span><span style="color:#ff5c57">:</span> <span style="color:#ff6ac1">true</span><span style="color:#ff5c57">,</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#5af78e">&#34;editor.defaultFormatter&#34;</span><span style="color:#ff5c57">:</span> <span style="color:#5af78e">&#34;ms-dotnettools.csharp&#34;</span><span style="color:#ff5c57">,</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#5af78e">&#34;[csharp]&#34;</span><span style="color:#ff5c57">:</span> {<span style="color:#ff6ac1">&#34;editor.defaultFormatter&#34;</span>: <span style="color:#5af78e">&#34;ms-dotnettools.csharp&#34;</span>}
+</span></span></code></pre></div><p>For these settings to work, you need to have the C# extension installed and enabled, and after all this, restart Omnisharp.</p>
+<p>Here is the extension:
+<img alt="brace1" src="/img/brace1.png"></p>
+<p>Ctrl+Shift+P: Restart Omnisharp
+<img alt="brace2" src="/img/brace2.png"></p>
+<h2 id="everything-working-but" >
+<div>
+    <a href="#everything-working-but">
+        #
+    </a>
+    Everything working BUT
+</div>
+</h2>
+<p>After all these changes, you can start using Visual Studio Code and enjoy having braces inserted on a new line&hellip; BUT automatic formatting while typing is not working. To work, you need to use the Format Document option in Visual Studio Code.</p>
+<p><img alt="brace3" src="/img/brace3.png"></p>
+<p>I didn&rsquo;t want to keep using this option every time, so after a lot of searching, I found these settings for the editor:</p>
+<ul>
+<li><em><strong>editor.formatOnSave</strong></em></li>
+<li><em><strong>editor.formatOnPaste</strong></em></li>
+<li><em><strong>editor.formatOnType</strong></em></li>
+</ul>
+<p>With these settings, when saving the file and pasting code, the formatting will be done automatically.
+BUT the option to format while typing <em><strong>formatOnType</strong></em> still doesn&rsquo;t work.
+I found a Github <a href="https://github.com/microsoft/vscode-cpptools/issues/1419">issue</a> discussing the problem.
+The <em><strong>formatOnType</strong></em> does not work for C# because this feature validates the ; (more used in js).
+They have this fix on the roadmap, but until the fix is released, the <em><strong>formatOnSave</strong></em> will do the job.</p>
+
+        </div>
+
+    </article>
+
+    
+    
+        
+    
+
+    
+        
+        
+    
+
+    
+
+    
+        
+
+
+
+
+
+
+
+
+
+    
+
+    
+
+    
+
+        </main>
+        
+            <footer class="common-footer noselect">
+    <div class="common-footer-bottom">
+        
+
+        <div style="display: flex; align-items: center; gap:8px">
+            © amanda, 2024
+            
+        </div>
+        <div style="display:flex;align-items: center">
+            
+            
+            
+            
+            
+            
+        </div>
+        <div>
+            Powered by <a target="_blank" rel="noopener noreferrer" href="https://gohugo.io/">Hugo</a>, theme <a target="_blank" rel="noopener noreferrer" href="https://github.com/amandamata/hugo-theme-anubis2">Anubis2</a>.<br>
+            
+
+        </div>
+    </div>
+
+    <p class="h-card vcard">
+
+    <a href=https://amandamata.github.io/ class="p-name u-url url fn" rel="me"></a>
+
+    
+
+    
+</p>
+
+</footer>
+
+        
+    </div>
+</body>
+</html>

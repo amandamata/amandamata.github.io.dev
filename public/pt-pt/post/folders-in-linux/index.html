@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+
+
+<html lang="pt-pt" data-theme="">
+<head>
+    
+        
+<meta charset="utf-8">
+<meta name="HandheldFriendly" content="True">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer-when-downgrade">
+
+<title>Ententendo as pastas no Linux - amandabytes</title>
+
+<meta name="description" content="Se você acabou de instalar o Linux e está acostumado com a estrutura de diretórios do Windows, pode estar se perguntando onde está o &ldquo;disco C:&rdquo;? Conhecer os diretórios do Linux pode ajudar a administrar o sistema e entender como ele funciona.
+# Estrutura de diretórios: Windows vs. Linux Windows e Linux evoluíram de forma diferente em termos de estrutura de diretórios. O Linux é mais parecido com outros sistemas Unix-like, como o macOS, na verdade, o Windows é o que mais difere da maioria dos sistemas operacionais em termos de organização.">
+
+
+
+
+
+<link rel="icon" type="image/x-icon" href="https://amandamata.github.io/favicon.ico">
+<link rel="apple-touch-icon-precomposed" href="https://amandamata.github.io/favicon.png">
+
+
+
+
+
+
+    
+
+
+
+    
+
+
+
+<style>
+  body {
+    visibility: hidden;
+    opacity: 0;
+  }
+</style>
+
+<noscript>
+  <style>
+    body {
+      visibility: visible;
+      opacity: 1;
+    }
+  </style>
+</noscript>
+
+
+
+
+    
+
+
+
+
+
+    
+    
+        
+    
+    
+
+    
+        <link rel="stylesheet" href="/css/style.min.184a655c5ad8596648622468e6696abf0cf0a2cf8266df17b4f7a36fe9c97551.css" integrity="sha256-GEplXFrYWWZIYiRo5mlqvwzwos&#43;CZt8XtPejb&#43;nJdVE=">
+    
+
+
+
+
+
+    
+
+
+
+
+
+    
+    
+        
+    
+    
+
+    
+        <link rel="stylesheet" href="/css/style.min.c4c04b3ef88e3d619ad4c7ee5e03048422bc55c4fefdc1f07657c1133670aa22.css" integrity="sha256-xMBLPviOPWGa1MfuXgMEhCK8VcT&#43;/cHwdlfBEzZwqiI=">
+    
+
+
+
+
+
+    
+
+
+
+
+
+    
+    
+        
+    
+    
+
+    
+        <link rel="stylesheet" href="/css/style.min.21c5d8fe0a79d623b0adc1ce4bd4f6dd2c05cd939c9aaaa966ba7186b1464f4d.css" integrity="sha256-IcXY/gp51iOwrcHOS9T23SwFzZOcmqqpZrpxhrFGT00=">
+    
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+    
+
+
+
+
+
+    
+    
+        
+    
+    
+
+    
+        <script src="/js/script.min.08f04d96386c73c9bf4d160333f8f448c05a6e01c06770542ee0e013954ce930.js" type="text/javascript" charset="utf-8" integrity="sha256-CPBNljhsc8m/TRYDM/j0SMBabgHAZ3BULuDgE5VM6TA="></script>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+</head>
+<body>
+    <a class="skip-main" href="#main">Skip to main content</a>
+    <div class="container">
+        <header class="common-header">
+            
+                <div class="header-top">
+    <div class="header-top-left">
+        <h1 class="site-title noselect">
+    <a href="/pt-pt">amandabytes</a>
+</h1>
+
+        
+
+
+
+    
+
+
+
+    
+
+
+
+    
+        <div class="theme-switcher">
+            <span class="inline-svg">
+
+    
+
+
+    
+    
+    
+    
+    
+
+    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-sun-high"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14.828 14.828a4 4 0 1 0 -5.656 -5.656a4 4 0 0 0 5.656 5.656z" /><path d="M6.343 17.657l-1.414 1.414" /><path d="M6.343 6.343l-1.414 -1.414" /><path d="M17.657 6.343l1.414 -1.414" /><path d="M17.657 17.657l1.414 1.414" /><path d="M4 12h-2" /><path d="M12 4v-2" /><path d="M20 12h2" /><path d="M12 20v2" /></svg>
+
+
+</span>
+
+        </div>
+    
+
+    <script>
+        const STORAGE_KEY = 'user-color-scheme'
+        const defaultTheme = "auto"
+
+        let currentTheme
+        let switchButton
+        let autoDefinedScheme = window.matchMedia('(prefers-color-scheme: dark)')
+
+        function switchTheme(e) {
+            currentTheme = (currentTheme === 'dark') ? 'light' : 'dark';
+            if (localStorage) localStorage.setItem(STORAGE_KEY, currentTheme);
+            document.documentElement.setAttribute('data-theme', currentTheme);
+            changeGiscusTheme(currentTheme);
+            document.body.dispatchEvent(new CustomEvent(currentTheme + "-theme-set"));
+        }
+
+        const autoChangeScheme = e => {
+            currentTheme = e.matches ? 'dark' : 'light'
+            document.documentElement.setAttribute('data-theme', currentTheme);
+            changeGiscusTheme(currentTheme);
+            document.body.dispatchEvent(new CustomEvent(currentTheme + "-theme-set"));
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            switchButton = document.querySelector('.theme-switcher')
+            currentTheme = detectCurrentScheme()
+
+            if (currentTheme === 'auto') {
+                autoChangeScheme(autoDefinedScheme);
+                autoDefinedScheme.addListener(autoChangeScheme);
+            } else {
+                document.documentElement.setAttribute('data-theme', currentTheme)
+            }
+
+            if (switchButton) {
+                switchButton.addEventListener('click', switchTheme, false)
+            }
+
+            showContent();
+        })
+
+        function detectCurrentScheme() {
+            if (localStorage !== null && localStorage.getItem(STORAGE_KEY)) {
+                return localStorage.getItem(STORAGE_KEY)
+            }
+            if (defaultTheme) {
+                return defaultTheme
+            }
+            return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+
+        function showContent() {
+            document.body.style.visibility = 'visible';
+            document.body.style.opacity = 1;
+        }
+
+        function changeGiscusTheme (theme) {
+            function sendMessage(message) {
+              const iframe = document.querySelector('iframe.giscus-frame');
+              if (!iframe) return;
+              iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+            }
+
+            sendMessage({
+              setConfig: {
+                theme: theme
+              }
+            });
+        }
+    </script>
+
+
+        <ul class="social-icons noselect">
+
+
+    
+        
+        
+        <li>
+            <a href="https://github.com/amandamata" title="Github" rel="me">
+            <span class="inline-svg">
+
+    
+
+
+    
+    
+    
+    
+    
+
+    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-brand-github"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" /></svg>
+
+
+</span>
+
+            </a>
+        </li>
+    
+
+    
+        <li>
+            <a href="https://www.linkedin.com/in/amanda-mata/" title="Linkedin" rel="me">
+            <span class="inline-svg">
+
+    
+
+
+    
+    
+    
+    
+    
+
+    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-brand-linkedin"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z" /><path d="M8 11l0 5" /><path d="M8 8l0 .01" /><path d="M12 16l0 -5" /><path d="M16 16v-3a2 2 0 0 0 -4 0" /></svg>
+
+
+</span>
+
+            </a>
+        </li>
+    
+
+
+
+
+
+
+
+</ul>
+
+    </div>
+    <div class="header-top-right">
+        <ul class="post-translations">
+    
+    
+    
+
+    
+        
+            <li>pt-br</li>
+        
+    
+        
+            <li><a href="/post/folders-in-linux/">en</a></li>
+        
+    
+</ul>
+
+    </div>
+</div>
+
+
+    <nav class="noselect">
+        
+        
+        <a class="" href="https://amandamata.github.io/pt-pt/" title="">início</a>
+        
+        <a class="" href="https://amandamata.github.io/pt-pt/tags" title="">tags</a>
+        
+        <a class="" href="https://amandamata.github.io/pt-pt/post" title="">arquivos</a>
+        
+        <a class="" href="https://amandamata.github.io/pt-pt/about" title="">sobre</a>
+        
+    </nav>
+
+
+
+
+
+
+
+
+            
+        </header>
+        <main id="main" tabindex="-1">
+            
+    
+
+    <article class="post h-entry">
+        <div class="post-header">
+            <header>
+                <h1 class="p-name post-title">Ententendo as pastas no Linux</h1>
+            </header>
+            
+
+
+
+<div class="post-info noselect">
+    
+        <div class="post-date dt-published">
+            <time datetime="2023-02-09">2023-02-09</time>
+            
+        </div>
+    
+
+    <a class="post-hidden-url u-url" href="/pt-pt/post/folders-in-linux/">/pt-pt/post/folders-in-linux/</a>
+    <a href="https://amandamata.github.io/" class="p-name p-author post-hidden-author h-card" rel="me"></a>
+
+
+    <div class="post-taxonomies">
+        
+        
+            <ul class="post-tags">
+                
+                    
+                    <li><a href="/pt-pt/tags/linux/">#Linux</a></li>
+                
+            </ul>
+        
+        
+    </div>
+</div>
+
+        </div>
+        
+
+  
+  
+    
+  
+
+
+
+
+
+
+<script>
+  var toc = document.querySelector(".toc");
+  if (toc) {
+    toc.addEventListener("click", function () {
+      if (event.target.tagName !== "A") {
+        event.preventDefault();
+        if (this.open) {
+          this.open = false;
+          this.classList.remove("expanded");
+        } else {
+          this.open = true;
+          this.classList.add("expanded");
+        }
+      }
+    });
+  }
+</script>
+
+        <div class="content e-content">
+            <p>Se você acabou de instalar o Linux e está acostumado com a estrutura de diretórios do Windows, pode estar se perguntando onde está o &ldquo;disco C:&rdquo;?
+Conhecer os diretórios do Linux pode ajudar a administrar o sistema e entender como ele funciona.</p>
+<h2 id="estrutura-de-diretórios-windows-vs-linux" >
+<div>
+    <a href="#estrutura-de-diret%c3%b3rios-windows-vs-linux">
+        #
+    </a>
+    Estrutura de diretórios: Windows vs. Linux
+</div>
+</h2>
+<p>Windows e Linux evoluíram de forma diferente em termos de estrutura de diretórios. O Linux é mais parecido com outros sistemas Unix-like, como o macOS, na verdade, o Windows é o que mais difere da maioria dos sistemas operacionais em termos de organização.</p>
+<p>A hierarquia de diretórios do Linux não é mais difícil, nem mais fácil, é simplesmente diferente. Tanto o &ldquo;disco C:&rdquo; do Windows quanto a raiz do Linux (/), servem para a mesma finalidade, mas de maneiras distintas.</p>
+<p>Os sistemas Linux seguem o padrão FHS (Filesystem Hierarchy Standard), mantido pela Linux Foundation.</p>
+<h2 id="tipos-de-diretórios-e-permissões" >
+<div>
+    <a href="#tipos-de-diret%c3%b3rios-e-permiss%c3%b5es">
+        #
+    </a>
+    Tipos de diretórios e permissões
+</div>
+</h2>
+<ul>
+<li><strong>Links Simbólicos</strong>: Pastas com uma seta são atalhos para outras pastas ou arquivos. Por exemplo, /bin é um link simbólico para /usr/bin.</li>
+<li><strong>Diretórios Protegidos</strong>: Pastas com um &ldquo;x&rdquo; exigem permissões de root para serem acessadas ou modificadas.</li>
+</ul>
+<h2 id="diretórios-principais-no-linux" >
+<div>
+    <a href="#diret%c3%b3rios-principais-no-linux">
+        #
+    </a>
+    Diretórios principais no Linux
+</div>
+</h2>
+<h3 id="heading" >
+<div>
+    <a href="#heading">
+        ##
+    </a>
+    /
+</div>
+</h3>
+<ul>
+<li><strong>Raiz</strong>: O diretório raiz, onde todos os outros diretórios e subdiretórios residem.</li>
+</ul>
+<h3 id="bin" >
+<div>
+    <a href="#bin">
+        ##
+    </a>
+    /bin
+</div>
+</h3>
+<ul>
+<li><strong>Binaries</strong>: Contém executáveis de programas essenciais do sistema, como bash, cat, ls, etc. É comparável à pasta &ldquo;Arquivos de Programas&rdquo; do Windows.</li>
+</ul>
+<h3 id="boot" >
+<div>
+    <a href="#boot">
+        ##
+    </a>
+    /boot
+</div>
+</h3>
+<ul>
+<li><strong>Inicialização</strong>: Contém arquivos necessários para o sistema operacional iniciar.</li>
+</ul>
+<h3 id="cdrom" >
+<div>
+    <a href="#cdrom">
+        ##
+    </a>
+    /cdrom
+</div>
+</h3>
+<ul>
+<li><strong>Legado</strong>: Diretório onde a imagem do disco é montada.</li>
+</ul>
+<h3 id="dev" >
+<div>
+    <a href="#dev">
+        ##
+    </a>
+    /dev
+</div>
+</h3>
+<ul>
+<li><strong>Devices</strong>: Contém arquivos que representam dispositivos de hardware. Por exemplo, /dev/sda para discos.</li>
+</ul>
+<h3 id="etc" >
+<div>
+    <a href="#etc">
+        ##
+    </a>
+    /etc
+</div>
+</h3>
+<ul>
+<li><strong>Configuração</strong>: Armazena arquivos de configuração do sistema, válidos para todos os usuários.</li>
+</ul>
+<h3 id="home" >
+<div>
+    <a href="#home">
+        ##
+    </a>
+    /home
+</div>
+</h3>
+<ul>
+<li><strong>Usuários</strong>: Diretório onde ficam os diretórios pessoais dos usuários.</li>
+</ul>
+<h3 id="lib" >
+<div>
+    <a href="#lib">
+        ##
+    </a>
+    /lib
+</div>
+</h3>
+<ul>
+<li><strong>Libraries</strong>: Contém bibliotecas de software necessárias para o sistema operacional e aplicativos.</li>
+</ul>
+<h3 id="media" >
+<div>
+    <a href="#media">
+        ##
+    </a>
+    /media
+</div>
+</h3>
+<ul>
+<li><strong>Mídia Removível</strong>: Diretório onde são montadas automaticamente unidades removíveis como pendrives.</li>
+</ul>
+<h3 id="mnt" >
+<div>
+    <a href="#mnt">
+        ##
+    </a>
+    /mnt
+</div>
+</h3>
+<ul>
+<li><strong>Montagem</strong>: Ponto de montagem para unidades de disco configuradas manualmente.</li>
+</ul>
+<h3 id="opt" >
+<div>
+    <a href="#opt">
+        ##
+    </a>
+    /opt
+</div>
+</h3>
+<ul>
+<li><strong>Optional</strong>: Contém software adicional de fabricantes ou software proprietário.</li>
+</ul>
+<h3 id="proc" >
+<div>
+    <a href="#proc">
+        ##
+    </a>
+    /proc
+</div>
+</h3>
+<ul>
+<li><strong>Processos</strong>: Diretório virtual com informações sobre o sistema e processos em execução.</li>
+</ul>
+<h3 id="root" >
+<div>
+    <a href="#root">
+        ##
+    </a>
+    /root
+</div>
+</h3>
+<ul>
+<li><strong>Home do Root</strong>: Diretório pessoal do usuário root.</li>
+</ul>
+<h3 id="run" >
+<div>
+    <a href="#run">
+        ##
+    </a>
+    /run
+</div>
+</h3>
+<ul>
+<li><strong>Runtime</strong>: Diretório virtual na memória, apagado ao desligar. Contém informações sobre usuários logados e daemons.</li>
+</ul>
+<h3 id="sbin" >
+<div>
+    <a href="#sbin">
+        ##
+    </a>
+    /sbin
+</div>
+</h3>
+<ul>
+<li><strong>System Binaries</strong>: Contém executáveis que só podem ser usados pelo administrador do sistema (root).</li>
+</ul>
+<h3 id="snap" >
+<div>
+    <a href="#snap">
+        ##
+    </a>
+    /snap
+</div>
+</h3>
+<ul>
+<li><strong>Pacotes Snap</strong>: Diretórios para pacotes Snap, uma forma diferente de empacotamento de software.</li>
+</ul>
+<h3 id="srv" >
+<div>
+    <a href="#srv">
+        ##
+    </a>
+    /srv
+</div>
+</h3>
+<ul>
+<li><strong>Services</strong>: Usado para armazenar dados de serviços, como servidores web.</li>
+</ul>
+<h3 id="sys" >
+<div>
+    <a href="#sys">
+        ##
+    </a>
+    /sys
+</div>
+</h3>
+<ul>
+<li><strong>System</strong>: Contém arquivos que interagem diretamente com o kernel, como drivers e firmwares.</li>
+</ul>
+<h3 id="tmp" >
+<div>
+    <a href="#tmp">
+        ##
+    </a>
+    /tmp
+</div>
+</h3>
+<ul>
+<li><strong>Temp</strong>: Arquivos temporários que são apagados no reboot.</li>
+</ul>
+<h3 id="usr" >
+<div>
+    <a href="#usr">
+        ##
+    </a>
+    /usr
+</div>
+</h3>
+<ul>
+<li><strong>User ou Unix System Resources</strong>: Contém programas e bibliotecas.</li>
+</ul>
+<h3 id="var" >
+<div>
+    <a href="#var">
+        ##
+    </a>
+    /var
+</div>
+</h3>
+<ul>
+<li><strong>Variáveis</strong>: Diretório para arquivos que aumentam de tamanho, como logs e caches do sistema.</li>
+</ul>
+
+        </div>
+
+    </article>
+
+    
+    
+        
+    
+
+    
+        
+        
+    
+
+    
+
+    
+        
+
+
+
+
+
+
+
+
+
+    
+
+    
+
+    
+
+        </main>
+        
+            <footer class="common-footer noselect">
+    <div class="common-footer-bottom">
+        
+
+        <div style="display: flex; align-items: center; gap:8px">
+            © amanda, 2024
+            
+        </div>
+        <div style="display:flex;align-items: center">
+            
+            
+            
+            
+            
+            
+        </div>
+        <div>
+            Powered by <a target="_blank" rel="noopener noreferrer" href="https://gohugo.io/">Hugo</a>, theme <a target="_blank" rel="noopener noreferrer" href="https://github.com/amandamata/hugo-theme-anubis2">Anubis2</a>.<br>
+            
+
+        </div>
+    </div>
+
+    <p class="h-card vcard">
+
+    <a href=https://amandamata.github.io/ class="p-name u-url url fn" rel="me"></a>
+
+    
+
+    
+</p>
+
+</footer>
+
+        
+    </div>
+</body>
+</html>

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Vscode on amandabytes</title>
+    <link>/pt-pt/tags/vscode/</link>
+    <description>amandabytes (Vscode)</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>pt-pt</language>
+    <lastBuildDate>Sat, 18 Feb 2023 06:12:47 -0300</lastBuildDate>
+    
+    <atom:link href="/pt-pt/tags/vscode/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Colchetes em uma nova linha no vscode</title>
+      <link>/pt-pt/post/curly-brace/</link>
+      <pubDate>Sat, 18 Feb 2023 06:12:47 -0300</pubDate>
+      
+      <guid>/pt-pt/post/curly-brace/</guid>
+      <description>&lt;p&gt;Nesta última semana, dediquei minhas manhãs a um único objetivo: configurar o Visual Studio Code para inserir automaticamente uma nova linha antes dos colchetes &lt;code&gt;{}&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Como estava:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-csharp&#34; data-lang=&#34;csharp&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff6ac1&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#ff6ac1&#34;&gt;true&lt;/span&gt;){
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#78787e&#34;&gt;// do something&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Como gostaria que estivesse:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-csharp&#34; data-lang=&#34;csharp&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff6ac1&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#ff6ac1&#34;&gt;true&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#78787e&#34;&gt;// do something&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;A tarefa se mostrou mais desafiadora do que eu esperava.
+Encontrei muitas discussões sobre o mesmo problema em fóruns e no Stack Overflow, mas nenhuma solução definitiva. Então estou aqui para compartilhar a solução que descobri.&lt;/p&gt;
+&lt;p&gt;Antes de tudo, você precisará de:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Extensão C#;&lt;/li&gt;
+&lt;li&gt;Arquivo &lt;code&gt;omnisharp.json&lt;/code&gt;;&lt;/li&gt;
+&lt;li&gt;Alterações aplicadas no &lt;code&gt;settings.json&lt;/code&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;configurando-o-omnisharp&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#configurando-o-omnisharp&#34;&gt;
+        #
+    &lt;/a&gt;
+    Configurando o Omnisharp
+&lt;/div&gt;
+&lt;/h2&gt;
+&lt;p&gt;A localização do seu Omnisharp pode ser encontrada em &lt;code&gt;%USERPROFILE%/.omnisharp/&lt;/code&gt;
+O meu omnisharp está em &lt;code&gt;/home/amanda/.omnisharp/omnisharp.json&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Essa é a minha configuração do omnisharp:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ff6ac1&#34;&gt;&amp;#34;FormattingOptions&amp;#34;&lt;/span&gt;: {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#ff6ac1&#34;&gt;&amp;#34;newLine&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#5af78e&#34;&gt;&amp;#34;\n&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#ff6ac1&#34;&gt;&amp;#34;useTabs&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ff6ac1&#34;&gt;false&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#ff6ac1&#34;&gt;&amp;#34;tabSize&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ff9f43&#34;&gt;4&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#ff6ac1&#34;&gt;&amp;#34;indentationSize&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ff9f43&#34;&gt;4&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#ff6ac1&#34;&gt;&amp;#34;NewLinesForBracesInTypes&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ff6ac1&#34;&gt;true&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#ff6ac1&#34;&gt;&amp;#34;NewLinesForBracesInMethods&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ff6ac1&#34;&gt;true&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#ff6ac1&#34;&gt;&amp;#34;NewLinesForBracesInProperties&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ff6ac1&#34;&gt;true&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#ff6ac1&#34;&gt;&amp;#34;NewLinesForBracesInAccessors&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ff6ac1&#34;&gt;true&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#ff6ac1&#34;&gt;&amp;#34;NewLinesForBracesInAnonymousMethods&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ff6ac1&#34;&gt;true&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#ff6ac1&#34;&gt;&amp;#34;NewLinesForBracesInControlBlocks&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ff6ac1&#34;&gt;true&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#ff6ac1&#34;&gt;&amp;#34;NewLinesForBracesInAnonymousTypes&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ff6ac1&#34;&gt;true&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#ff6ac1&#34;&gt;&amp;#34;NewLinesForBracesInObjectCollectionArrayInitializers&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ff6ac1&#34;&gt;true&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#ff6ac1&#34;&gt;&amp;#34;NewLinesForBracesInLambdaExpressionBody&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ff6ac1&#34;&gt;true&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#ff6ac1&#34;&gt;&amp;#34;NewLineForElse&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ff6ac1&#34;&gt;true&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#ff6ac1&#34;&gt;&amp;#34;NewLineForCatch&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ff6ac1&#34;&gt;true&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#ff6ac1&#34;&gt;&amp;#34;NewLineForFinally&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ff6ac1&#34;&gt;true&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#ff6ac1&#34;&gt;&amp;#34;NewLineForMembersInObjectInit&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ff6ac1&#34;&gt;true&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#ff6ac1&#34;&gt;&amp;#34;NewLineForMembersInAnonymousTypes&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ff6ac1&#34;&gt;true&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#ff6ac1&#34;&gt;&amp;#34;NewLineForClausesInQuery&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ff6ac1&#34;&gt;true&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Configurações retiradas &lt;a href=&#34;https://github.com/OmniSharp/omnisharp-vscode/issues/1506#issuecomment-303390666&#34;&gt;desse comentário&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;atualizando-as-configurações-do-vscode&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#atualizando-as-configura%c3%a7%c3%b5es-do-vscode&#34;&gt;
+        #
+    &lt;/a&gt;
+    Atualizando as configurações do VSCode
+&lt;/div&gt;
+&lt;/h2&gt;
+&lt;p&gt;Você pode encontrar o arquivo &lt;code&gt;settings.json&lt;/code&gt; em &lt;code&gt;~/.config/Code/User&lt;/code&gt;
+O meu arquivo está em &lt;code&gt;/home/amanda/.config/Code/User/settings.json&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Eu inseri essas linhas a mais no &lt;code&gt;settings.json&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#5af78e&#34;&gt;&amp;#34;omnisharp.json&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#ff5c57&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#5af78e&#34;&gt;&amp;#34;/home/amanda/.omnisharp&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#ff5c57&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#5af78e&#34;&gt;&amp;#34;omnisharp.enableEditorConfigSupport&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#ff5c57&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;false&lt;/span&gt;&lt;span style=&#34;color:#ff5c57&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#5af78e&#34;&gt;&amp;#34;omnisharp.useEditorFormattingSettings&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#ff5c57&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;true&lt;/span&gt;&lt;span style=&#34;color:#ff5c57&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#5af78e&#34;&gt;&amp;#34;omnisharp.path&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#ff5c57&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#5af78e&#34;&gt;&amp;#34;latest&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#ff5c57&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#5af78e&#34;&gt;&amp;#34;editor.formatOnType&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#ff5c57&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;true&lt;/span&gt;&lt;span style=&#34;color:#ff5c57&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#5af78e&#34;&gt;&amp;#34;editor.formatOnSave&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#ff5c57&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;true&lt;/span&gt;&lt;span style=&#34;color:#ff5c57&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#5af78e&#34;&gt;&amp;#34;editor.formatOnPaste&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#ff5c57&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;true&lt;/span&gt;&lt;span style=&#34;color:#ff5c57&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#5af78e&#34;&gt;&amp;#34;editor.defaultFormatter&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#ff5c57&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#5af78e&#34;&gt;&amp;#34;ms-dotnettools.csharp&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#ff5c57&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#5af78e&#34;&gt;&amp;#34;[csharp]&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#ff5c57&#34;&gt;:&lt;/span&gt; {&lt;span style=&#34;color:#ff6ac1&#34;&gt;&amp;#34;editor.defaultFormatter&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#5af78e&#34;&gt;&amp;#34;ms-dotnettools.csharp&amp;#34;&lt;/span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Para essas configurações funcionarem, é necessário ter a extensão C# instalada e habilitada, e depois de tudo isso, reiniciar o omnisharp.&lt;/p&gt;
+&lt;p&gt;Essa é a extensão:
+&lt;img alt=&#34;brace1&#34; src=&#34;https://amandamata.github.io/img/brace1.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Restart omnisharp
+&lt;code&gt;Ctrl+Shift+P&lt;/code&gt;
+&lt;img alt=&#34;brace2&#34; src=&#34;https://amandamata.github.io/img/brace2.png&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;tudo-funcionando-mas&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#tudo-funcionando-mas&#34;&gt;
+        #
+    &lt;/a&gt;
+    Tudo funcionando MAS
+&lt;/div&gt;
+&lt;/h2&gt;
+&lt;p&gt;Depois de todas essas alterações, você pode começar a utilizar o visual studio code e aproveitar os colchetes sendo inseridos em uma nova linha&amp;hellip;
+MAS
+A formatação automática durante a digitação não está funcionando, para funcionar é necessário utilizar a opção Format Document no Visual Studio Code.&lt;/p&gt;
+&lt;p&gt;&lt;img alt=&#34;brace3&#34; src=&#34;https://amandamata.github.io/img/brace3.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Eu não queria ficar utilizando essa opção toda vez, então, depois de muita busca, eu encontrei essas configurações para o editor:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;&lt;strong&gt;editor.formatOnSave&lt;/strong&gt;&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;&lt;strong&gt;editor.formatOnPaste&lt;/strong&gt;&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;&lt;strong&gt;editor.formatOnType&lt;/strong&gt;&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Com essas configurações, quando salvar o arquivo e colar um código, a formatação será feita automaticamente.
+MAS
+A opção para formatar ao digitar &lt;em&gt;&lt;strong&gt;formatOnType&lt;/strong&gt;&lt;/em&gt; ainda não funciona.
+Encontrei uma &lt;a href=&#34;https://github.com/microsoft/vscode-cpptools/issues/1419&#34;&gt;issue no Github&lt;/a&gt; falando sobre o problema. O &lt;em&gt;&lt;strong&gt;formatOnType&lt;/strong&gt;&lt;/em&gt; não funciona para o C#, porque essa feature funciona validando o &lt;code&gt;;&lt;/code&gt; (mais usado no js). Eles possuem essa correção no roadmap, mas até a correção sair o &lt;em&gt;&lt;strong&gt;formatOnSave&lt;/strong&gt;&lt;/em&gt; vai fazer o trabalho.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Git on amandabytes</title>
+    <link>/pt-pt/tags/git/</link>
+    <description>amandabytes (Git)</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>pt-pt</language>
+    <lastBuildDate>Tue, 30 May 2023 14:01:29 -0300</lastBuildDate>
+    
+    <atom:link href="/pt-pt/tags/git/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Removendo dados sensíveis do histórico de commits</title>
+      <link>/pt-pt/post/bfg/</link>
+      <pubDate>Tue, 30 May 2023 14:01:29 -0300</pubDate>
+      
+      <guid>/pt-pt/post/bfg/</guid>
+      <description>&lt;p&gt;Hoje aprendi algo extremamente útil: como remover informações sensíveis do histórico de commits de forma eficiente.&lt;/p&gt;
+&lt;p&gt;Em algum momento, muitos de nós cometemos o erro de enviar acidentalmente informações sensíveis para um repositório no GitHub. Simplesmente apagar a informação do repositório atual não resolve o problema, pois o histórico de commits ainda mostrará a versão anterior com essas informações.&lt;/p&gt;
+&lt;p&gt;Para solucionar essa questão, muitos recorrem ao &lt;code&gt;git-filter-branch&lt;/code&gt;. No entanto, quero apresentar uma alternativa ainda melhor: o BFG.&lt;/p&gt;
+&lt;p&gt;O BFG é uma ferramenta poderosa e fácil de usar que permite remover informações confidenciais do histórico de commits do seu repositório de forma segura. Ele oferece uma solução mais rápida e eficiente em comparação com o &lt;code&gt;git-filter-branch&lt;/code&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;cenário&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#cen%c3%a1rio&#34;&gt;
+        #
+    &lt;/a&gt;
+    Cenário
+&lt;/div&gt;
+&lt;/h2&gt;
+&lt;p&gt;Temos o repositório &lt;a href=&#34;https://github.com/amandamata/how-to-use-bfg&#34;&gt;how-to-use-bfg&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Nesse repositório existia um &lt;code&gt;appsettings.json&lt;/code&gt; com informações sensíveis.&lt;/p&gt;
+&lt;p&gt;&lt;img alt=&#34;bfg1&#34; src=&#34;https://amandamata.github.io/img/bfg1.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Eu excluí essa informação sensível, fiz o commit e push, mas no histórico essa informação sensível ainda aparece.&lt;/p&gt;
+&lt;p&gt;&lt;img alt=&#34;bfg2&#34; src=&#34;https://amandamata.github.io/img/bfg2.png&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;pré-requisitos&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#pr%c3%a9-requisitos&#34;&gt;
+        #
+    &lt;/a&gt;
+    Pré-requisitos
+&lt;/div&gt;
+&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Git instalado na sua máquina.&lt;/li&gt;
+&lt;li&gt;Java Runtime Environment (JRE) instalado para executar o arquivo &lt;code&gt;.jar&lt;/code&gt; do BFG.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;como-utilizar&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#como-utilizar&#34;&gt;
+        #
+    &lt;/a&gt;
+    Como utilizar
+&lt;/div&gt;
+&lt;/h2&gt;
+&lt;p&gt;O tutorial no site do BFG é bastante direto, mas aqui está uma descrição mais detalhada para facilitar o processo:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Baixe o arquivo &lt;code&gt;.jar&lt;/code&gt; do BFG do site oficial: &lt;a href=&#34;https://rtyley.github.io/bfg-repo-cleaner/&#34;&gt;BFG Repo-Cleaner&lt;/a&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Faça um clone do repositório usando o comando:&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git clone git@github.com:amandamata/how-to-use-bfg.git --mirror
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol&gt;
+&lt;li&gt;Crie um arquivo de referência contendo o valor que você deseja remover do histórico de commits. Por exemplo:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff5c57&#34;&gt;echo&lt;/span&gt; *VyieIqbij35MYV5&amp;amp;bIakKmq1Z &amp;gt; auth.txt
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol&gt;
+&lt;li&gt;Execute o BFG, passando o valor de referência, usando o seguinte comando:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;java -jar ~/Downloads/bfg-1.14.0.jar --replace-text auth.txt how-to-use-bfg.git
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol&gt;
+&lt;li&gt;Acesse o diretório do repositório clonado:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff5c57&#34;&gt;cd&lt;/span&gt; how-to-use-bfg.git
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol&gt;
+&lt;li&gt;Execute o seguinte comando:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git reflog expire --expire&lt;span style=&#34;color:#ff6ac1&#34;&gt;=&lt;/span&gt;now --all &lt;span style=&#34;color:#ff6ac1&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; git gc --prune&lt;span style=&#34;color:#ff6ac1&#34;&gt;=&lt;/span&gt;now --aggressive
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol&gt;
+&lt;li&gt;Faça o push das alterações:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;git push
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Após seguir esses passos, o histórico de commit do seu repositório será atualizado e os dados sensiveis serão removidos.&lt;/p&gt;
+&lt;p&gt;&lt;img alt=&#34;bfg3&#34; src=&#34;https://amandamata.github.io/img/bfg3.png&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;conclusão&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#conclus%c3%a3o&#34;&gt;
+        #
+    &lt;/a&gt;
+    Conclusão
+&lt;/div&gt;
+&lt;/h2&gt;
+&lt;p&gt;Remover informações sensíveis do histórico de commits é crucial para manter a segurança e privacidade do seu projeto. O BFG Repo-Cleaner oferece uma maneira eficiente e rápida de fazer isso. Se você tiver alguma dúvida ou quiser compartilhar sua experiência usando o BFG, sinta-se à vontade para deixar um comentário abaixo.&lt;/p&gt;
+&lt;p&gt;Espero que este guia tenha sido útil. Boa sorte com a limpeza do seu repositório!&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

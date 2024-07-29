@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Cache on amandabytes</title>
+    <link>/tags/cache/</link>
+    <description>amandabytes (Cache)</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 25 Apr 2023 07:42:55 -0300</lastBuildDate>
+    
+    <atom:link href="/tags/cache/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Implementing Redis Caching with .NET</title>
+      <link>/post/redis/</link>
+      <pubDate>Tue, 25 Apr 2023 07:42:55 -0300</pubDate>
+      
+      <guid>/post/redis/</guid>
+      <description>&lt;h2 id=&#34;introduction&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#introduction&#34;&gt;
+        #
+    &lt;/a&gt;
+    Introduction
+&lt;/div&gt;
+&lt;/h2&gt;
+&lt;p&gt;Recently, I had to implement a cache in an application to avoid unnecessary database queries. Having worked with Redis in the past, I realized that implementing a cache with Redis can be quite straightforward and effective when done correctly.&lt;/p&gt;
+&lt;h2 id=&#34;redis-vs-memcached&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#redis-vs-memcached&#34;&gt;
+        #
+    &lt;/a&gt;
+    Redis vs Memcached
+&lt;/div&gt;
+&lt;/h2&gt;
+&lt;p&gt;Redis is almost like a NoSQL database but excels as a cache due to its key-value storage model. The choice between Redis and Memcached depends on the use case and data volume. If you need to store session information, Memcached is a good choice. However, for extensive queries involving larger data sets, Redis is more suitable. Memcached uses the application&amp;rsquo;s memory to store data, while Redis is a distributed cache, independent of the application&amp;rsquo;s memory, allowing it to scale vertically as demand grows.&lt;/p&gt;
+&lt;p&gt;When a cache is first used, the required information won&amp;rsquo;t be available, necessitating a database query. Subsequent requests can retrieve data directly from the cache, significantly reducing response times compared to database queries.&lt;/p&gt;
+&lt;p&gt;&lt;img alt=&#34;redis&#34; src=&#34;https://amandamata.github.io/img/redis.png&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;why-use-caching&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#why-use-caching&#34;&gt;
+        #
+    &lt;/a&gt;
+    Why Use Caching?
+&lt;/div&gt;
+&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Reduce Response Time&lt;/strong&gt;: Improve the end-user experience by minimizing wait times for actions or clicks.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Increase Availability&lt;/strong&gt;: Reduce computational resources by leveraging cached data, allowing more users to access the application simultaneously.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Reduce Computational Costs&lt;/strong&gt;: Lower cloud service costs by reducing the need for frequent database queries and server resources.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Handle Load Peaks&lt;/strong&gt;: Manage load spikes effectively by distributing the processing load over time.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;problem-scenario&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#problem-scenario&#34;&gt;
+        #
+    &lt;/a&gt;
+    Problem Scenario
+&lt;/div&gt;
+&lt;/h2&gt;
+&lt;p&gt;Consider an application that frequently queries the same information from the database. Originally, the application was not designed to handle such growth, resulting in performance issues. For example, a car rental application needs to verify if the company (identified by a document) in the rental request exists in the database. Each request involves querying this information repeatedly.&lt;/p&gt;
+&lt;h2 id=&#34;implementation&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#implementation&#34;&gt;
+        #
+    &lt;/a&gt;
+    Implementation
+&lt;/div&gt;
+&lt;/h2&gt;
+&lt;p&gt;To implement caching, we&amp;rsquo;ll use the Decorator pattern. This allows us to add a cache layer without increasing complexity in the repository layer, adhering to the Single Responsibility Principle of SOLID.&lt;/p&gt;
+&lt;h3 id=&#34;step-1-install-required-packages&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#step-1-install-required-packages&#34;&gt;
+        ##
+    &lt;/a&gt;
+    Step 1: Install Required Packages
+&lt;/div&gt;
+&lt;/h3&gt;
+&lt;p&gt;Install Scrutor for dependency injection and Microsoft.Extensions.Caching.StackExchangeRedis for Redis support.&lt;/p&gt;
+&lt;p&gt;Let&amp;rsquo;s work with dotnet, and install the packages &lt;a href=&#34;https://www.nuget.org/packages/scrutor/&#34;&gt;Scrutor&lt;/a&gt; and &lt;a href=&#34;https://www.nuget.org/packages/Microsoft.Extensions.Caching.StackExchangeRedis/7.0.5&#34;&gt;StackExchangeRedis&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;dotnet add package Scrutor --version 4.2.2
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;dotnet add package Microsoft.Extensions.Caching.StackExchangeRedis --version 7.0.5
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Scrutor will help us during the implementation of the caching layer without taking the single responsibility away from the repository. And StackExchangeRedis is Microsoft&amp;rsquo;s client package for using Redis with . NET.&lt;/p&gt;
+&lt;h3 id=&#34;step-2-create-a-cache-service&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#step-2-create-a-cache-service&#34;&gt;
+        ##
+    &lt;/a&gt;
+    Step 2: Create a Cache Service
+&lt;/div&gt;
+&lt;/h3&gt;
+&lt;p&gt;Let&amp;rsquo;s create a Service to handle everything related to Redis.
+Service:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-csharp&#34; data-lang=&#34;csharp&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff5c57&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#f3f99d&#34;&gt;CacheService&lt;/span&gt; : ICacheService
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ff5c57&#34;&gt;private&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;readonly&lt;/span&gt; IDistributedCache _distributedCache;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ff5c57&#34;&gt;private&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;readonly&lt;/span&gt; DistributedCacheEntryOptions _options;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ff5c57&#34;&gt;public&lt;/span&gt; CacheService(IDistributedCache distributedCache)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        _distributedCache = distributedCache;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        _options = &lt;span style=&#34;color:#ff6ac1&#34;&gt;new&lt;/span&gt; DistributedCacheEntryOptions
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            AbsoluteExpirationRelativeToNow = &lt;span style=&#34;color:#ff9f43&#34;&gt;150&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        };
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ff5c57&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;async&lt;/span&gt; Task&amp;lt;T&amp;gt; GetAsync&amp;lt;T&amp;gt;(&lt;span style=&#34;color:#9aedfe&#34;&gt;string&lt;/span&gt; key)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#ff6ac1&#34;&gt;try&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#9aedfe&#34;&gt;var&lt;/span&gt; cached = &lt;span style=&#34;color:#ff6ac1&#34;&gt;await&lt;/span&gt; _distributedCache.GetStringAsync(key);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#ff6ac1&#34;&gt;if&lt;/span&gt; (cached &lt;span style=&#34;color:#ff6ac1&#34;&gt;is&lt;/span&gt; not &lt;span style=&#34;color:#ff6ac1&#34;&gt;null&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                &lt;span style=&#34;color:#ff6ac1&#34;&gt;return&lt;/span&gt; JsonConvert.DeserializeObject&amp;lt;T&amp;gt;(cached);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#ff6ac1&#34;&gt;catch&lt;/span&gt; (Exception exception)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        { 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#78787e&#34;&gt;// Log exception &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#ff6ac1&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;default&lt;/span&gt;(T);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ff5c57&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;async&lt;/span&gt; Task SetAsync&amp;lt;T&amp;gt;(&lt;span style=&#34;color:#9aedfe&#34;&gt;string&lt;/span&gt; key, T &lt;span style=&#34;color:#ff6ac1&#34;&gt;value&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#ff6ac1&#34;&gt;try&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#ff6ac1&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#ff6ac1&#34;&gt;value&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;is&lt;/span&gt; not &lt;span style=&#34;color:#ff6ac1&#34;&gt;null&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                &lt;span style=&#34;color:#ff6ac1&#34;&gt;await&lt;/span&gt; _distributedCache.SetStringAsync(key, JsonConvert.SerializeObject(&lt;span style=&#34;color:#ff6ac1&#34;&gt;value&lt;/span&gt;), _options);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#ff6ac1&#34;&gt;catch&lt;/span&gt; (Exception exception)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        { 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#78787e&#34;&gt;// Log exception&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ff5c57&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;async&lt;/span&gt; Task RemoveAsync(&lt;span style=&#34;color:#9aedfe&#34;&gt;string&lt;/span&gt; key)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#ff6ac1&#34;&gt;try&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#ff6ac1&#34;&gt;await&lt;/span&gt; _distributedCache.RemoveAsync(key);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#ff6ac1&#34;&gt;catch&lt;/span&gt; (Exception exception)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#78787e&#34;&gt;// Log exception&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    	}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;step-3-create-a-cached-repository&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#step-3-create-a-cached-repository&#34;&gt;
+        ##
+    &lt;/a&gt;
+    Step 3: Create a Cached Repository
+&lt;/div&gt;
+&lt;/h3&gt;
+&lt;p&gt;Let&amp;rsquo;s create a Repository to handle the query request to the database that will &amp;ldquo;intercept&amp;rdquo; and go first in Redis.
+Repository:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-csharp&#34; data-lang=&#34;csharp&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff5c57&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#f3f99d&#34;&gt;CachedAlugatorRepository&lt;/span&gt; : IAlugatorRepository
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ff5c57&#34;&gt;private&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;readonly&lt;/span&gt; IAlugatorRepository _alugatorRepository;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ff5c57&#34;&gt;private&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;readonly&lt;/span&gt; ICacheService _cache;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ff5c57&#34;&gt;public&lt;/span&gt; CachedAlugatorRepository(IAlugatorRepository alugatorRepository, ICacheService cache)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        _alugatorRepository = alugatorRepository;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        _cache = cache;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ff5c57&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;async&lt;/span&gt; Task&amp;lt;&lt;span style=&#34;color:#9aedfe&#34;&gt;bool&lt;/span&gt;&amp;gt; DeleteAsync(&lt;span style=&#34;color:#9aedfe&#34;&gt;string&lt;/span&gt; id)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#9aedfe&#34;&gt;var&lt;/span&gt; alugator = &lt;span style=&#34;color:#ff6ac1&#34;&gt;await&lt;/span&gt; _alugatorRepository.GetAsync(id);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#ff6ac1&#34;&gt;if&lt;/span&gt; (alugator &lt;span style=&#34;color:#ff6ac1&#34;&gt;is&lt;/span&gt; not &lt;span style=&#34;color:#ff6ac1&#34;&gt;null&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; 	    &lt;span style=&#34;color:#ff6ac1&#34;&gt;await&lt;/span&gt; _cache.RemoveAsync(alugator.documentId);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#ff6ac1&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;await&lt;/span&gt; _alugatorRepository.DeleteAsync(id);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#ff6ac1&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;true&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ff5c57&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;async&lt;/span&gt; Task&amp;lt;Alugator&amp;gt; GetAsync(&lt;span style=&#34;color:#9aedfe&#34;&gt;string&lt;/span&gt; id)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#9aedfe&#34;&gt;var&lt;/span&gt; alugator = &lt;span style=&#34;color:#ff6ac1&#34;&gt;await&lt;/span&gt; _cache.GetAsync&amp;lt;Alugator&amp;gt;(id);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#ff6ac1&#34;&gt;if&lt;/span&gt; (alugator &lt;span style=&#34;color:#ff6ac1&#34;&gt;is&lt;/span&gt; not &lt;span style=&#34;color:#ff6ac1&#34;&gt;null&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#ff6ac1&#34;&gt;return&lt;/span&gt; alugator;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        alugator = &lt;span style=&#34;color:#ff6ac1&#34;&gt;await&lt;/span&gt; _alugatorRepository.GetAsync(id);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#ff6ac1&#34;&gt;await&lt;/span&gt; _cache.SetAsync&amp;lt;Alugator&amp;gt;(alugator);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#ff6ac1&#34;&gt;return&lt;/span&gt; alugator;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ff5c57&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#ff5c57&#34;&gt;async&lt;/span&gt; Task&amp;lt;&lt;span style=&#34;color:#9aedfe&#34;&gt;bool&lt;/span&gt;&amp;gt; UpsertAsync(Alugator alugator)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#ff6ac1&#34;&gt;await&lt;/span&gt; _cache.SetAsync(alugator.documentId, alugator);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#ff6ac1&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;await&lt;/span&gt; _alugatorRepository.UpsertAsync(alugator);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;step-4-configure-the-repository-in-program-class&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#step-4-configure-the-repository-in-program-class&#34;&gt;
+        ##
+    &lt;/a&gt;
+    Step 4: Configure the Repository in Program Class
+&lt;/div&gt;
+&lt;/h3&gt;
+&lt;p&gt;Use the Decorate method to ensure the CachedAlugatorRepository is called before the original repository.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-csharp&#34; data-lang=&#34;csharp&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;services.AddSingleton&amp;lt;IAlugatorRepository, AlugatorRepository&amp;gt;();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;services.Decorate&amp;lt;IAlugatorRepository, CachedAlugatorRepository&amp;gt;();
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This configuration ensures that every call to the repository will first go through the CachedAlugatorRepository, keeping the original AlugatorRepository clean and maintaining adherence to the Single Responsibility Principle.&lt;/p&gt;
+&lt;h3 id=&#34;conclusion&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#conclusion&#34;&gt;
+        ##
+    &lt;/a&gt;
+    Conclusion
+&lt;/div&gt;
+&lt;/h3&gt;
+&lt;p&gt;Implementing Redis caching with .NET using the Decorator pattern allows for an efficient, scalable, and maintainable solution. By reducing response times, increasing availability, and lowering computational costs, caching enhances the overall performance and user experience of the application.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

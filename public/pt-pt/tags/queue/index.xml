@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Queue on amandabytes</title>
+    <link>/pt-pt/tags/queue/</link>
+    <description>amandabytes (Queue)</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>pt-pt</language>
+    <lastBuildDate>Wed, 22 Feb 2023 07:19:25 -0300</lastBuildDate>
+    
+    <atom:link href="/pt-pt/tags/queue/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Implementando um Publicador e Consumidor SQS Usando .NET</title>
+      <link>/pt-pt/post/queue-csharp-sqs/</link>
+      <pubDate>Wed, 22 Feb 2023 07:19:25 -0300</pubDate>
+      
+      <guid>/pt-pt/post/queue-csharp-sqs/</guid>
+      <description>&lt;p&gt;Em um post anterior, introduzi o conceito de filas e seu uso. Agora, explicarei como implementar um Consumer (consumidor) e Publisher (publicador) SQS usando C# e .NET.&lt;/p&gt;
+&lt;h2 id=&#34;sqs&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#sqs&#34;&gt;
+        #
+    &lt;/a&gt;
+    SQS
+&lt;/div&gt;
+&lt;/h2&gt;
+&lt;p&gt;SQS (Simple Queue Service) é um serviço da Amazon Web Services que permite enviar, armazenar e receber mensagens entre componentes de software em qualquer volume, garantindo que nenhuma mensagem seja perdida e eliminando a necessidade de disponibilidade imediata de outros serviços.&lt;/p&gt;
+&lt;p&gt;Uma das melhores características do SQS é sua relação custo-benefício; é gratuito para até 1 milhão de solicitações por mês, após o qual a Amazon começa a cobrar pelo serviço.&lt;/p&gt;
+&lt;p&gt;Para começar, você precisa criar uma conta na &lt;a href=&#34;https://aws.amazon.com/&#34;&gt;AWS&lt;/a&gt; e navegar até o &lt;a href=&#34;https://console.aws.amazon.com&#34;&gt;AWS Management Console&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;No console, procure por SQS e selecione a primeira opção, Simple Queue Service. Clique em &amp;ldquo;Create queue&amp;rdquo;, nomeie sua fila e vá até o final da página para clicar em &amp;ldquo;Create queue&amp;rdquo;. As configurações padrão são suficientes para começar, mas sinta-se à vontade para ajustá-las conforme necessário.&lt;/p&gt;
+&lt;h3 id=&#34;aws-command-line-interface&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#aws-command-line-interface&#34;&gt;
+        ##
+    &lt;/a&gt;
+    AWS Command Line Interface
+&lt;/div&gt;
+&lt;/h3&gt;
+&lt;p&gt;A AWS Command Line Interface (CLI) permite fazer alterações diretamente do terminal, sem a necessidade de usar o AWS Management Console. Por exemplo, para listar todos os buckets do S3, você pode usar o seguinte comando:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;aws s3api list-buckets
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Para poder fazer isso, precisamos instalar a CLI, o tutorial para Windows, Linux e macOS está &lt;a href=&#34;https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html&#34;&gt;aqui&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Após a instalação, é necessário autenticar sua máquina contra a AWS.&lt;/p&gt;
+&lt;p&gt;No console da AWS, clique no seu nome e vá para Credenciais de Segurança, lá, você precisa criar uma Chave de Acesso.&lt;/p&gt;
+&lt;p&gt;No seu console, digite:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;aws configure
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Em seguida, forneça sua chave de acesso e token quando solicitado.&lt;/p&gt;
+&lt;p&gt;Importante, no console da AWS você tem uma região, a minha é us-east-1, você pode ver a sua verificando a URL: https://&lt;em&gt;&lt;strong&gt;us-east-1&lt;/strong&gt;&lt;/em&gt;.console.aws.amazon.com/&lt;/p&gt;
+&lt;p&gt;Essa região precisa ser informada durante a configuração da AWS para poder acessar os recursos localmente.&lt;/p&gt;
+&lt;p&gt;Após a configuração, você poderá executar o comando de listar buckets:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;aws s3api list-buckets
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
+&lt;h2 id=&#34;publisher&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#publisher&#34;&gt;
+        #
+    &lt;/a&gt;
+    Publisher
+&lt;/div&gt;
+&lt;/h2&gt;
+&lt;p&gt;O que é um publisher?&lt;/p&gt;
+&lt;p&gt;Um publisher é um serviço que detecta mudanças ou eventos e envia uma mensagem para uma fila. No contexto do exemplo discutido no post anterior sobre filas, o publisher reside dentro de uma API. Por exemplo, após criar um novo usuário, o publisher envia uma mensagem para a fila para notificar outras partes do sistema sobre este evento.&lt;/p&gt;
+&lt;p&gt;Agora que temos nossa configuração pronta, vamos criar o publisher.&lt;/p&gt;
+&lt;p&gt;Para simplicidade, este exemplo focará apenas no componente do publisher. Você pode integrar essa implementação à sua API conforme necessário.&lt;/p&gt;
+&lt;p&gt;Usaremos um aplicativo de console para esta demonstração.&lt;/p&gt;
+&lt;p&gt;Abra seu terminal ou prompt de comando e execute o seguinte comando para criar uma nova pasta chamada publisher:&lt;/p&gt;
+&lt;p&gt;Crie uma nova pasta:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;mkdir publisher
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Entre na pasta:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff5c57&#34;&gt;cd&lt;/span&gt; publisher
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Crie o projeto:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;dotnet new console
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;É necessário um model:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-csharp&#34; data-lang=&#34;csharp&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff5c57&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#f3f99d&#34;&gt;CustomerCreated&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#ff5c57&#34;&gt;public&lt;/span&gt; Guid Id { &lt;span style=&#34;color:#ff6ac1&#34;&gt;get&lt;/span&gt;; &lt;span style=&#34;color:#ff6ac1&#34;&gt;init&lt;/span&gt;; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#ff5c57&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#9aedfe&#34;&gt;string&lt;/span&gt; FullName { &lt;span style=&#34;color:#ff6ac1&#34;&gt;get&lt;/span&gt;; &lt;span style=&#34;color:#ff6ac1&#34;&gt;init&lt;/span&gt;; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#ff5c57&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#9aedfe&#34;&gt;string&lt;/span&gt; Email { &lt;span style=&#34;color:#ff6ac1&#34;&gt;get&lt;/span&gt;; &lt;span style=&#34;color:#ff6ac1&#34;&gt;init&lt;/span&gt;; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#ff5c57&#34;&gt;public&lt;/span&gt; DateTime DateOfBirth { &lt;span style=&#34;color:#ff6ac1&#34;&gt;get&lt;/span&gt;; &lt;span style=&#34;color:#ff6ac1&#34;&gt;init&lt;/span&gt;; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;E instale o &lt;a href=&#34;https://www.nuget.org/packages/AWSSDK.SQS&#34;&gt;AWS SDK&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;dotnet add package AWSSDK.SQS --version 3.7.100.78
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Então na classe Program precisamos criar o request e enviá-lo:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-csharp&#34; data-lang=&#34;csharp&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff6ac1&#34;&gt;using&lt;/span&gt; System.Text.Json;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff6ac1&#34;&gt;using&lt;/span&gt; Amazon.SQS;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff6ac1&#34;&gt;using&lt;/span&gt; Amazon.SQS.Model;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#9aedfe&#34;&gt;var&lt;/span&gt; sqsCLient = &lt;span style=&#34;color:#ff6ac1&#34;&gt;new&lt;/span&gt; AmazonSQSClient();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#9aedfe&#34;&gt;var&lt;/span&gt; customer = &lt;span style=&#34;color:#ff6ac1&#34;&gt;new&lt;/span&gt; CustomerCreated
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  Id = Guid.NewGuid(),
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  FullName = &lt;span style=&#34;color:#5af78e&#34;&gt;&amp;#34;Amanda Mata&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  Email = &lt;span style=&#34;color:#5af78e&#34;&gt;&amp;#34;email@email.com&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  DateOfBirth = &lt;span style=&#34;color:#ff6ac1&#34;&gt;new&lt;/span&gt; DateTime(&lt;span style=&#34;color:#ff9f43&#34;&gt;1996&lt;/span&gt;, &lt;span style=&#34;color:#ff9f43&#34;&gt;06&lt;/span&gt;, &lt;span style=&#34;color:#ff9f43&#34;&gt;18&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;};
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#9aedfe&#34;&gt;var&lt;/span&gt; queueUrlResponse = &lt;span style=&#34;color:#ff6ac1&#34;&gt;await&lt;/span&gt; sqsCLient.GetQueueUrlAsync(&lt;span style=&#34;color:#5af78e&#34;&gt;&amp;#34;customers&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#9aedfe&#34;&gt;var&lt;/span&gt; sendMessageRequest = &lt;span style=&#34;color:#ff6ac1&#34;&gt;new&lt;/span&gt; SendMessageRequest
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  QueueUrl = queueUrlResponse.QueueUrl, 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  MessageBody = JsonSerializer.Serialize(customer),
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  MessageAttributes = &lt;span style=&#34;color:#ff6ac1&#34;&gt;new&lt;/span&gt; Dictionary&amp;lt;&lt;span style=&#34;color:#9aedfe&#34;&gt;string&lt;/span&gt;, MessageAttributeValue&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;          &lt;span style=&#34;color:#5af78e&#34;&gt;&amp;#34;MessageType&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#ff6ac1&#34;&gt;new&lt;/span&gt; MessageAttributeValue
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;          {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;              DataType = &lt;span style=&#34;color:#5af78e&#34;&gt;&amp;#34;String&amp;#34;&lt;/span&gt;, 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;              StringValue = nameof(CustomerCreated)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;          }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;};
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#9aedfe&#34;&gt;var&lt;/span&gt; response = &lt;span style=&#34;color:#ff6ac1&#34;&gt;await&lt;/span&gt; sqsCLient.SendMessageAsync(sendMessageRequest);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Console.WriteLine();
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;No sqsCLient.GetQueueUrlAsync(&amp;ldquo;customers&amp;rdquo;) eu utilizei &amp;ldquo;customers&amp;rdquo; porque esse é o nome da minha fila&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;br/&gt;
+&lt;h2 id=&#34;consumer&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#consumer&#34;&gt;
+        #
+    &lt;/a&gt;
+    Consumer
+&lt;/div&gt;
+&lt;/h2&gt;
+&lt;p&gt;O que é um Consumer?&lt;/p&gt;
+&lt;p&gt;Um consumer é um serviço projetado para ouvir a fila. Ele espera que as mensagens cheguem à fila e as processa de acordo com a lógica de negócios definida.
+Para esta parte da implementação, também usaremos um aplicativo de console para demonstrar como um consumidor pode ser configurado para ouvir e processar mensagens da fila.&lt;/p&gt;
+&lt;p&gt;Crie uma nova pasta:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;mkdir consumer
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Entre na pasta:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff5c57&#34;&gt;cd&lt;/span&gt; consumer
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Crie o projeto:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;dotnet new console
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;É necessário um model:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-csharp&#34; data-lang=&#34;csharp&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff5c57&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#ff6ac1&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#f3f99d&#34;&gt;CustomerCreated&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#ff5c57&#34;&gt;public&lt;/span&gt; Guid Id { &lt;span style=&#34;color:#ff6ac1&#34;&gt;get&lt;/span&gt;; &lt;span style=&#34;color:#ff6ac1&#34;&gt;init&lt;/span&gt;; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#ff5c57&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#9aedfe&#34;&gt;string&lt;/span&gt; FullName { &lt;span style=&#34;color:#ff6ac1&#34;&gt;get&lt;/span&gt;; &lt;span style=&#34;color:#ff6ac1&#34;&gt;init&lt;/span&gt;; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#ff5c57&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#9aedfe&#34;&gt;string&lt;/span&gt; Email { &lt;span style=&#34;color:#ff6ac1&#34;&gt;get&lt;/span&gt;; &lt;span style=&#34;color:#ff6ac1&#34;&gt;init&lt;/span&gt;; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#ff5c57&#34;&gt;public&lt;/span&gt; DateTime DateOfBirth { &lt;span style=&#34;color:#ff6ac1&#34;&gt;get&lt;/span&gt;; &lt;span style=&#34;color:#ff6ac1&#34;&gt;init&lt;/span&gt;; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;E instale o &lt;a href=&#34;https://www.nuget.org/packages/AWSSDK.SQS&#34;&gt;AWS SDK&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;dotnet add package AWSSDK.SQS --version 3.7.100.78
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Depois disso, no Program, precisamos receber a solicitação:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-csharp&#34; data-lang=&#34;csharp&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff6ac1&#34;&gt;using&lt;/span&gt; Amazon.SQS;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff6ac1&#34;&gt;using&lt;/span&gt; Amazon.SQS.Model;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#9aedfe&#34;&gt;var&lt;/span&gt; cts = &lt;span style=&#34;color:#ff6ac1&#34;&gt;new&lt;/span&gt; CancellationTokenSource();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#9aedfe&#34;&gt;var&lt;/span&gt; sqsCLient = &lt;span style=&#34;color:#ff6ac1&#34;&gt;new&lt;/span&gt; AmazonSQSClient();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#9aedfe&#34;&gt;var&lt;/span&gt; queueUrlResponse = &lt;span style=&#34;color:#ff6ac1&#34;&gt;await&lt;/span&gt; sqsCLient.GetQueueUrlAsync(&lt;span style=&#34;color:#5af78e&#34;&gt;&amp;#34;customers&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#9aedfe&#34;&gt;var&lt;/span&gt; receiveMessageRequest = &lt;span style=&#34;color:#ff6ac1&#34;&gt;new&lt;/span&gt; ReceiveMessageRequest
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  QueueUrl = queueUrlResponse.QueueUrl,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  AttributeNames = &lt;span style=&#34;color:#ff6ac1&#34;&gt;new&lt;/span&gt; List&amp;lt;&lt;span style=&#34;color:#9aedfe&#34;&gt;string&lt;/span&gt;&amp;gt;{ &lt;span style=&#34;color:#5af78e&#34;&gt;&amp;#34;All&amp;#34;&lt;/span&gt; },
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  MessageAttributeNames = &lt;span style=&#34;color:#ff6ac1&#34;&gt;new&lt;/span&gt; List&amp;lt;&lt;span style=&#34;color:#9aedfe&#34;&gt;string&lt;/span&gt;&amp;gt;{ &lt;span style=&#34;color:#5af78e&#34;&gt;&amp;#34;All&amp;#34;&lt;/span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;};
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ff6ac1&#34;&gt;while&lt;/span&gt;(!cts.IsCancellationRequested)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#9aedfe&#34;&gt;var&lt;/span&gt; response = &lt;span style=&#34;color:#ff6ac1&#34;&gt;await&lt;/span&gt; sqsCLient.ReceiveMessageAsync(receiveMessageRequest, cts.Token);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  response.Messages.ForEach(&lt;span style=&#34;color:#ff5c57&#34;&gt;async&lt;/span&gt; message =&amp;gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    Console.WriteLine(&lt;span style=&#34;color:#5af78e&#34;&gt;$&amp;#34;Message Id: { message.MessageId }&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    Console.WriteLine(&lt;span style=&#34;color:#5af78e&#34;&gt;$&amp;#34;Message Body: { message.Body }&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#ff6ac1&#34;&gt;await&lt;/span&gt; sqsCLient.DeleteMessageAsync(queueUrlResponse.QueueUrl, message.ReceiptHandle);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  });
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#ff6ac1&#34;&gt;await&lt;/span&gt; Task.Delay(&lt;span style=&#34;color:#ff9f43&#34;&gt;3000&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Console.WriteLine();
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;br/&gt;
+&lt;p&gt;Agora que tanto o publicador quanto o consumidor foram criados, você tem a opção de verificar as mensagens diretamente do console da AWS. No entanto, simplesmente executando o publicador e o consumidor, você poderá observar o processo de envio e recebimento de mensagens em ação.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;Eu criei esse post para meus estudos, os aprendizados passados aqui foram obtidos através do curso &lt;a href=&#34;https://nickchapsas.com/p/cloud-fundamentals-aws-services-for-c-developers&#34;&gt;Cloud Fundamentals: AWS Services for C# Developers course&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Usos para uma fila</title>
+      <link>/pt-pt/post/queue/</link>
+      <pubDate>Wed, 08 Feb 2023 00:00:00 +0000</pubDate>
+      
+      <guid>/pt-pt/post/queue/</guid>
+      <description>&lt;h2 id=&#34;o-que-é-uma-fila&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#o-que-%c3%a9-uma-fila&#34;&gt;
+        #
+    &lt;/a&gt;
+    O que é uma fila?
+&lt;/div&gt;
+&lt;/h2&gt;
+&lt;p&gt;Uma fila é uma estrutura de dados dinâmica que admite remoção de elementos e inserção de novos objetos. Mais especificamente, uma fila (= queue) é uma estrutura sujeita à seguinte regra de operação: sempre que houver uma remoção, o elemento removido é o que está na estrutura há mais tempo.
+As filas seguem o princípio FIFO (First In, First Out), onde o primeiro elemento adicionado é o primeiro a ser removido. Isso é útil para muitas aplicações em sistemas distribuídos, onde a ordem das operações é importante.&lt;/p&gt;
+&lt;h2 id=&#34;caso-de-uso&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#caso-de-uso&#34;&gt;
+        #
+    &lt;/a&gt;
+    Caso de uso
+&lt;/div&gt;
+&lt;/h2&gt;
+&lt;p&gt;Imagine que temos uma API de usuários.&lt;/p&gt;
+&lt;p&gt;Com essa API, podemos criar usuários, atualiza-lós, deletá-los e receber uma resposta dessas operações, enviar um email para o usuário e fazer uma requisição para outra API.
+Nesse cenário, se ao enviar um um e-mail ocorrer uma falha, toda a requisição falhará, e para obter uma resposta de sucesso será necessário enviar outro request.&lt;/p&gt;
+&lt;p&gt;&lt;img alt=&#34;queue1&#34; src=&#34;https://amandamata.github.io/img/queue1.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;No entanto, isso não precisa ser assim. Enviar um e-mail e fazer a solicitação para outra API nesse fluxo não é crucial e pode ser feito de forma assíncrona posteriormente.&lt;/p&gt;
+&lt;h2 id=&#34;introduzindo-o-conceito-de-fila&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#introduzindo-o-conceito-de-fila&#34;&gt;
+        #
+    &lt;/a&gt;
+    Introduzindo o conceito de fila
+&lt;/div&gt;
+&lt;/h2&gt;
+&lt;p&gt;Aqui entra o conceito de fila. Em vez de fazer todas essas operações de forma síncrona, podemos fazer apenas as operações cruciais de forma síncrona e as demais de forma assíncrona, adicionando na fila o que pode ser feito depois.&lt;/p&gt;
+&lt;p&gt;Para que isso funcione, é necessário ter um serviço consumidor que ficará ouvindo a fila e fará algo com as informações nela contidas, como enviar um e-mail.&lt;/p&gt;
+&lt;p&gt;&lt;img alt=&#34;queue2&#34; src=&#34;https://amandamata.github.io/img/queue2.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Isso torna seu sistema mais resiliente. Se algo falhar no processamento, a mensagem volta para a fila e será reprocessada posteriormente.&lt;/p&gt;
+&lt;h2 id=&#34;benefícios-de-usar-filas&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#benef%c3%adcios-de-usar-filas&#34;&gt;
+        #
+    &lt;/a&gt;
+    Benefícios de usar filas
+&lt;/div&gt;
+&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;Resiliência: Se um componente do sistema falhar, a mensagem pode ser reprocessada.&lt;/li&gt;
+&lt;li&gt;Escalabilidade: Publisher e Consumers podem ser escalados independentemente.&lt;/li&gt;
+&lt;li&gt;Desacoplamento: Reduz a dependência direta entre componentes do sistema, permitindo maior flexibilidade e manutenção.&lt;/li&gt;
+&lt;li&gt;Gerenciamento de picos de carga: Filas permitem que o sistema lide com picos de carga distribuindo o processamento ao longo do tempo.&lt;/li&gt;
+&lt;li&gt;Prioridade: Mensagens podem ser priorizadas para garantir que as mais importantes sejam processadas primeiro.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;ferramentas&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#ferramentas&#34;&gt;
+        #
+    &lt;/a&gt;
+    Ferramentas
+&lt;/div&gt;
+&lt;/h2&gt;
+&lt;h3 id=&#34;aws-sqs-simple-queue-service&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#aws-sqs-simple-queue-service&#34;&gt;
+        ##
+    &lt;/a&gt;
+    AWS SQS (Simple Queue Service)
+&lt;/div&gt;
+&lt;/h3&gt;
+&lt;p&gt;AWS SQS é um serviço totalmente gerenciado de filas de mensagens que permite desacoplar e escalar microserviços, sistemas distribuídos e aplicativos sem servidor. Com SQS, você pode enviar, armazenar e receber mensagens entre componentes de software.&lt;/p&gt;
+&lt;h3 id=&#34;rabbitmq&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#rabbitmq&#34;&gt;
+        ##
+    &lt;/a&gt;
+    RabbitMQ
+&lt;/div&gt;
+&lt;/h3&gt;
+&lt;p&gt;RabbitMQ é um dos mensageiros mais amplamente implantados na nuvem e on-premises. É um middleware de mensagens confiável que pode ser usado para filas de mensagens, roteamento de mensagens, balanceamento de carga e muito mais.&lt;/p&gt;
+&lt;h3 id=&#34;apache-kafka&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#apache-kafka&#34;&gt;
+        ##
+    &lt;/a&gt;
+    Apache Kafka
+&lt;/div&gt;
+&lt;/h3&gt;
+&lt;p&gt;Apache Kafka é uma plataforma distribuída de streaming de eventos. É usada para criar pipelines de dados em tempo real e aplicativos de streaming, oferecendo alta taxa de transferência, baixa latência e durabilidade de mensagens.&lt;/p&gt;
+&lt;h2 id=&#34;conclusão&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#conclus%c3%a3o&#34;&gt;
+        #
+    &lt;/a&gt;
+    Conclusão
+&lt;/div&gt;
+&lt;/h2&gt;
+&lt;p&gt;O uso de filas pode tornar seu sistema mais robusto e eficiente, permitindo que tarefas não cruciais sejam processadas de forma assíncrona. Isso melhora a resiliência e escalabilidade do sistema, garantindo que falhas em operações secundárias não afetem a experiência do usuário. Além disso, com ferramentas como AWS SQS, RabbitMQ e Apache Kafka, a implementação de filas é acessível e poderosa.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
