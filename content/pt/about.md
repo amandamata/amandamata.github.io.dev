@@ -19,8 +19,3 @@ As opiniões expressas aqui são pessoais e não representam as de meu empregado
 
 ### Contato
 Se desejar entrar em contato comigo, você pode me encontrar no **[LinkedIn](https://www.linkedin.com/in/amanda-mata/)** ou enviar um e-mail para **[amanda.mata@live.com](mailto:amanda.mata@live.com)**.
-
-
-
-#### Me pague um café
-BTC Wallet: `bc1qjy622x7qh6k453tdgcu7hhhj7agv6nqnysfdlntx6uf0tp4g8ujs0vcd9a`

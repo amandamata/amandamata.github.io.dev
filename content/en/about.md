@@ -20,7 +20,3 @@ The opinions expressed here are personal and do not represent those of my curren
 
 ### Contact
 If you wish to get in touch with me, you can find me on **[LinkedIn](https://www.linkedin.com/in/amanda-mata/)** or send an email to **[amanda.mata@live.com](mailto:amanda.mata@live.com)**.
-
-
-### Buy me a coffee
-BTC Wallet: `bc1qjy622x7qh6k453tdgcu7hhhj7agv6nqnysfdlntx6uf0tp4g8ujs0vcd9a`

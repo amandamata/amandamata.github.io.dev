@@ -55,8 +55,6 @@ defaultContentLanguage = 'en'
     url = "/about"
     weight = 4
 
-[author]
-name = "amanda"
 
 [params]
 readMore = false # true | false; Showing readmore link in the list of posts; default: false
