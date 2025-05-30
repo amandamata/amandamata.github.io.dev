@@ -3,7 +3,7 @@ title: "About me"
 date: "2023-01-25"
 ---
 ## Hello!
-I’m Amanda, 28 years old, living in the countryside of São Paulo, and I’m a Software Engineer at Pagar.me (StoneCo).
+I’m Amanda, 29 years old, living in the countryside of São Paulo, and I’m a Software Engineer at Nubank.
 
 My passions include programming, coffee, astronomy, economics, and retro games.
 
