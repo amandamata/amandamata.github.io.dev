@@ -3,7 +3,7 @@ title: "Sobre mim"
 date: "2023-01-25"
 ---
 ## Olá! 
-Eu sou Amanda, tenho 28 anos, moro no interior de São Paulo, sou Engenheira de Software na Pagar.me (StoneCo).
+Eu sou Amanda, tenho 29 anos, moro no interior de São Paulo, sou Engenheira de Software no Nubank.
 
 Minhas paixões são programação, café, astronomia, economia e jogos antigos.
 
